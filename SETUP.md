@@ -4,24 +4,13 @@ Use this guide before sharing or running the plugin.
 
 ## 1. Install The Plugin
 
-Zip and share the full `linkedin-posts-comments` folder. The zip must include:
+Install the plugin from the public GitHub repository:
 
-- `.codex-plugin/plugin.json`
-- `skills/linkedin-posts-comments/SKILL.md`
-- `agent.md`
-- `README.md`
-- `examples/`
-- `schemas/`
-
-The recipient should place the unzipped folder in their Codex plugin location or import it through the Codex plugin workflow they use.
-
-For release packaging on Windows PowerShell:
-
-```powershell
-.\scripts\package-plugin.ps1
+```text
+https://github.com/repliq-maker/Linkedin_posts_comments
 ```
 
-This creates `dist/linkedin-posts-comments.zip` and includes the hidden `.codex-plugin` folder.
+The repository root contains the required `.codex-plugin/plugin.json` manifest and the `skills/` directory.
 
 ## 2. Connect Google Drive
 
@@ -70,7 +59,7 @@ If the MCP server does not exist yet, the plugin should generate setup guidance 
 }
 ```
 
-Never share a real Apify API token in the plugin zip, course material, screenshots, or community comments.
+Never share a real Apify API token in the GitHub repository, course material, screenshots, or community comments.
 
 ## 4. LinkedIn Post Scraper
 

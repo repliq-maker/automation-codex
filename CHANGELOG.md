@@ -26,7 +26,6 @@
 
 - Added production setup docs.
 - Added security guidance for Apify tokens.
-- Added release packaging script.
 - Added MCP setup template for `apify-linkedin-post`.
 - Added daily automation payload example.
 - Added worker output example with post text and summary fields.

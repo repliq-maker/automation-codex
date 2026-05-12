@@ -6,7 +6,7 @@ This plugin is designed to be shared without secrets.
 
 Never include a real Apify API token in:
 
-- the plugin zip.
+- the GitHub repository.
 - screenshots.
 - Skool posts.
 - setup videos.
@@ -19,10 +19,10 @@ Use `YOUR_APIFY_KEY` in public examples.
 
 1. Revoke or rotate the token in Apify.
 2. Replace the token in any private automation setup.
-3. Search the plugin folder for the exact exposed token value before sharing:
+3. Search the plugin repository for the exact exposed token value before sharing:
 
 ```powershell
-rg -n "paste-the-exposed-token-value-here" plugins\linkedin-posts-comments -u
+rg -n "paste-the-exposed-token-value-here" . -u
 ```
 
 ## Private User Setup

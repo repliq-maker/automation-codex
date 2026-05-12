@@ -1,6 +1,6 @@
 # Production Checklist
 
-Use this before sharing the plugin zip with the community.
+Use this before sharing the plugin repository with the community.
 
 ## Required Checks
 
@@ -10,7 +10,8 @@ Use this before sharing the plugin zip with the community.
 - `schemas/worker-output.example.json` validates as JSON.
 - `mcp.example.json` validates as JSON.
 - No real Apify token is present in the plugin folder.
-- `.codex-plugin/plugin.json` is included in the zip.
+- `.codex-plugin/plugin.json` is committed at the repository root.
+- `skills/linkedin-posts-comments/SKILL.md` is committed.
 - Google Drive connector is connected.
 - Apify key flow is tested, including private MCP setup guidance when the MCP server is missing.
 - The selected LinkedIn scraper accepts the expected input fields.
@@ -21,21 +22,15 @@ Use this before sharing the plugin zip with the community.
 - `Number of posts` produces a reasonable number of worker agents.
 - `maxAgents` prevents runaway Apify usage.
 
-## Release Zip
+## GitHub Release
 
-Run:
+Confirm the public repository contains only source/plugin files, no generated archives or private setup files.
 
-```powershell
-.\scripts\package-plugin.ps1
-```
-
-Expected output:
+Repository URL:
 
 ```text
-dist/linkedin-posts-comments.zip
+https://github.com/repliq-maker/Linkedin_posts_comments
 ```
-
-Open the zip and confirm it contains `.codex-plugin/plugin.json`.
 
 ## Community Release Notes
 

@@ -81,11 +81,15 @@ Agent count is calculated as `ceil(Number of posts / 5)`, capped by `maxAgents`.
 
 ## Community Setup
 
-Share the whole `linkedin-posts-comments` folder as a zip. The packaging script in `scripts/package-plugin.ps1` is included so the hidden `.codex-plugin` folder is not missed.
+Share the GitHub repository URL with users:
+
+```text
+https://github.com/repliq-maker/Linkedin_posts_comments
+```
 
 Tell users to:
 
-1. Install or import the plugin folder into their Codex plugin location.
+1. Install the plugin from the GitHub repository in Codex.
 2. Connect Google Drive in Codex.
 3. Create a Google Sheet with the headers listed above.
 4. Create an Apify token in their own Apify account.
@@ -104,4 +108,3 @@ See `SETUP.md` for the full walkthrough, `DAILY_AUTOMATION_GUIDE.md` for the cop
 - `mcp.example.json` is a copyable Apify MCP setup template with a placeholder token.
 - `schemas/input.example.json` shows the full daily automation input.
 - `schemas/worker-output.example.json` shows the expected worker-agent return shape.
-- `scripts/package-plugin.ps1` creates a release zip while preserving hidden plugin metadata.
