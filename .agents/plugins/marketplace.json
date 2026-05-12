@@ -1,0 +1,20 @@
+{
+  "name": "automation-codex",
+  "interface": {
+    "displayName": "Automation Codex maker Plugins"
+  },
+  "plugins": [
+    {
+      "name": "linkedin-posts-comments",
+      "source": {
+        "source": "local",
+        "path": "./plugins/linkedin-posts-comments"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

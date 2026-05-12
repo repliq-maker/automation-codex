@@ -1,107 +1,49 @@
 # Setup Guide
 
-Use this guide before sharing or running the plugin.
+## Add The Marketplace
 
-## 1. Install The Plugin
-
-Install the plugin from the public GitHub repository:
+In Codex, use **Add marketplace** and paste:
 
 ```text
 https://github.com/repliq-maker/Linkedin_posts_comments
 ```
 
-The repository root contains the required `.codex-plugin/plugin.json` manifest and the `skills/` directory.
-
-## 2. Connect Google Drive
-
-The user needs Google Drive access in Codex. They should create or identify:
-
-- Google Drive folder, for example `Codex_Automation`.
-- Spreadsheet file, for example `Comments_Linkedin_Post`.
-- Sheet tab, usually `Comments`.
-
-The tab should have these headers in row 1:
+Codex should read:
 
 ```text
-Post linkedin
-Authors
-Comments
-Likes
-keywords
-Comment 1
-Comment 2
-Comment 3
-Comment 4
-Comment 5
-Status
+.agents/plugins/marketplace.json
 ```
 
-## 3. Configure Apify MCP
+Then install or enable the plugin you want from the marketplace list.
 
-The user only needs to paste their Apify key in the daily setup. The plugin uses `apify-linkedin-post` internally as the MCP server name.
+## First Plugin
 
-If the MCP server does not exist yet, the plugin should generate setup guidance from the user's Apify key. The same template is available in `mcp.example.json` for advanced users. Replace `YOUR_APIFY_KEY` with the user's own token.
-
-```json
-{
-  "mcpServers": {
-    "apify-linkedin-post": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser",
-        "--header",
-        "Authorization: Bearer YOUR_APIFY_KEY"
-      ]
-    }
-  }
-}
-```
-
-Never share a real Apify API token in the GitHub repository, course material, screenshots, or community comments.
-
-## 4. LinkedIn Post Scraper
-
-By default, the plugin should resolve a LinkedIn post scraper actor through Apify.
-
-The scraper should support this input body:
-
-```json
-{
-  "maxPosts": 5,
-  "maxReactions": 5,
-  "postNestedComments": false,
-  "postNestedReactions": false,
-  "postedLimit": "week",
-  "scrapeComments": false,
-  "scrapeReactions": false,
-  "searchQueries": ["linkedin outreach"],
-  "sortBy": "relevance"
-}
-```
-
-## 5. Daily Automation Prompt
-
-Paste this into the daily automation setup and replace the values:
+The first plugin is:
 
 ```text
-Sheet folder: Codex_Automation
-Sheet file: Comments_Linkedin_Post
-Sheet tab: Comments
-KEYWORDS: linkedin outreach / ai sdr / cold outreach / reply rate
-Filter By: Past Week
-Number of posts: 25
-Apify key: YOUR_APIFY_KEY
+LinkedIn Posts Comments
 ```
 
-For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
+Plugin package path:
 
-## 6. Troubleshooting
+```text
+plugins/linkedin-posts-comments
+```
 
-- If Apify cannot run, confirm the Apify key is valid and the private MCP setup was added correctly.
-- If the actor fails, confirm the actor supports the expected input fields.
-- If Google Sheets cannot be found, confirm the folder and spreadsheet names are exact.
-- If rows append to the wrong tab, provide `Sheet tab`.
-- If too many posts are marked irrelevant, adjust the threshold fields in the daily payload.
-- If the run appends fewer rows than requested, increase `maxAgents` or confirm the scraper returns enough posts for the supplied keywords.
+See:
+
+```text
+plugins/linkedin-posts-comments/README.md
+plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md
+```
+
+## User Requirements
+
+For the LinkedIn plugin, each user needs:
+
+- Google Drive connected in Codex.
+- A Google Sheet with the required headers.
+- An Apify account and private Apify key.
+- A LinkedIn post scraper actor available through Apify.
+
+Never share real Apify keys in GitHub, screenshots, videos, or community posts.

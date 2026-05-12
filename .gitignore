@@ -1,3 +1,6 @@
-plugins/
 .DS_Store
 Thumbs.db
+dist/
+*.zip
+**/dist/
+**/scripts/package-plugin.ps1
