@@ -30,7 +30,7 @@ Confirm the public repository contains only source/plugin files, no generated ar
 Repository URL:
 
 ```text
-https://github.com/repliq-maker/Linkedin_posts_comments
+https://github.com/repliq-maker/automation-codex
 ```
 
 ## Community Release Notes

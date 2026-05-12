@@ -7,7 +7,7 @@ Use this guide before sharing or running the plugin.
 Add the public GitHub repository as a Codex marketplace:
 
 ```text
-https://github.com/repliq-maker/Linkedin_posts_comments
+https://github.com/repliq-maker/automation-codex
 ```
 
 The repository contains:

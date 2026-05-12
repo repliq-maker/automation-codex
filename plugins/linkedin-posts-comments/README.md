@@ -7,7 +7,7 @@ Daily automation plugin for finding LinkedIn posts, filtering them for useful tr
 Use Codex's **Add marketplace** flow and paste this GitHub URL:
 
 ```text
-https://github.com/repliq-maker/Linkedin_posts_comments
+https://github.com/repliq-maker/automation-codex
 ```
 
 This repository is a Codex plugin marketplace. The marketplace manifest is at `.agents/plugins/marketplace.json`, and the plugin package is at `plugins/linkedin-posts-comments`.
@@ -94,7 +94,7 @@ Agent count is calculated as `ceil(Number of posts / 5)`, capped by `maxAgents`.
 Share the GitHub repository URL with users:
 
 ```text
-https://github.com/repliq-maker/Linkedin_posts_comments
+https://github.com/repliq-maker/automation-codex
 ```
 
 Tell users to:

@@ -5,7 +5,7 @@
 In Codex, use **Add marketplace** and paste:
 
 ```text
-https://github.com/repliq-maker/Linkedin_posts_comments
+https://github.com/repliq-maker/automation-codex
 ```
 
 Codex should read:

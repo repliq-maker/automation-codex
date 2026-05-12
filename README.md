@@ -7,7 +7,7 @@ Automation Codex is a Codex plugin marketplace for practical automation workflow
 Use Codex's **Add marketplace** flow and paste this GitHub URL:
 
 ```text
-https://github.com/repliq-maker/Linkedin_posts_comments
+https://github.com/repliq-maker/automation-codex
 ```
 
 Marketplace metadata:
