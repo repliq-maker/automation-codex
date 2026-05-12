@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Changed the first plugin entry to a Git-backed subdirectory source for external installs from the public marketplace repository.
 - Added skill UI metadata and clearer `$linkedin-posts-comments` invocation guidance for the first plugin.
 - Hardened the first plugin manifest with public repository, homepage, publisher, privacy, and terms metadata for external marketplace installs.
 - Added marketplace manifest at `.agents/plugins/marketplace.json`.

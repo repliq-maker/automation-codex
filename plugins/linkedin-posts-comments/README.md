@@ -10,6 +10,12 @@ Use Codex's **Add marketplace** flow and paste this GitHub URL:
 https://github.com/repliq-maker/automation-codex
 ```
 
+If the UI expects a Git URL, use:
+
+```text
+https://github.com/repliq-maker/automation-codex.git
+```
+
 This repository is a Codex plugin marketplace. The marketplace manifest is at `.agents/plugins/marketplace.json`, and the plugin package is at `plugins/linkedin-posts-comments`.
 
 This is a Codex skill plugin. It does not ship a standalone scraper; it instructs Codex to use the user's private Apify key, LinkedIn post scraper actor, and Google Drive connector.
@@ -108,6 +114,12 @@ Share the GitHub repository URL with users:
 
 ```text
 https://github.com/repliq-maker/automation-codex
+```
+
+For CLI installs, use:
+
+```text
+codex plugin marketplace add repliq-maker/automation-codex --ref main
 ```
 
 Tell users to:

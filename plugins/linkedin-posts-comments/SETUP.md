@@ -10,12 +10,18 @@ Add the public GitHub repository as a Codex marketplace:
 https://github.com/repliq-maker/automation-codex
 ```
 
+If needed, use the Git URL:
+
+```text
+https://github.com/repliq-maker/automation-codex.git
+```
+
 The repository contains:
 
 - Marketplace manifest: `.agents/plugins/marketplace.json`
 - Plugin package: `plugins/linkedin-posts-comments`
 
-After adding the marketplace, install or enable `LinkedIn Posts Comments` from the marketplace list.
+After adding the marketplace, install or enable `LinkedIn Posts Comments` from the marketplace list. The marketplace entry points to this plugin with a Git-backed subdirectory source.
 
 To invoke it in a new chat or daily automation, start with:
 

@@ -8,13 +8,19 @@ In Codex, use **Add marketplace** and paste:
 https://github.com/repliq-maker/automation-codex
 ```
 
+If the UI expects a Git URL, use:
+
+```text
+https://github.com/repliq-maker/automation-codex.git
+```
+
 Codex should read:
 
 ```text
 .agents/plugins/marketplace.json
 ```
 
-Then install or enable the plugin you want from the marketplace list.
+Then install or enable the plugin you want from the marketplace list. The marketplace points to the plugin package with a Git-backed subdirectory source.
 
 ## Invoke A Plugin
 

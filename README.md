@@ -21,6 +21,8 @@ Marketplace metadata:
 }
 ```
 
+The marketplace entry uses a Git-backed subdirectory source so external Codex installs can fetch the plugin package from `plugins/linkedin-posts-comments`.
+
 ## Available Plugins
 
 ### LinkedIn Posts Comments
@@ -57,7 +59,7 @@ Apify key: YOUR_APIFY_KEY
 ## Repository Structure
 
 - `.agents/plugins/marketplace.json` registers this repository as a Codex marketplace.
-- `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` registers the first plugin.
+- `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` registers the first plugin package.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` contains the plugin workflow.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` improves skill discovery and default prompt metadata.
 - `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` has the copy/paste daily setup.
