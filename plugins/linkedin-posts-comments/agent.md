@@ -8,8 +8,8 @@ These instructions support the `linkedin-posts-comments` skill. The parent agent
 - Use `apify-linkedin-post` as the internal Apify MCP server name. Do not ask normal users to name a server.
 - If `apify-linkedin-post` already exists, use it. If it does not exist, create setup guidance from the supplied `Apify key` and the `mcp.example.json` structure, ask the user to add it to their private Codex MCP setup, then rerun. Never persist or echo real API tokens in plugin files, logs, or final summaries.
 - Use the user's LinkedIn post scraper. Prefer an explicit `apifyActor` value from the automation payload when present. If no actor is provided, use the available Apify tools to resolve the LinkedIn post scraper before spawning workers.
-- Normalize `filterBy` to the Apify actor's `postedLimit` value. For `Past Week`, use `week` unless the actor schema requires a different exact value.
-- Use configurable thresholds when provided. Defaults: `minLikes = 20`, `maxLikes = 150`, `minComments = 5`, `maxComments = 40`, `buriedCommentLimit = 500`.
+- Normalize `filterBy` to the Apify actor's `postedLimit` value. For `Past Month`, use `month` unless the actor schema requires a different exact value. Accept `Past Week` as `week`, but prefer `Past Month` for niche B2B searches.
+- Use configurable thresholds when provided. Defaults: `minLikes = 10`, `maxLikes = 200`, `minComments = 3`, `maxComments = 50`, `buriedCommentLimit = 500`.
 - Use `brandName` and `forbiddenPitchTerms` when provided. Defaults: `brandName = ""` and `forbiddenPitchTerms = []`.
 - Use `Number of posts` / `targetPostCount` as the number of LinkedIn posts to scrape and append as rows. Default: `25`.
 - Use `postsPerAgent = 5` and `maxAgents = 10` unless the daily automation provides different values.
@@ -20,7 +20,8 @@ These instructions support the `linkedin-posts-comments` skill. The parent agent
 - Merge all worker outputs, deduplicate by post URL, and keep the first complete record for duplicates.
 - Apply a final qualification check before writing rows:
   - Qualified: likes and comments are inside the configured target range.
-  - Irrelevant: dead posts, posts with too many comments where a comment gets buried, generic motivational content, irrelevant AI content, anything outside the target traction range, missing required metrics, or any post with comments at or above `buriedCommentLimit`.
+  - Irrelevant: dead posts, posts with too many comments where a comment gets buried, generic motivational content, irrelevant AI content, hiring/job posts, operations/logistics/customer support posts, IAM/security/governance posts, anything outside the target traction range, missing required metrics, or any post with comments at or above `buriedCommentLimit`.
+  - Qualified posts must be clearly about the user's target sales context, such as LinkedIn outreach, cold outreach, outbound sales, AI SDR, SDR workflows, prospecting, reply rates, lead generation strategy, sales automation, or buying/selling motions around those topics.
 - Generate or repair five comment options in the parent for every successfully scraped non-duplicate post if a worker result is missing options or violates the comment rules.
 - Append results to the requested spreadsheet inside the requested Google Drive folder. Use `sheetTab` when provided; otherwise use the `Comments` tab.
 - If the folder, spreadsheet, or tab cannot be found, stop with a clear blocker instead of creating or writing to a guessed destination.
@@ -79,6 +80,9 @@ For irrelevant posts, set `qualified` to `false`, set `status` to `irrelevant`, 
 - posts with too many comments where a new comment will get buried.
 - generic motivational content.
 - irrelevant AI content.
+- hiring, job opening, recruiting, or candidate-search posts.
+- operations, logistics, fulfillment, or customer support posts that use words like `outbound` but are not about sales/outreach.
+- IAM, security, identity, governance, or generic technical AI posts that mention `ai agents` but are not about sales, outreach, prospecting, SDR workflows, reply rates, lead generation, or sales automation.
 - posts outside the assigned keywords or target audience.
 
 Use `status: "skipped"` only for duplicates, missing data, scraper errors, or records that cannot be safely evaluated. Skipped rows can leave comment options blank.

@@ -92,7 +92,7 @@ The scraper should support this input body:
   "maxReactions": 5,
   "postNestedComments": false,
   "postNestedReactions": false,
-  "postedLimit": "week",
+  "postedLimit": "month",
   "scrapeComments": false,
   "scrapeReactions": false,
   "searchQueries": ["linkedin outreach"],
@@ -109,8 +109,8 @@ Use $linkedin-posts-comments with this setup:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
-KEYWORDS: linkedin outreach / ai sdr / cold outreach / reply rate
-Filter By: Past Week
+KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
+Filter By: Past Month
 Number of posts: 25
 Apify key: YOUR_APIFY_KEY
 ```
@@ -123,5 +123,5 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the folder and spreadsheet names are exact.
 - If rows append to the wrong tab, provide `Sheet tab`.
-- If too many posts are marked irrelevant, adjust the threshold fields in the daily payload.
+- If too many posts are marked irrelevant, confirm the keywords are sales/outreach-specific, use `Past Month`, and then adjust the threshold fields if needed.
 - If the run appends fewer rows than requested, increase `maxAgents` or confirm the scraper returns enough posts for the supplied keywords.

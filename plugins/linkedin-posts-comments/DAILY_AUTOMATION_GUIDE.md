@@ -9,8 +9,8 @@ Use $linkedin-posts-comments with this setup:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
-KEYWORDS: linkedin outreach / ai sdr / cold outreach / reply rate
-Filter By: Past Week
+KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
+Filter By: Past Month
 Number of posts: 25
 Apify key: YOUR_APIFY_KEY
 ```
@@ -19,7 +19,7 @@ Apify key: YOUR_APIFY_KEY
 
 - `KEYWORDS`: the topics to search.
 - `Number of posts`: the number of LinkedIn posts to scrape and append as rows.
-- `Filter By`: the Apify date window, such as `Past Week`.
+- `Filter By`: the Apify date window. Use `Past Month` by default for niche B2B keywords.
 
 Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash command or `@LinkedIn Posts Comments` mention; skill-only plugins may not expose those in every Codex UI.
 
@@ -31,6 +31,8 @@ Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash c
 - Sheet headers and row order.
 - Five comment styles per post.
 - Irrelevant/dead/buried post filtering.
+- Default qualification window: `10-200` likes and `3-50` comments.
+- Stronger relevance filtering against hiring, operations, security/governance, generic AI, and motivational posts.
 
 Default formula:
 

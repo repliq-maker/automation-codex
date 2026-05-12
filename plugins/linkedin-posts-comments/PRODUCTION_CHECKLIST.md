@@ -21,6 +21,8 @@ Use this before sharing the plugin repository with the community.
 - A real dry run appends rows to the intended Google Sheet.
 - At least one row reaches `reviewed`.
 - At least one low-quality row is marked `irrelevant`.
+- Hiring, operations, security/governance, generic AI, and motivational posts are marked `irrelevant`.
+- Default daily setup uses `Past Month`.
 - Duplicate post URLs are not appended twice.
 - `Number of posts` produces a reasonable number of worker agents.
 - `maxAgents` prevents runaway Apify usage.

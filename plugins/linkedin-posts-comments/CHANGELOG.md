@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.3
+
+- Changed recommended default search window from `Past Week` to `Past Month`.
+- Updated default qualification thresholds to `10-200` likes and `3-50` comments.
+- Added stronger irrelevance rules for hiring, operations, security/governance, generic AI, and motivational posts.
+- Updated keyword examples toward sales/outreach-specific searches.
+
 ## 1.3.2
 
 - Added public repository, homepage, publisher, privacy, and terms metadata for stricter external marketplace installs.

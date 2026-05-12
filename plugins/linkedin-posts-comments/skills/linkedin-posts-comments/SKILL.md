@@ -14,7 +14,7 @@ Before running, read `../../agent.md` and follow its parent/worker instructions.
 - `Sheet folder`: Google Drive folder that contains the spreadsheet, such as `Codex_Automation`.
 - `Sheet file`: Google Sheets spreadsheet file name, such as `Comments_Linkedin_Post`.
 - `KEYWORDS`: a slash/comma/newline-separated keyword string.
-- `Filter By`: Apify actor date filter, such as `Past Week`.
+- `Filter By`: Apify actor date filter, such as `Past Month`.
 - `Number of posts`: number of LinkedIn posts to scrape and append as rows.
 - `Apify key`: user's private Apify API key.
 - Optional `Sheet tab`: Google Sheets tab name. Defaults to `Comments`.
@@ -76,11 +76,11 @@ Every worker must use this body, replacing `maxPosts` with the assigned `postsPe
    - Map `Sheet file` / `sheetName` to the spreadsheet file name.
    - Map `Sheet tab` / `sheetTab` to the tab name, defaulting to `Comments`.
    - Map `KEYWORDS` / `keywords` to the keyword string.
-   - Map `Filter By` / `filterBy` to the actor's `postedLimit` setting. For `Past Week`, use `week` unless the actor schema requires a different exact value.
+   - Map `Filter By` / `filterBy` to the actor's `postedLimit` setting. For `Past Month`, use `month` unless the actor schema requires a different exact value. Accept `Past Week` as `week`, but prefer `Past Month` for niche B2B keywords because one week often returns posts before engagement has matured.
    - Map `Number of posts` / `targetPostCount` to the number of LinkedIn posts to scrape and append as rows. Default to `25`.
    - Map `Apify key` / `apifyApiKey` to the user's private Apify token.
    - Use internal MCP server name `apify-linkedin-post`.
-   - Use configurable thresholds when present; otherwise use the default traction thresholds.
+   - Use configurable thresholds when present; otherwise use the default niche B2B traction thresholds.
    - Use `brandName` and `forbiddenPitchTerms` when present to block direct pitch language.
    - Use `postsPerAgent = 5` and `maxAgents = 10` unless provided.
 2. Confirm MCP access.
@@ -91,7 +91,7 @@ Every worker must use this body, replacing `maxPosts` with the assigned `postsPe
 3. Normalize the keyword input.
    - Trim whitespace.
    - Remove empty items.
-   - Split slash-separated strings such as `linkedin outreach / ai sdr / cold outreach / reply rate`.
+   - Split slash-separated strings such as `linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting`.
    - Preserve the exact keyword text for the `keywords` sheet column.
 4. Resolve the Apify LinkedIn post scraper actor.
    - Use an explicit `apifyActor` from the automation payload when present.
@@ -117,8 +117,8 @@ Every worker must use this body, replacing `maxPosts` with the assigned `postsPe
 
 Default qualified posts must have all of:
 
-- `20 <= likes <= 150`
-- `5 <= comments <= 40`
+- `10 <= likes <= 200`
+- `3 <= comments <= 50`
 - `comments < 500`
 
 Override those defaults only when the daily automation provides threshold fields.
@@ -127,11 +127,16 @@ Mark these posts as `irrelevant`:
 
 - dead posts with too little traction.
 - posts with too many comments where a new comment gets buried.
-- posts with `comments > 40`, especially `comments >= 500`.
+- posts with `comments > 50`, especially `comments >= 500`.
 - generic motivational content.
 - irrelevant AI content.
+- hiring, job opening, recruiting, or candidate-search posts.
+- operations, logistics, fulfillment, or customer support posts that use words like `outbound` but are not about sales/outreach.
+- IAM, security, identity, governance, or generic technical AI posts that mention `ai agents` but are not about sales, outreach, prospecting, SDR workflows, reply rates, lead generation, or sales automation.
 - posts that do not match the supplied keywords or target buying context.
 - posts missing required metrics.
+
+Qualify only posts that are clearly about the user's target sales context, such as LinkedIn outreach, cold outreach, outbound sales, AI SDR, SDR workflows, prospecting, reply rates, lead generation strategy, sales automation, or buying/selling motions around those topics.
 
 Rows that pass the filters start with `Status` set to `reviewed`. Rows that fail the filters start with `Status` set to `irrelevant`. Use `skipped` for duplicates, scraper errors, or rows that cannot be safely evaluated.
 

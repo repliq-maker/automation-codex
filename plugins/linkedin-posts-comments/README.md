@@ -75,7 +75,7 @@ Status
 Initial status values:
 
 - `reviewed` for posts that pass the filters and have comment options.
-- `irrelevant` for posts to avoid, including dead posts, buried posts, generic motivational content, and irrelevant AI content. These rows can still include comment options for review, but the status tells the user not to prioritize them.
+- `irrelevant` for posts to avoid, including dead posts, buried posts, generic motivational content, irrelevant AI content, hiring posts, operations posts, security/governance posts, and posts outside the sales/outreach context. These rows can still include comment options for review, but the status tells the user not to prioritize them.
 - `skipped` for duplicates, scraper errors, missing data, or rows that cannot be safely evaluated.
 - `commented` is reserved for the human/user after a comment is posted.
 
@@ -88,8 +88,8 @@ Use $linkedin-posts-comments with this setup:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
-KEYWORDS: linkedin outreach / ai sdr / cold outreach / reply rate
-Filter By: Past Week
+KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
+Filter By: Past Month
 Number of posts: 25
 Apify key: YOUR_APIFY_KEY
 ```
@@ -98,15 +98,19 @@ The `Sheet file` value is the Google Sheets spreadsheet file name. The default t
 
 The skill accepts keywords as a JSON array, comma-separated string, slash-separated string, newline-separated string, or a plain natural-language request that clearly contains the keywords.
 
-`filterBy` is mapped to the Apify actor's `postedLimit` setting. For example, `Past Week` maps to `week` unless the actor schema requires the display label.
+`filterBy` is mapped to the Apify actor's `postedLimit` setting. For example, `Past Month` maps to `month` unless the actor schema requires the display label. `Past Month` is the recommended default for niche B2B keywords because it gives posts time to collect meaningful likes and comments.
 
 `Number of posts` is the number of LinkedIn posts to scrape and append as rows. Each successfully scraped non-duplicate row gets five comment options and a status. Defaults:
 
 - `Number of posts`: `25`
+- `Filter By`: `Past Month`
+- Traction window: `10-200` likes and `3-50` comments, with `500+` comments always treated as too buried.
 - `postsPerAgent`: `5`
 - `maxAgents`: `10`
 
 Agent count is calculated as `ceil(Number of posts / 5)`, capped by `maxAgents`. For example, `Number of posts: 25` starts up to 5 agents because each agent asks Apify for 5 posts.
+
+The plugin qualifies posts only when they are clearly about the target sales context: LinkedIn outreach, cold outreach, outbound sales, AI SDR, SDR workflows, prospecting, reply rates, lead generation strategy, sales automation, or related buying/selling motions.
 
 ## Community Setup
 
