@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Added skill UI metadata and clearer `$linkedin-posts-comments` invocation guidance for the first plugin.
 - Added marketplace manifest at `.agents/plugins/marketplace.json`.
 - Set marketplace name to `automation-codex`.
 - Set marketplace display name to `Automation Codex maker Plugins`.

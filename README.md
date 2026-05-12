@@ -33,9 +33,18 @@ plugins/linkedin-posts-comments
 
 This plugin researches LinkedIn posts from simple daily instructions, generates five comment options per scraped post, marks low-quality posts as irrelevant, and appends rows to a Google Sheet.
 
+After installing the plugin, start a chat or daily automation with:
+
+```text
+Use $linkedin-posts-comments with this setup:
+```
+
+Codex skill plugins may not appear as `@LinkedIn Posts Comments` mentions or slash commands in every UI. The reliable trigger is `$linkedin-posts-comments` or a natural-language request that names the LinkedIn Posts Comments plugin.
+
 Daily automation format:
 
 ```text
+Use $linkedin-posts-comments with this setup:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
@@ -50,6 +59,7 @@ Apify key: YOUR_APIFY_KEY
 - `.agents/plugins/marketplace.json` registers this repository as a Codex marketplace.
 - `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` registers the first plugin.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` contains the plugin workflow.
+- `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` improves skill discovery and default prompt metadata.
 - `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` has the copy/paste daily setup.
 
 ## Security

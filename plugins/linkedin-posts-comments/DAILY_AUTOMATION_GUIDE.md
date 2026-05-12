@@ -5,6 +5,7 @@ Use this inside the daily automation prompt after the plugin is installed and th
 ## Simple Daily Instructions
 
 ```text
+Use $linkedin-posts-comments with this setup:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
@@ -19,6 +20,8 @@ Apify key: YOUR_APIFY_KEY
 - `KEYWORDS`: the topics to search.
 - `Number of posts`: the number of LinkedIn posts to scrape and append as rows.
 - `Filter By`: the Apify date window, such as `Past Week`.
+
+Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash command or `@LinkedIn Posts Comments` mention; skill-only plugins may not expose those in every Codex UI.
 
 ## Defaults Handled By The Plugin
 

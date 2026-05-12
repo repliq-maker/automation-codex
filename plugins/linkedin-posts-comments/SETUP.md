@@ -17,6 +17,14 @@ The repository contains:
 
 After adding the marketplace, install or enable `LinkedIn Posts Comments` from the marketplace list.
 
+To invoke it in a new chat or daily automation, start with:
+
+```text
+Use $linkedin-posts-comments with this setup:
+```
+
+Slash commands and `@LinkedIn Posts Comments` mentions may not appear for skill-only plugins in every Codex UI.
+
 ## 2. Connect Google Drive
 
 The user needs Google Drive access in Codex. They should create or identify:
@@ -91,6 +99,7 @@ The scraper should support this input body:
 Paste this into the daily automation setup and replace the values:
 
 ```text
+Use $linkedin-posts-comments with this setup:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments

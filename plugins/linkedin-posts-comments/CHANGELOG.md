@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1
+
+- Added skill UI metadata in `skills/linkedin-posts-comments/agents/openai.yaml`.
+- Updated plugin default prompts to show the `$linkedin-posts-comments` invocation.
+- Clarified that users should invoke the skill with `$linkedin-posts-comments` or a natural-language request, not a slash command.
+
 ## 1.3.0
 
 - Simplified the public daily automation format to friendly labels.

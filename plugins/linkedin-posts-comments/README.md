@@ -14,6 +14,18 @@ This repository is a Codex plugin marketplace. The marketplace manifest is at `.
 
 This is a Codex skill plugin. It does not ship a standalone scraper; it instructs Codex to use the user's private Apify key, LinkedIn post scraper actor, and Google Drive connector.
 
+## How To Invoke
+
+After installing the plugin, use this at the top of a new chat or daily automation:
+
+```text
+Use $linkedin-posts-comments with this setup:
+```
+
+Then paste the daily fields below it.
+
+Do not rely on `/linkedin-posts-comments` or `@LinkedIn Posts Comments`; skill-only plugins may not expose slash commands or `@` mentions in every Codex UI. The reliable trigger is `$linkedin-posts-comments` or a natural request that says to use the LinkedIn Posts Comments plugin.
+
 ## What It Does
 
 1. Receives simple daily fields: sheet location, keywords, filter, number of posts, and Apify key.
@@ -66,6 +78,7 @@ Initial status values:
 Use this simple format in the daily automation:
 
 ```text
+Use $linkedin-posts-comments with this setup:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
@@ -114,5 +127,6 @@ See `SETUP.md` for the full walkthrough, `DAILY_AUTOMATION_GUIDE.md` for the cop
 - `.agents/plugins/marketplace.json` registers this repository as a Codex marketplace.
 - `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` registers the plugin metadata and skill path.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` contains the exact Codex workflow.
+- `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` provides UI discovery metadata and a default `$linkedin-posts-comments` prompt.
 - `plugins/linkedin-posts-comments/agent.md` contains the parent and worker-agent instructions used by the skill.
 - `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` gives a simple copy/paste daily automation payload.

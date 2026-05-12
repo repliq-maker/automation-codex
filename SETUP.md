@@ -16,6 +16,16 @@ Codex should read:
 
 Then install or enable the plugin you want from the marketplace list.
 
+## Invoke A Plugin
+
+For LinkedIn Posts Comments, use this at the top of a new chat or daily automation:
+
+```text
+Use $linkedin-posts-comments with this setup:
+```
+
+Do not rely on `/linkedin-posts-comments` or `@LinkedIn Posts Comments`; those may not be exposed for skill-only plugins in every Codex UI.
+
 ## First Plugin
 
 The first plugin is:

@@ -1,6 +1,6 @@
 ---
 name: linkedin-posts-comments
-description: Run the LinkedIn Posts Comments daily automation: use Apify to scrape a requested number of recent LinkedIn posts from supplied keywords and filter setting, generate five short comment options per scraped row, mark irrelevant posts, and append rows to the provided Google Sheet.
+description: "Run the LinkedIn Posts Comments daily automation when the user invokes $linkedin-posts-comments, mentions LinkedIn Posts Comments, or asks to use Apify to scrape recent LinkedIn posts from supplied keywords, generate five short comment options per scraped row, mark irrelevant posts, and append rows to the provided Google Sheet."
 ---
 
 # LinkedIn Posts Comments

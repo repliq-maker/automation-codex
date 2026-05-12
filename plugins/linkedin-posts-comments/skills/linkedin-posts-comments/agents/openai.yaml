@@ -1,0 +1,8 @@
+interface:
+  display_name: "LinkedIn Posts Comments"
+  short_description: "Draft LinkedIn comments into Sheets"
+  brand_color: "#0A66C2"
+  default_prompt: "Use $linkedin-posts-comments to find LinkedIn posts, draft five comment options per row, and append them to my Google Sheet."
+
+policy:
+  allow_implicit_invocation: true

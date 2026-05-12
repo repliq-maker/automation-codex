@@ -13,6 +13,8 @@ Use this before sharing the plugin repository with the community.
 - `.agents/plugins/marketplace.json` is committed at the repository root.
 - `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` is committed.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` is committed.
+- `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` is committed.
+- The daily prompt tells users to invoke `$linkedin-posts-comments`.
 - Google Drive connector is connected.
 - Apify key flow is tested, including private MCP setup guidance when the MCP server is missing.
 - The selected LinkedIn scraper accepts the expected input fields.
