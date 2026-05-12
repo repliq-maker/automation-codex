@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "apify-linkedin-post": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser",
+        "--header",
+        "Authorization: Bearer YOUR_APIFY_KEY"
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "post_url": "https://www.linkedin.com/posts/example",
+      "author": "Author Name",
+      "post_text": "full post text when available",
+      "post_summary": "one sentence summary of the post",
+      "likes": 42,
+      "comments": 12,
+      "keywords": [
+        "linkedin outreach"
+      ],
+      "qualified": true,
+      "qualification_reason": "likes and comments are in the target range and the post is relevant",
+      "comment_options": {
+        "contrarian": "short lowercase contrarian comment",
+        "tactical": "short lowercase tactical comment",
+        "consultative": "short lowercase consultative comment",
+        "short_agreement": "short lowercase agreement comment",
+        "personal_experience": "short lowercase personal experience comment"
+      },
+      "status": "reviewed"
+    }
+  ]
+}
