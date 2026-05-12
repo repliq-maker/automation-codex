@@ -1,10 +1,14 @@
 {
   "name": "linkedin-posts-comments",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Daily automation workflow for finding qualified LinkedIn posts, marking irrelevant posts, and drafting short comment options into a provided Google Sheet.",
   "author": {
-    "name": "Edgar"
+    "name": "Repliq Maker",
+    "email": "repliq-maker@users.noreply.github.com",
+    "url": "https://github.com/repliq-maker"
   },
+  "homepage": "https://github.com/repliq-maker/automation-codex/tree/main/plugins/linkedin-posts-comments",
+  "repository": "https://github.com/repliq-maker/automation-codex",
   "license": "MIT",
   "keywords": [
     "linkedin",
@@ -18,7 +22,7 @@
     "displayName": "LinkedIn Posts Comments",
     "shortDescription": "Research LinkedIn posts into a provided Sheet.",
     "longDescription": "Find a requested number of recent LinkedIn posts from simple daily instructions, use the user's Apify key with sensible defaults, generate five low-key comment options for each scraped post row, mark low-quality posts as irrelevant, and append rows to the Google Sheet supplied by the automation.",
-    "developerName": "Edgar",
+    "developerName": "Repliq Maker",
     "category": "Productivity",
     "capabilities": [
       "Automation",
@@ -30,6 +34,10 @@
       "Use $linkedin-posts-comments to find LinkedIn posts and draft comments.",
       "Use $linkedin-posts-comments to append qualified posts to my Sheet."
     ],
+    "websiteURL": "https://github.com/repliq-maker/automation-codex/tree/main/plugins/linkedin-posts-comments",
+    "privacyPolicyURL": "https://github.com/repliq-maker/automation-codex/blob/main/SECURITY.md",
+    "termsOfServiceURL": "https://github.com/repliq-maker/automation-codex/blob/main/LICENSE",
+    "screenshots": [],
     "brandColor": "#0A66C2"
   }
 }

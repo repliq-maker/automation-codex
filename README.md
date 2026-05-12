@@ -16,7 +16,7 @@ Marketplace metadata:
 {
   "name": "automation-codex",
   "interface": {
-    "displayName": "Automation Codex maker Plugins"
+    "displayName": "Automation Codex Maker Plugins"
   }
 }
 ```

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.2
+
+- Added public repository, homepage, publisher, privacy, and terms metadata for stricter external marketplace installs.
+- Updated the plugin developer name to `Repliq Maker`.
+
 ## 1.3.1
 
 - Added skill UI metadata in `skills/linkedin-posts-comments/agents/openai.yaml`.

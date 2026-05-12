@@ -6,7 +6,7 @@ Use this before sharing the marketplace with the community.
 
 - `.agents/plugins/marketplace.json` validates as JSON.
 - Marketplace name is `automation-codex`.
-- Marketplace display name is `Automation Codex maker Plugins`.
+- Marketplace display name is `Automation Codex Maker Plugins`.
 - Each plugin entry has `name`, `source`, `policy`, and `category`.
 - Each plugin path points to a real folder under `plugins/`.
 - No real API keys are present in the repository.
