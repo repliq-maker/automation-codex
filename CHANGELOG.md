@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Aligned LinkedIn Posts Comments manifest capabilities and policy URLs with stricter official-style plugin metadata.
 - Switched the LinkedIn Posts Comments marketplace entry back to the same-repo `local` source format shown in the repo marketplace docs.
 - Clarified public install docs: use repo/Git URL, branch `main`, and optional sparse paths `.agents/plugins` plus `plugins/linkedin-posts-comments`; do not use raw `marketplace.json` as the marketplace source.
 - Updated LinkedIn Posts Comments defaults for better B2B relevance: `Past Month`, `10-200` likes, `3-50` comments, and stricter off-topic filtering.

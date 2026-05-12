@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.4
+
+- Aligned plugin capabilities with official examples: `Interactive`, `Read`, and `Write`.
+- Switched privacy and terms URLs to raw public GitHub text URLs.
+
 ## 1.3.3
 
 - Changed recommended default search window from `Past Week` to `Past Month`.
