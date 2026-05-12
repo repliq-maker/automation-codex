@@ -31,7 +31,7 @@ plugins/linkedin-posts-comments
 
 Do not paste the raw `marketplace.json` URL as the marketplace source. Use the repo URL or Git URL.
 
-This repository is a Codex plugin marketplace. The marketplace manifest is at `.agents/plugins/marketplace.json`, and the plugin package is at `plugins/linkedin-posts-comments`.
+This repository is a Codex plugin marketplace. The marketplace manifest is at `.agents/plugins/marketplace.json`, and the plugin package is at `plugins/linkedin-posts-comments`. The marketplace entry points to the plugin package with a same-repo local source.
 
 This is a Codex skill plugin. It does not ship a standalone scraper; it instructs Codex to use the user's private Apify key, LinkedIn post scraper actor, and Google Drive connector.
 

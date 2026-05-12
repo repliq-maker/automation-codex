@@ -8,7 +8,7 @@ Use this before sharing the marketplace with the community.
 - Marketplace name is `automation-codex`.
 - Marketplace display name is `Automation Codex Maker Plugins`.
 - Each plugin entry has `name`, `source`, `policy`, and `category`.
-- External marketplace plugin entries use `source: "git-subdir"` with the public repository URL, plugin path, and `ref: "main"`.
+- Marketplace plugin entries use `source: "local"` with a `./`-prefixed plugin path relative to the marketplace repository root.
 - Each plugin path points to a real folder under `plugins/`.
 - Public setup docs tell users to use branch/ref `main` and partial paths `.agents/plugins` plus `plugins/linkedin-posts-comments` when Codex asks for sparse paths.
 - No real API keys are present in the repository.

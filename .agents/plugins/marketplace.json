@@ -7,10 +7,8 @@
     {
       "name": "linkedin-posts-comments",
       "source": {
-        "source": "git-subdir",
-        "url": "https://github.com/repliq-maker/automation-codex.git",
-        "path": "./plugins/linkedin-posts-comments",
-        "ref": "main"
+        "source": "local",
+        "path": "./plugins/linkedin-posts-comments"
       },
       "policy": {
         "installation": "AVAILABLE",

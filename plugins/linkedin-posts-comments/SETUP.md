@@ -36,7 +36,7 @@ The repository contains:
 - Marketplace manifest: `.agents/plugins/marketplace.json`
 - Plugin package: `plugins/linkedin-posts-comments`
 
-After adding the marketplace, install or enable `LinkedIn Posts Comments` from the marketplace list. The marketplace entry points to this plugin with a Git-backed subdirectory source.
+After adding the marketplace, install or enable `LinkedIn Posts Comments` from the marketplace list. The marketplace entry points to this plugin folder inside the same repository.
 
 To invoke it in a new chat or daily automation, start with:
 

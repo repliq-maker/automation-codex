@@ -35,7 +35,7 @@ Codex should read:
 .agents/plugins/marketplace.json
 ```
 
-Then install or enable the plugin you want from the marketplace list. The marketplace points to the plugin package with a Git-backed subdirectory source.
+Then install or enable the plugin you want from the marketplace list. The marketplace points to the plugin package inside this same repository.
 
 ## Invoke A Plugin
 

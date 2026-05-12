@@ -36,7 +36,7 @@ Marketplace metadata:
 }
 ```
 
-The marketplace entry uses a Git-backed subdirectory source so external Codex installs can fetch the plugin package from `plugins/linkedin-posts-comments`.
+The marketplace entry uses a same-repo local source so Codex loads the plugin package from `plugins/linkedin-posts-comments` after cloning the marketplace repository.
 
 ## Available Plugins
 
