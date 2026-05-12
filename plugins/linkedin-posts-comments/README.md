@@ -16,6 +16,21 @@ If the UI expects a Git URL, use:
 https://github.com/repliq-maker/automation-codex.git
 ```
 
+Branch/ref:
+
+```text
+main
+```
+
+If Codex asks for partial paths or sparse checkout paths, include:
+
+```text
+.agents/plugins
+plugins/linkedin-posts-comments
+```
+
+Do not paste the raw `marketplace.json` URL as the marketplace source. Use the repo URL or Git URL.
+
 This repository is a Codex plugin marketplace. The marketplace manifest is at `.agents/plugins/marketplace.json`, and the plugin package is at `plugins/linkedin-posts-comments`.
 
 This is a Codex skill plugin. It does not ship a standalone scraper; it instructs Codex to use the user's private Apify key, LinkedIn post scraper actor, and Google Drive connector.

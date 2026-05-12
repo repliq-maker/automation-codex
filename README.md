@@ -10,6 +10,21 @@ Use Codex's **Add marketplace** flow and paste this GitHub URL:
 https://github.com/repliq-maker/automation-codex
 ```
 
+Branch/ref:
+
+```text
+main
+```
+
+If Codex asks for partial paths or sparse checkout paths, include:
+
+```text
+.agents/plugins
+plugins/linkedin-posts-comments
+```
+
+Do not paste the raw `marketplace.json` URL as the marketplace source. Use the repo URL or Git URL.
+
 Marketplace metadata:
 
 ```json

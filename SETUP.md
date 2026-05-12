@@ -14,6 +14,21 @@ If the UI expects a Git URL, use:
 https://github.com/repliq-maker/automation-codex.git
 ```
 
+Use branch/ref:
+
+```text
+main
+```
+
+If the UI asks for sparse checkout or partial paths, add both paths:
+
+```text
+.agents/plugins
+plugins/linkedin-posts-comments
+```
+
+Do not use the `raw.githubusercontent.com/.../marketplace.json` URL as the marketplace source. Codex expects a Git marketplace source such as `owner/repo` or a Git URL.
+
 Codex should read:
 
 ```text

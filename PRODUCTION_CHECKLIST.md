@@ -10,6 +10,7 @@ Use this before sharing the marketplace with the community.
 - Each plugin entry has `name`, `source`, `policy`, and `category`.
 - External marketplace plugin entries use `source: "git-subdir"` with the public repository URL, plugin path, and `ref: "main"`.
 - Each plugin path points to a real folder under `plugins/`.
+- Public setup docs tell users to use branch/ref `main` and partial paths `.agents/plugins` plus `plugins/linkedin-posts-comments` when Codex asks for sparse paths.
 - No real API keys are present in the repository.
 
 ## LinkedIn Posts Comments Checks
