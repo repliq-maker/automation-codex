@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.9
+
+- Updated the suggested Apify token description to `Skool outreach Codex Automation Apify Key`.
+
 ## 1.3.8
 
 - Added minimal Apify dashboard instructions for users who need to create a token during setup.

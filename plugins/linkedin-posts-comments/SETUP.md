@@ -82,7 +82,7 @@ If the user does not already have an Apify key:
 
 1. Go to the Apify dashboard: https://console.apify.com/
 2. Click Settings -> API & Integrations -> Create a new token.
-3. Use a description like `Codex automation apify key`.
+3. Use a description like `Skool outreach Codex Automation Apify Key`.
 4. Click Create.
 5. Find the token under Personal API tokens, click the Copy icon, and paste it only in the private Codex setup chat.
 

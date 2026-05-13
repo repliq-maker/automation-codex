@@ -26,7 +26,7 @@ Security rules:
 - If the key still says YOUR_APIFY_KEY, ask the user for their Apify API key before configuring the Apify MCP server. Include these minimal instructions:
   1. Go to the Apify dashboard: https://console.apify.com/
   2. Click Settings -> API & Integrations -> Create a new token.
-  3. Use a description like `Codex automation apify key`.
+  3. Use a description like `Skool outreach Codex Automation Apify Key`.
   4. Click Create.
   5. Find the token under Personal API tokens, click the Copy icon, and paste it in this private chat.
 

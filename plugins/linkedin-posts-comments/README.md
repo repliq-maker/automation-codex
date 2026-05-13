@@ -69,7 +69,7 @@ Do not rely on `/linkedin-posts-comments` or `@LinkedIn Posts Comments`; skill-o
 
 Do not publish a real Apify API token inside this plugin, a screenshot, or a community post. Use placeholders in shared setup examples and have each user paste their own token only in their private setup chat.
 
-If a user does not have an Apify key yet, they should open https://console.apify.com/, go to Settings -> API & Integrations, create a new token with a description like `Codex automation apify key`, copy it from Personal API tokens, and paste it only in their private setup chat.
+If a user does not have an Apify key yet, they should open https://console.apify.com/, go to Settings -> API & Integrations, create a new token with a description like `Skool outreach Codex Automation Apify Key`, copy it from Personal API tokens, and paste it only in their private setup chat.
 
 ## Sheet Columns
 
