@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Added Google Drive OAuth reconnect guidance for refresh-token failures during setup.
 - Added LinkedIn Posts Comments setup retries before asking users to act on transient MCP or connector failures.
 - Added LinkedIn Posts Comments plugin-cache verification and access-denied cache recovery guidance to stop setup restart loops.
 - Updated LinkedIn Posts Comments Apify MCP setup to use `harvestapi/linkedin-post-search`.

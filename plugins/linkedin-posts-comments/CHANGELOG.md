@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.24
+
+- Added explicit handling for Google Drive OAuth refresh-token failures.
+- Clarified that auto review cannot complete external Google OAuth consent or repair expired/revoked connector auth.
+- Instructed setup to ask users to reconnect Google Drive when refresh token errors occur instead of retrying transient checks.
+
 ## 1.3.23
 
 - Added a retry-before-user-action setup rule for transient MCP, Apify, Google Drive, and non-destructive CLI checks.

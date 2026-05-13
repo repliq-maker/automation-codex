@@ -11,7 +11,7 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. The only value the user should normally need to provide is their private Apify key. Ask the user for help only when Codex requires external authentication, explicit consent, a restart, an unavailable command/tool, a permission failure, or an external service fails.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.23` or newer.
+- `1.3.24` or newer.
 
 Critical load rule:
 - Marketplace installs/upgrades and MCP config changes may not affect the current chat's loaded skills/tools.
@@ -23,7 +23,8 @@ Critical load rule:
 Retry-before-user-action rule:
 - Before asking the user to do anything, first retry any transient setup check you can safely retry yourself.
 - Use retries for tool discovery, MCP readiness, lightweight Apify calls, Google Drive connector checks, Google Sheets reads/writes, and non-destructive CLI checks.
-- Do not retry user-action blockers such as missing Apify key, auth consent required, missing Google sign-in, invalid credentials, or a command/tool that does not exist.
+- Do not retry user-action blockers such as missing Apify key, auth consent required, missing Google sign-in, expired/revoked Google Drive auth, invalid credentials, or a command/tool that does not exist.
+- Auto review can approve Codex-side actions, but it cannot silently approve external OAuth consent screens or repair a broken Google Drive refresh token. If Google Drive requires sign-in, sign-out/sign-in, reconnect, or OAuth consent, clearly ask the user to complete that external auth step.
 - For transient errors such as timeout, server warming up, tool unavailable, connection refused, empty tool list right after startup, rate limit, temporary network failure, or MCP server not responding, use this retry ladder before marking the step yellow or red:
   1. Wait about 10 seconds, then retry the same check.
   2. Wait about 20 seconds, then retry and re-run tool discovery if available.
@@ -164,6 +165,8 @@ Setup checklist:
 - If Google Drive is missing and Codex exposes a plugin or connector install flow, install or request the official Google Drive plugin/connector directly.
 - If Google Drive is disconnected and Codex exposes an auth/connect flow, start that official connector auth flow directly.
 - If Codex requires the user to approve Google Drive installation or sign in, ask for that approval/sign-in and then continue the setup in the same chat.
+- If Google Drive returns an auth error such as `access token could not be refreshed`, `refresh token was already used`, `invalid_grant`, `token expired`, `token revoked`, or `please log out and sign in again`, do not use the transient retry ladder. This is an external OAuth reconnect blocker.
+- For that Google Drive auth blocker, mark the Google Drive line yellow or red with the exact reason and tell the user to disconnect/log out of Google Drive in Codex, reconnect/sign in again, then rerun this setup prompt. Explain that auto review cannot complete external Google OAuth consent for them.
 - If the official Google Drive plugin is installed but disabled and private config is writable, enable only the official plugin entry:
   [plugins."google-drive@openai-curated"]
   enabled = true

@@ -97,6 +97,8 @@ The setup agent should only ask for a restart when that setup pass actually inst
 
 The setup agent should use the official Codex Google Drive plugin/connector, not a Google Drive MCP server. It should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
 
+Auto review can approve Codex-side setup actions, but it cannot silently complete external Google OAuth consent or repair a broken Google Drive refresh token. If Google Drive returns an auth error such as `access token could not be refreshed`, `refresh token was already used`, `invalid_grant`, `token expired`, `token revoked`, or `please log out and sign in again`, the user must disconnect/log out of Google Drive in Codex, reconnect/sign in again, then rerun the setup prompt.
+
 If the official Google Drive plugin is installed but disabled and private config is writable, the setup agent can enable this official plugin entry:
 
 ```toml
@@ -217,6 +219,7 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 - If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should verify that `[plugins."linkedin-posts-comments@automation-codex"]` is enabled, verify that the plugin cache contains the current package and skill file, enable it when possible, and upgrade the marketplace directly when needed. It should only ask for a restart if it actually changed the install/config state during that pass.
 - If marketplace upgrade fails with access denied while refreshing plugin cache, fully quit Codex and run the marketplace upgrade from an external terminal. If needed, rename only the stale cache folder shown above, then rerun the upgrade.
 - If setup says the Apify MCP server is saved but tools are not visible, restart Codex and open a new chat before running.
+- If Google Drive says the access token could not be refreshed or asks the user to log out and sign in again, reconnect Google Drive in Codex and rerun setup. This is an external OAuth issue, not something auto review can approve.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.
 - If rows append to the wrong tab, provide `Sheet tab`.
