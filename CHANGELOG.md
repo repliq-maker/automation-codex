@@ -2,6 +2,8 @@
 
 ## Marketplace
 
+- Added LinkedIn Posts Comments plugin-cache verification and access-denied cache recovery guidance to stop setup restart loops.
+- Updated LinkedIn Posts Comments Apify MCP setup to use `harvestapi/linkedin-post-search`.
 - Aligned root setup and production checklist docs with the setup-agent two-pass flow.
 - Added explicit LinkedIn Posts Comments plugin enablement checks so marketplace-added does not get mistaken for plugin-installed.
 - Added a setup restart-loop guard so users are not repeatedly told to restart when no install/config/auth state changed.

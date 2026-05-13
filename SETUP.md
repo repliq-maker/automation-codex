@@ -45,6 +45,8 @@ plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md
 
 The setup prompt should add/upgrade the marketplace, enable `linkedin-posts-comments@automation-codex`, configure the private Apify MCP server, and install/connect the official Google Drive plugin/connector when Codex exposes those actions.
 
+The setup prompt also verifies the plugin cache. If Codex reports that the marketplace upgrade failed while refreshing or backing up the plugin cache, follow the setup prompt's external-terminal recovery steps instead of repeating normal restarts.
+
 If the setup prompt changes marketplace, plugin, MCP, or connector state, fully quit and reopen Codex, open a new chat, and paste the same setup prompt again. The second pass verifies loaded tools and creates or checks the Sheet, tab, and headers. Do not run the daily automation until setup says `READY TO RUN`.
 
 ## Invoke A Plugin

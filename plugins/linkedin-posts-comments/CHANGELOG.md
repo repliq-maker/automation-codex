@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.22
+
+- Added explicit plugin cache verification to the setup prompt.
+- Changed setup summaries to separate plugin enabled from plugin cache current.
+- Added a recovery path for Codex marketplace upgrades that fail with plugin-cache access denied errors.
+- Prevented failed marketplace upgrades from being reported as successful setup steps.
+- Changed the Apify MCP setup URL to use `harvestapi/linkedin-post-search`.
+
 ## 1.3.21
 
 - Tightened public setup and daily-run wording so users rerun the setup prompt for missing skills instead of guessing manual upgrade steps.

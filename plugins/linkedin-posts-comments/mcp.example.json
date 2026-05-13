@@ -5,7 +5,7 @@
       "args": [
         "-y",
         "mcp-remote",
-        "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser",
+        "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search",
         "--header",
         "Authorization: Bearer YOUR_APIFY_KEY"
       ]

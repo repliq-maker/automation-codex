@@ -40,6 +40,14 @@ The repository contains:
 
 After adding the marketplace, the setup agent must confirm `LinkedIn Posts Comments` is installed/enabled from that marketplace. The marketplace entry points to this plugin folder inside the same repository and is marked `INSTALLED_BY_DEFAULT`, but marketplace-added, cache presence, or default-install policy is not enough on its own.
 
+The setup agent must also verify the local plugin cache. A green install check requires:
+
+- Marketplace source configured.
+- Plugin enabled in Codex config or UI.
+- Plugin cache contains `.codex-plugin/plugin.json`.
+- Plugin cache contains `skills/linkedin-posts-comments/SKILL.md`.
+- Cached plugin version is current enough for this setup prompt.
+
 The expected private plugin config entry is:
 
 ```toml
@@ -63,7 +71,23 @@ If the marketplace was already installed, the setup agent should update it direc
 codex plugin marketplace upgrade automation-codex
 ```
 
-Only ask the user to run that command manually if the setup agent cannot run it because the command is unavailable, permissions are denied, or the user must approve the action outside the chat. Then fully quit/reopen Codex and open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
+Only ask the user to run that command manually if the setup agent cannot run it because the command is unavailable, permissions are denied, the user must approve the action outside the chat, or Codex reports that the plugin cache cannot be refreshed.
+
+If `codex plugin marketplace upgrade automation-codex` fails with a message such as `failed to refresh installed plugin cache`, `failed to back up plugin cache entry`, `Access is denied`, or `os error 5`, the plugin cache is probably locked by the running Codex process. The setup agent should not mark the marketplace/plugin cache green and should not keep sending the user through another normal restart loop. Instead, tell the user to fully quit Codex, open an external terminal or PowerShell outside Codex, and run:
+
+```text
+codex plugin marketplace upgrade automation-codex
+```
+
+If that still fails after Codex is fully closed, rename only the stale plugin cache folder and run the upgrade again:
+
+```powershell
+$cache = Join-Path $env:USERPROFILE ".codex\plugins\cache\automation-codex\linkedin-posts-comments"
+Rename-Item -LiteralPath $cache -NewName ("linkedin-posts-comments.bak-" + (Get-Date -Format "yyyyMMdd-HHmmss"))
+codex plugin marketplace upgrade automation-codex
+```
+
+Then fully quit/reopen Codex and open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
 
 Use the same setup prompt again after the restart. The first pass installs or connects all tools before one global restart. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Do not run the daily automation until the second pass says `READY TO RUN`.
 
@@ -122,7 +146,7 @@ If the MCP server does not exist yet, the plugin should generate setup guidance 
 When available, the setup agent should use:
 
 ```text
-codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser" --header "Authorization: Bearer YOUR_APIFY_KEY"
+codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
 ```
 
 After adding or changing this MCP server, fully quit/reopen Codex and open a new chat before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable.
@@ -137,7 +161,7 @@ If the setup prompt adds or changes the MCP server, marketplace/plugin, or Googl
       "args": [
         "-y",
         "mcp-remote",
-        "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser",
+        "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search",
         "--header",
         "Authorization: Bearer YOUR_APIFY_KEY"
       ]
@@ -187,7 +211,8 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 ## 6. Troubleshooting
 
 - If Apify cannot run, confirm the Apify key is valid and the private MCP setup was added correctly.
-- If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should verify that `[plugins."linkedin-posts-comments@automation-codex"]` is enabled, enable it when possible, and upgrade the marketplace directly when needed. It should only ask for a restart if it actually changed the install/config state during that pass.
+- If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should verify that `[plugins."linkedin-posts-comments@automation-codex"]` is enabled, verify that the plugin cache contains the current package and skill file, enable it when possible, and upgrade the marketplace directly when needed. It should only ask for a restart if it actually changed the install/config state during that pass.
+- If marketplace upgrade fails with access denied while refreshing plugin cache, fully quit Codex and run the marketplace upgrade from an external terminal. If needed, rename only the stale cache folder shown above, then rerun the upgrade.
 - If setup says the Apify MCP server is saved but tools are not visible, restart Codex and open a new chat before running.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.
