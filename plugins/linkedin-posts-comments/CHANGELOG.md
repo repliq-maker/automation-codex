@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.6
+
+- Updated the setup-agent prompt to proactively install/connect Google Drive and create the target folder, spreadsheet, tab, and headers whenever Codex tools allow it.
+- Clarified that users should only be asked for action when Apify key input, auth consent, restart, or an external failure blocks automation.
+
 ## 1.3.5
 
 - Added `SETUP_AGENT_PROMPT.md` with a one-shot setup checklist for marketplace, plugin, Apify MCP, Google Drive, folder, spreadsheet, tab, and headers.

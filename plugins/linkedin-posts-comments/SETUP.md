@@ -50,7 +50,9 @@ Slash commands and `@LinkedIn Posts Comments` mentions may not appear for skill-
 
 ## 2. Connect Google Drive
 
-The user needs Google Drive access in Codex. They should create or identify:
+The setup agent should connect Google Drive, create the folder, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
+
+The setup target is:
 
 - Google Drive folder, for example `Codex_Automation`.
 - Spreadsheet file, for example `Comments_Linkedin_Post`.

@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Updated the LinkedIn Posts Comments setup-agent prompt to do the Google Drive setup directly when tools allow it, instead of making users handle it manually.
 - Added a LinkedIn Posts Comments setup-agent prompt for one-shot user onboarding and a visual readiness checklist.
 - Clarified that real Apify keys should only be pasted in private Codex setup chats or daily automations, not screenshots, videos, public posts, or repo files.
 - Aligned LinkedIn Posts Comments manifest capabilities and policy URLs with stricter official-style plugin metadata.

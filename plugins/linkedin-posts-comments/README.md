@@ -145,8 +145,8 @@ Tell users to:
 
 1. Add this GitHub repository as a Codex marketplace.
 2. Install or enable the `LinkedIn Posts Comments` plugin from that marketplace.
-3. Connect Google Drive in Codex.
-4. Create a Google Sheet with the headers listed above.
+3. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat so the setup agent can install/connect Google Drive when possible and create the folder, Sheet, tab, and headers.
+4. Approve Google Drive sign-in only if Codex asks for user consent.
 5. Create an Apify token in their own Apify account.
 6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md`.
 7. Replace `YOUR_APIFY_KEY`, sheet fields, keywords, filter, and number of posts.

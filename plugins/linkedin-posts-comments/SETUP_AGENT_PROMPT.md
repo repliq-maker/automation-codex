@@ -8,7 +8,7 @@ Before sharing screenshots, walkthrough videos, community posts, or support repl
 You are the setup agent for the LinkedIn Posts Comments Codex plugin.
 
 Goal:
-Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install or configure what you can. If something requires the user to take action, stop only that step, explain the exact issue, and keep the checklist clear.
+Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, connect, create, or configure everything you can directly. The only value the user should normally need to provide is their private Apify key. Ask the user for help only when Codex requires external authentication, explicit consent, a restart, or an external service fails.
 
 User setup values:
 Sheet folder: Codex_Automation
@@ -42,7 +42,9 @@ Setup checklist:
   .agents/plugins
   plugins/linkedin-posts-comments
 - Check whether the LinkedIn Posts Comments plugin is installed or available from that marketplace.
-- If there is a Codex command or UI action available to install or enable `linkedin-posts-comments`, use it. If this Codex build only exposes marketplace install through CLI, confirm the plugin is available and tell the user where to enable it in the UI.
+- If there is a Codex command, plugin tool, or UI action available to install or enable `linkedin-posts-comments`, use it directly.
+- If Codex requires explicit user consent to install or enable the plugin, ask for that consent and continue after it is granted.
+- If this Codex build only exposes marketplace install through CLI, confirm the plugin is available and tell the user where to enable it in the UI.
 - Mark this step green only when the marketplace is installed and the plugin is available or enabled.
 
 2. Apify MCP server
@@ -73,8 +75,11 @@ Setup checklist:
 
 3. Google Drive and Google Sheets
 - Check whether the Google Drive plugin/connector is installed and connected.
-- If Google Drive is missing or disconnected, ask the user to install/connect Google Drive in Codex and rerun this setup prompt.
-- If Google Drive is available, find or create the folder:
+- If Google Drive is missing and Codex exposes a plugin or connector install flow, install or request the Google Drive connector directly.
+- If Google Drive is disconnected and Codex exposes an auth/connect flow, start that flow directly.
+- If Codex requires the user to approve Google Drive installation or sign in, ask for that approval/sign-in and then continue the setup in the same chat.
+- Only mark this step yellow and ask the user to rerun the prompt when Codex requires a restart or there is no available tool to continue after the user completes Google Drive auth.
+- Once Google Drive is available, find or create the folder:
   Codex_Automation
 - In that folder, find or create the spreadsheet:
   Comments_Linkedin_Post
