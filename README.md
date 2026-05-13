@@ -70,7 +70,6 @@ Daily automation format:
 
 ```text
 Use $linkedin-posts-comments with this setup:
-Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
@@ -80,7 +79,7 @@ Number of posts: 25
 
 After setup, users do not need to mention Google Drive or include their Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt configures the private Apify MCP server once.
 
-`Sheet folder` is optional/recommended. If the Google Drive connector cannot create folders or move files, the automation can still write to the named Sheet file in the default/root Drive location.
+`Sheet folder` is optional and is not needed by default. Add it only when targeting a specific existing folder. If the Google Drive connector cannot create folders or move files, the automation can still write to the named Sheet file in the default/root Drive location.
 
 ## Repository Structure
 

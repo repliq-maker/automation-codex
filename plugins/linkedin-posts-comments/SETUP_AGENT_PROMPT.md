@@ -11,15 +11,15 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, connect, create, or configure everything you can directly. The only value the user should normally need to provide is their private Apify key. Ask the user for help only when Codex requires external authentication, explicit consent, a restart, or an external service fails.
 
 User setup values:
-Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 Apify key: YOUR_APIFY_KEY
 
 Important:
 - Do not ask for `KEYWORDS`, `Filter By`, or `Number of posts` during setup. Those are per-run values.
-- The setup Sheet folder, file, and tab are only the default destination created for convenience.
-- If the Google Drive connector cannot create folders or move files, do not block setup. Create/find the Sheet file in the connector's default/root Drive location and mark folder placement as optional/manual.
+- The setup Sheet file and tab are only the default destination created for convenience.
+- Do not create a Google Drive folder unless the user explicitly provides one and the connector supports folder actions.
+- If no folder is provided, create/find the Sheet file in the connector's default/root Drive location.
 - Every run must use the Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts provided in that run prompt.
 - If a run prompt uses a different Sheet folder/file/tab, write to that run-specific destination.
 
@@ -88,11 +88,10 @@ Setup checklist:
 - If Google Drive is disconnected and Codex exposes an auth/connect flow, start that flow directly.
 - If Codex requires the user to approve Google Drive installation or sign in, ask for that approval/sign-in and then continue the setup in the same chat.
 - Only mark this step yellow and ask the user to rerun the prompt when Codex requires a restart or there is no available tool to continue after the user completes Google Drive auth.
-- Once Google Drive is available, try to find or create the folder:
-  Codex_Automation
-- If the connector does not expose folder-create or file-move actions, continue without the folder and mark folder placement as optional/manual instead of failed.
-- In that folder, or in the connector's default/root Drive location when folder placement is unavailable, find or create the spreadsheet:
+- Once Google Drive is available, find or create the spreadsheet in the connector's default/root Drive location:
   Comments_Linkedin_Post
+- If the user explicitly provided a Sheet folder and the connector supports folder-scoped search or placement, use that folder.
+- If the user provided a Sheet folder but the connector does not expose folder-create or file-move actions, continue without the folder and mark folder placement as optional/manual instead of failed.
 - In that spreadsheet, find or create the tab:
   Comments
 - If the spreadsheet has only a default tab such as Sheet1 and no data that would be harmed, rename that tab to Comments.
@@ -119,7 +118,7 @@ Run a final check and show this visual checklist:
 ✅ Plugin available/enabled
 ✅ MCP server `apify-linkedin-post` added
 ✅ Google Drive plugin connected
-✅/⚠️ Sheet folder exists or folder placement is optional/manual
+✅/⚠️ Sheet folder not needed, or folder placement is optional/manual
 ✅ Sheet file exists
 ✅ Sheet tab exists
 ✅ Sheet headers are correct
@@ -135,7 +134,6 @@ READY TO RUN
 Then give the user this daily automation template:
 
 Use $linkedin-posts-comments with this setup:
-Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
@@ -143,6 +141,6 @@ Filter By: Past Month
 Number of posts: 25
 
 Explain that the user can change Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts on any run. The plugin should always follow the values supplied in the current run prompt.
-Explain that `Sheet folder` is optional. If their Google Drive connector cannot create or move folders, the automation can still write to the Sheet file in the default/root Drive location.
+Explain that `Sheet folder` is optional and is not needed by default. If they want to target a specific existing folder later, they can add `Sheet folder: theirFolderName` to a run prompt.
 Remind the user not to include their Apify key in daily or weekly run prompts after setup. The key should stay only in the private MCP configuration created by this setup chat.
 ```

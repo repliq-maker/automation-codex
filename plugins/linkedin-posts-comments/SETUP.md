@@ -52,11 +52,12 @@ Slash commands and `@LinkedIn Posts Comments` mentions may not appear for skill-
 
 The setup agent should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
 
-The setup target is:
+The default setup target is:
 
-- Optional Google Drive folder, for example `Codex_Automation`.
 - Spreadsheet file, for example `Comments_Linkedin_Post`.
 - Sheet tab, usually `Comments`.
+
+`Sheet folder` is optional and is not needed by default. Add it only when the user wants to target a specific existing folder and the connector supports folder-scoped search or placement.
 
 The tab should have these headers in row 1:
 
@@ -78,7 +79,7 @@ Status
 
 The user only needs to paste their Apify key during the private setup prompt. Daily or weekly run prompts should not include the key after `apify-linkedin-post` is configured. The plugin uses `apify-linkedin-post` internally as the MCP server name.
 
-Do not collect keywords, date filter, or post volume during setup. `KEYWORDS`, `Filter By`, and `Number of posts` belong in each run prompt. The setup Sheet folder/file/tab can create a convenient default Sheet, but any run prompt may provide different Sheet fields and the plugin should use the values from that current run. If folder placement is unavailable, create or use the Sheet in the connector's default/root Drive location.
+Do not collect keywords, date filter, or post volume during setup. `KEYWORDS`, `Filter By`, and `Number of posts` belong in each run prompt. The setup Sheet file/tab can create a convenient default Sheet, but any run prompt may provide different Sheet fields and the plugin should use the values from that current run. If no folder is provided or folder placement is unavailable, create or use the Sheet in the connector's default/root Drive location.
 
 If the user does not already have an Apify key:
 
@@ -135,7 +136,6 @@ Paste this into the daily automation setup and replace the values:
 
 ```text
 Use $linkedin-posts-comments with this setup:
-Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting

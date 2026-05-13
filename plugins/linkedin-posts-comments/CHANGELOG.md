@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.12
+
+- Removed `Sheet folder` from default setup and run examples to avoid confusion when folder actions are unavailable.
+- Clarified that folder targeting is an optional line for users who already have a specific folder they want to use.
+
 ## 1.3.11
 
 - Made `Sheet folder` optional/recommended instead of blocking.
