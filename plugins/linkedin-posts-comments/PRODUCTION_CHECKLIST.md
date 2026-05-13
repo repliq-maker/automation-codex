@@ -15,6 +15,7 @@ Use this before sharing the plugin repository with the community.
 - Setup prompt verifies/enables `[plugins."linkedin-posts-comments@automation-codex"]`.
 - Setup prompt verifies that the plugin cache contains the expected package and skill file.
 - Setup prompt marks marketplace/cache refresh failures red instead of asking for another restart loop.
+- Setup prompt retries transient MCP, Apify, Google Drive, and non-destructive CLI checks before asking the user for action.
 - Setup prompt uses the official Google Drive plugin/connector and never configures Google Drive as MCP.
 - `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` is committed.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` is committed.

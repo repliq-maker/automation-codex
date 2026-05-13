@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.23
+
+- Added a retry-before-user-action setup rule for transient MCP, Apify, Google Drive, and non-destructive CLI checks.
+- Added a 10/20/30 second Apify MCP retry ladder before marking tools unavailable.
+- Clarified that setup should use lightweight Apify capability checks, not the full scraper, during readiness verification.
+
 ## 1.3.22
 
 - Added explicit plugin cache verification to the setup prompt.
