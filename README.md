@@ -76,8 +76,9 @@ Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
 Filter By: Past Month
 Number of posts: 25
-Apify key: YOUR_APIFY_KEY
 ```
+
+After setup, users do not need to mention Google Drive or include their Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt configures the private Apify MCP server once.
 
 ## Repository Structure
 
@@ -90,4 +91,4 @@ Apify key: YOUR_APIFY_KEY
 
 ## Security
 
-Never commit real API keys. All public examples must use placeholders such as `YOUR_APIFY_KEY`.
+Never commit real API keys. Public setup examples must use placeholders such as `YOUR_APIFY_KEY`, and run prompts should not include API keys after setup.

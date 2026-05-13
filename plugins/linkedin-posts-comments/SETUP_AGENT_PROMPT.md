@@ -131,7 +131,6 @@ Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
 Filter By: Past Month
 Number of posts: 25
-Apify key: YOUR_APIFY_KEY
 
-Remind the user to replace `YOUR_APIFY_KEY` only in their private Codex daily automation or private setup chat.
+Remind the user not to include their Apify key in daily or weekly run prompts after setup. The key should stay only in the private MCP configuration created by this setup chat.
 ```

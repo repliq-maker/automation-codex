@@ -1,6 +1,6 @@
 # Daily Automation Guide
 
-Use this inside the daily automation prompt after the plugin is installed and the Apify MCP server is configured.
+Use this inside the daily automation prompt after the setup prompt has installed the plugin and configured the Apify MCP server.
 
 ## Simple Daily Instructions
 
@@ -12,7 +12,6 @@ Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
 Filter By: Past Month
 Number of posts: 25
-Apify key: YOUR_APIFY_KEY
 ```
 
 ## What To Change Daily
@@ -22,6 +21,8 @@ Apify key: YOUR_APIFY_KEY
 - `Filter By`: the Apify date window. Use `Past Month` by default for niche B2B keywords.
 
 Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash command or `@LinkedIn Posts Comments` mention; skill-only plugins may not expose those in every Codex UI.
+
+You do not need to mention Google Drive or paste the Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt already configured the private Apify MCP server.
 
 ## Defaults Handled By The Plugin
 

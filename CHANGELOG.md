@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Removed Apify keys from LinkedIn Posts Comments daily run prompts; the setup prompt now owns MCP/key configuration.
 - Updated the LinkedIn Posts Comments setup-agent prompt to do the Google Drive setup directly when tools allow it, instead of making users handle it manually.
 - Added a LinkedIn Posts Comments setup-agent prompt for one-shot user onboarding and a visual readiness checklist.
 - Clarified that real Apify keys should only be pasted in private Codex setup chats or daily automations, not screenshots, videos, public posts, or repo files.

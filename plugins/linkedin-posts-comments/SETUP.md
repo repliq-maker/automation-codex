@@ -76,7 +76,7 @@ Status
 
 ## 3. Configure Apify MCP
 
-The user only needs to paste their Apify key in the daily setup. The plugin uses `apify-linkedin-post` internally as the MCP server name.
+The user only needs to paste their Apify key during the private setup prompt. Daily or weekly run prompts should not include the key after `apify-linkedin-post` is configured. The plugin uses `apify-linkedin-post` internally as the MCP server name.
 
 If the MCP server does not exist yet, the plugin should generate setup guidance from the user's Apify key. The same template is available in `mcp.example.json` for advanced users. Replace `YOUR_APIFY_KEY` with the user's own token.
 
@@ -97,7 +97,7 @@ If the MCP server does not exist yet, the plugin should generate setup guidance 
 }
 ```
 
-Never share a real Apify API token in the GitHub repository, course material, screenshots, videos, or community comments. Users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat or private daily automation.
+Never share a real Apify API token in the GitHub repository, course material, screenshots, videos, or community comments. Users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat.
 
 ## 4. LinkedIn Post Scraper
 
@@ -131,7 +131,6 @@ Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
 Filter By: Past Month
 Number of posts: 25
-Apify key: YOUR_APIFY_KEY
 ```
 
 For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.

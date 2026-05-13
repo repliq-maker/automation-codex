@@ -16,7 +16,7 @@ Use this before sharing the plugin repository with the community.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` is committed.
 - The daily prompt tells users to invoke `$linkedin-posts-comments`.
 - Google Drive connector is connected.
-- Apify key flow is tested, including private MCP setup guidance when the MCP server is missing.
+- Apify key setup flow is tested through `SETUP_AGENT_PROMPT.md`, including private MCP setup when the MCP server is missing.
 - The selected LinkedIn scraper accepts the expected input fields.
 - A real dry run appends rows to the intended Google Sheet.
 - At least one row reaches `reviewed`.

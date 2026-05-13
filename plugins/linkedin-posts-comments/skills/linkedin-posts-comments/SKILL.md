@@ -16,7 +16,6 @@ Before running, read `../../agent.md` and follow its parent/worker instructions.
 - `KEYWORDS`: a slash/comma/newline-separated keyword string.
 - `Filter By`: Apify actor date filter, such as `Past Month`.
 - `Number of posts`: number of LinkedIn posts to scrape and append as rows.
-- `Apify key`: user's private Apify API key.
 - Optional `Sheet tab`: Google Sheets tab name. Defaults to `Comments`.
 
 Also accept JSON/camelCase aliases for automation power users:
@@ -27,7 +26,6 @@ Also accept JSON/camelCase aliases for automation power users:
 - `keywords` for `KEYWORDS`.
 - `filterBy` for `Filter By`.
 - `targetPostCount` for `Number of posts`.
-- `apifyApiKey` for `Apify key`.
 
 Advanced optional fields:
 
@@ -41,11 +39,11 @@ If any required field is missing, ask for the missing friendly-label field and d
 
 ## Required Tools
 
-- Apify MCP server named internally as `apify-linkedin-post`, using the user's Apify key and LinkedIn post scraper.
+- Apify MCP server named internally as `apify-linkedin-post`, configured during setup with the user's private Apify key and LinkedIn post scraper.
 - Google Drive / Google Sheets connector for the destination spreadsheet.
 - `spawn_agent` for dynamically sized parallel worker batches.
 
-Use `apify-linkedin-post` as the internal MCP server name. If that server already exists, use it. If it does not exist, build the MCP setup from `Apify key` using the template in `mcp.example.json` and tell the user to add it to their private Codex MCP setup, then rerun. Do not ask the user to choose or name an MCP server. Do not store the key in plugin files. Do not include keys in final responses.
+Use `apify-linkedin-post` as the internal MCP server name. If that server already exists, use it. If it does not exist, stop and ask the user to run `SETUP_AGENT_PROMPT.md` first so the private MCP setup can be created. Do not ask the user to choose or name an MCP server during normal runs. Do not store keys in plugin files. Do not include keys in final responses.
 
 If the exact Apify actor is not supplied, resolve it with available Apify tools before spawning workers. Prefer a LinkedIn post scraper whose input supports the fields in the body below. Do not use a generic web browser scrape as a replacement when Apify is available.
 
@@ -78,15 +76,13 @@ Every worker must use this body, replacing `maxPosts` with the assigned `postsPe
    - Map `KEYWORDS` / `keywords` to the keyword string.
    - Map `Filter By` / `filterBy` to the actor's `postedLimit` setting. For `Past Month`, use `month` unless the actor schema requires a different exact value. Accept `Past Week` as `week`, but prefer `Past Month` for niche B2B keywords because one week often returns posts before engagement has matured.
    - Map `Number of posts` / `targetPostCount` to the number of LinkedIn posts to scrape and append as rows. Default to `25`.
-   - Map `Apify key` / `apifyApiKey` to the user's private Apify token.
    - Use internal MCP server name `apify-linkedin-post`.
    - Use configurable thresholds when present; otherwise use the default niche B2B traction thresholds.
    - Use `brandName` and `forbiddenPitchTerms` when present to block direct pitch language.
    - Use `postsPerAgent = 5` and `maxAgents = 10` unless provided.
 2. Confirm MCP access.
    - If `apify-linkedin-post` exists, use it.
-   - If it does not exist and `Apify key` is supplied, generate the private MCP config using that key and the `mcp.example.json` structure, ask the user to add it to Codex, then rerun.
-   - If neither an existing server nor `Apify key` is available, stop and ask for `Apify key`.
+   - If it does not exist, stop and ask the user to run `SETUP_AGENT_PROMPT.md` before using the daily automation prompt.
    - Never save real MCP credentials or API tokens into plugin files, logs, or final summaries.
 3. Normalize the keyword input.
    - Trim whitespace.

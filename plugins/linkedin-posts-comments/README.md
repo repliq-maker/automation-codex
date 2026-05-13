@@ -33,7 +33,7 @@ Do not paste the raw `marketplace.json` URL as the marketplace source. Use the r
 
 This repository is a Codex plugin marketplace. The marketplace manifest is at `.agents/plugins/marketplace.json`, and the plugin package is at `plugins/linkedin-posts-comments`. The marketplace entry points to the plugin package with a same-repo local source.
 
-This is a Codex skill plugin. It does not ship a standalone scraper; it instructs Codex to use the user's private Apify key, LinkedIn post scraper actor, and Google Drive connector.
+This is a Codex skill plugin. It does not ship a standalone scraper; it instructs Codex to use the user's private `apify-linkedin-post` MCP server, LinkedIn post scraper actor, and Google Drive connector.
 
 ## How To Invoke
 
@@ -49,9 +49,9 @@ Do not rely on `/linkedin-posts-comments` or `@LinkedIn Posts Comments`; skill-o
 
 ## What It Does
 
-1. Receives simple daily fields: sheet location, keywords, filter, number of posts, and Apify key.
+1. Receives simple daily fields: sheet location, keywords, filter, and number of posts.
 2. Uses `apify-linkedin-post` internally when that MCP server already exists.
-3. Builds private MCP setup guidance from the Apify key when that server does not exist.
+3. Tells the user to run the setup prompt if the private Apify MCP server does not exist.
 4. Calculates how many worker agents to run from `Number of posts`.
 5. Each worker researches up to `postsPerAgent` LinkedIn posts with the Apify LinkedIn post scraper.
 6. Filters posts into `reviewed`, `irrelevant`, or `skipped` rows.
@@ -67,7 +67,7 @@ Do not rely on `/linkedin-posts-comments` or `@LinkedIn Posts Comments`; skill-o
 - Google Drive connector access to the destination folder and spreadsheet.
 - A Google Sheets tab named `Comments`, unless you provide a different `sheetTab`.
 
-Do not publish a real Apify API token inside this plugin, a screenshot, or a community post. Use placeholders in shared examples and have each user paste their own token in their private daily automation setup.
+Do not publish a real Apify API token inside this plugin, a screenshot, or a community post. Use placeholders in shared setup examples and have each user paste their own token only in their private setup chat.
 
 ## Sheet Columns
 
@@ -106,10 +106,11 @@ Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
 Filter By: Past Month
 Number of posts: 25
-Apify key: YOUR_APIFY_KEY
 ```
 
 The `Sheet file` value is the Google Sheets spreadsheet file name. The default tab is `Comments`; provide `Sheet tab` only when the tab is different. Users do not need to name the MCP server.
+
+Users do not need to mention Google Drive or include their Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt configures the private Apify MCP server once.
 
 The skill accepts keywords as a JSON array, comma-separated string, slash-separated string, newline-separated string, or a plain natural-language request that clearly contains the keywords.
 
@@ -149,7 +150,7 @@ Tell users to:
 4. Approve Google Drive sign-in only if Codex asks for user consent.
 5. Create an Apify token in their own Apify account.
 6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md`.
-7. Replace `YOUR_APIFY_KEY`, sheet fields, keywords, filter, and number of posts.
+7. Replace sheet fields, keywords, filter, and number of posts in the daily prompt. The Apify key belongs only in the private setup prompt.
 
 For the easiest user onboarding flow, paste `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks the marketplace, plugin, Apify MCP server, Google Drive connection, folder, spreadsheet, tab, and headers.
 

@@ -27,6 +27,6 @@ rg -n "paste-the-exposed-token-value-here" . -u
 
 ## Private User Setup
 
-Each user should create their own Apify token and add it only to their private Codex MCP setup or private daily automation instructions.
+Each user should create their own Apify token and add it only to their private Codex MCP setup through the setup prompt. Daily or weekly run prompts should not include the token after setup.
 
 The plugin instructions tell Codex not to save real MCP credentials or API tokens into plugin files.

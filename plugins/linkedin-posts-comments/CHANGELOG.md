@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.7
+
+- Removed `Apify key` from daily and weekly run prompts.
+- Updated the skill contract so normal runs require an existing `apify-linkedin-post` MCP server created by the setup prompt.
+- Clarified that API keys belong only in private setup/MCP configuration, not recurring automation prompts.
+
 ## 1.3.6
 
 - Updated the setup-agent prompt to proactively install/connect Google Drive and create the target folder, spreadsheet, tab, and headers whenever Codex tools allow it.
