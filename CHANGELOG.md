@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Updated LinkedIn Posts Comments setup to avoid chat-permission prompts for required default setup actions.
 - Added Google Drive OAuth reconnect guidance for refresh-token failures during setup.
 - Added LinkedIn Posts Comments setup retries before asking users to act on transient MCP or connector failures.
 - Added LinkedIn Posts Comments plugin-cache verification and access-denied cache recovery guidance to stop setup restart loops.

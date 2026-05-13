@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.25
+
+- Changed setup posture to act with recommended defaults instead of asking chat-permission for required setup steps.
+- Clarified that the only normal conversational setup question is the Apify key when missing.
+- Added a non-destructive default for conflicting Sheet headers instead of asking to overwrite user data.
+
 ## 1.3.24
 
 - Added explicit handling for Google Drive OAuth refresh-token failures.

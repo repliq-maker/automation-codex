@@ -4,6 +4,8 @@ Use this guide before sharing or running the plugin.
 
 For a guided one-shot setup chat, copy `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks installation, MCP setup, Google Drive, and the destination spreadsheet.
 
+The setup prompt is designed to act by default. It should not ask chat-permission before obvious setup steps such as marketplace install/upgrade, plugin enablement, MCP configuration, official Google Drive plugin setup, or Sheet/header creation. The only normal conversational question is the Apify key when missing. External platform approvals, sandbox approvals, and Google OAuth consent can still appear as required UI flows; those cannot be bypassed by the prompt.
+
 ## 1. Install The Plugin
 
 Add the public GitHub repository as a Codex marketplace:
@@ -55,7 +57,7 @@ The expected private plugin config entry is:
 enabled = true
 ```
 
-The setup agent should prefer Codex plugin install/enable UI or tool actions. It should not assume a general `codex plugin add` command exists; many Codex builds only expose marketplace commands. If no plugin install command is available but private config is writable, it can add or update that exact private config entry after making a backup. If the marketplace is present but this plugin entry is missing, the setup agent should enable the plugin before asking for a restart.
+The setup agent should prefer Codex plugin install/enable UI or tool actions. It should not ask chat-permission before starting those required setup actions. It should not assume a general `codex plugin add` command exists; many Codex builds only expose marketplace commands. If no plugin install command is available but private config is writable, it can add or update that exact private config entry after making a backup. If the marketplace is present but this plugin entry is missing, the setup agent should enable the plugin before asking for a restart.
 
 To invoke it in a new chat or daily automation, start with:
 
@@ -95,7 +97,7 @@ The setup agent should only ask for a restart when that setup pass actually inst
 
 ## 2. Connect Google Drive
 
-The setup agent should use the official Codex Google Drive plugin/connector, not a Google Drive MCP server. It should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
+The setup agent should use the official Codex Google Drive plugin/connector, not a Google Drive MCP server. It should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. It should start official Google Drive install/connect flows directly when available. The user should only need to approve Google Drive sign-in or connector installation when Codex or Google shows an external consent UI.
 
 Auto review can approve Codex-side setup actions, but it cannot silently complete external Google OAuth consent or repair a broken Google Drive refresh token. If Google Drive returns an auth error such as `access token could not be refreshed`, `refresh token was already used`, `invalid_grant`, `token expired`, `token revoked`, or `please log out and sign in again`, the user must disconnect/log out of Google Drive in Codex, reconnect/sign in again, then rerun the setup prompt.
 
