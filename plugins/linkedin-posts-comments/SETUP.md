@@ -78,6 +78,14 @@ Status
 
 The user only needs to paste their Apify key during the private setup prompt. Daily or weekly run prompts should not include the key after `apify-linkedin-post` is configured. The plugin uses `apify-linkedin-post` internally as the MCP server name.
 
+If the user does not already have an Apify key:
+
+1. Go to the Apify dashboard: https://console.apify.com/
+2. Click Settings -> API & Integrations -> Create a new token.
+3. Use a description like `Codex automation apify key`.
+4. Click Create.
+5. Find the token under Personal API tokens, click the Copy icon, and paste it only in the private Codex setup chat.
+
 If the MCP server does not exist yet, the plugin should generate setup guidance from the user's Apify key. The same template is available in `mcp.example.json` for advanced users. Replace `YOUR_APIFY_KEY` with the user's own token.
 
 ```json

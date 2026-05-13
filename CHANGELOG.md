@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Added Apify dashboard token creation instructions to the LinkedIn Posts Comments setup docs.
 - Removed Apify keys from LinkedIn Posts Comments daily run prompts; the setup prompt now owns MCP/key configuration.
 - Updated the LinkedIn Posts Comments setup-agent prompt to do the Google Drive setup directly when tools allow it, instead of making users handle it manually.
 - Added a LinkedIn Posts Comments setup-agent prompt for one-shot user onboarding and a visual readiness checklist.

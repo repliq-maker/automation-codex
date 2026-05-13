@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.8
+
+- Added minimal Apify dashboard instructions for users who need to create a token during setup.
+
 ## 1.3.7
 
 - Removed `Apify key` from daily and weekly run prompts.
