@@ -4,7 +4,7 @@ These instructions support the `linkedin-posts-comments` skill. The parent agent
 
 ## Parent Agent
 
-- Require friendly daily fields: `Sheet folder`, `Sheet file`, `KEYWORDS`, `Filter By`, and `Number of posts`. Also accept camelCase aliases: `sheetFolder`, `sheetName`, `keywords`, `filterBy`, and `targetPostCount`.
+- Require friendly daily fields: `Sheet file`, `KEYWORDS`, `Filter By`, and `Number of posts`. `Sheet folder` is recommended but optional because some Google Drive connector sessions can create/edit Sheets without folder-create or file-move actions. Also accept camelCase aliases: `sheetFolder`, `sheetName`, `keywords`, `filterBy`, and `targetPostCount`.
 - Use `apify-linkedin-post` as the internal Apify MCP server name. Do not ask normal users to name a server.
 - If `apify-linkedin-post` already exists, use it. If it does not exist, stop and ask the user to run `SETUP_AGENT_PROMPT.md` first so the private MCP setup can be created. Never persist or echo real API tokens in plugin files, logs, or final summaries.
 - Use the user's LinkedIn post scraper. Prefer an explicit `apifyActor` value from the automation payload when present. If no actor is provided, use the available Apify tools to resolve the LinkedIn post scraper before spawning workers.
@@ -23,8 +23,8 @@ These instructions support the `linkedin-posts-comments` skill. The parent agent
   - Irrelevant: dead posts, posts with too many comments where a comment gets buried, generic motivational content, irrelevant AI content, hiring/job posts, operations/logistics/customer support posts, IAM/security/governance posts, anything outside the target traction range, missing required metrics, or any post with comments at or above `buriedCommentLimit`.
   - Qualified posts must be clearly about the user's target sales context, such as LinkedIn outreach, cold outreach, outbound sales, AI SDR, SDR workflows, prospecting, reply rates, lead generation strategy, sales automation, or buying/selling motions around those topics.
 - Generate or repair five comment options in the parent for every successfully scraped non-duplicate post if a worker result is missing options or violates the comment rules.
-- Append results to the requested spreadsheet inside the requested Google Drive folder. Use `sheetTab` when provided; otherwise use the `Comments` tab.
-- If the folder, spreadsheet, or tab cannot be found, stop with a clear blocker instead of creating or writing to a guessed destination.
+- Append results to the requested spreadsheet. Use the requested Google Drive folder when it exists and connector tools support folder-scoped search or placement. If folder creation or file moving is unavailable, create/find the spreadsheet in the connector's default/root Drive location and continue.
+- If the spreadsheet or tab cannot be found or created, stop with a clear blocker instead of writing to a guessed destination.
 - Check existing `Post linkedin` values before appending and skip duplicates already present in the sheet.
 - Return a short final summary with counts for researched, qualified, irrelevant, skipped, duplicates, and appended rows.
 

@@ -11,11 +11,11 @@ Before running, read `../../agent.md` and follow its parent/worker instructions.
 
 ## Required Inputs
 
-- `Sheet folder`: Google Drive folder that contains the spreadsheet, such as `Codex_Automation`.
 - `Sheet file`: Google Sheets spreadsheet file name, such as `Comments_Linkedin_Post`.
 - `KEYWORDS`: a slash/comma/newline-separated keyword string.
 - `Filter By`: Apify actor date filter, such as `Past Month`.
 - `Number of posts`: number of LinkedIn posts to scrape and append as rows.
+- Optional `Sheet folder`: Google Drive folder that contains the spreadsheet, such as `Codex_Automation`. Use it when available, but do not block if the Google Drive connector can create/edit Sheets only in the default/root location.
 - Optional `Sheet tab`: Google Sheets tab name. Defaults to `Comments`.
 
 Also accept JSON/camelCase aliases for automation power users:
@@ -70,7 +70,7 @@ Every worker must use this body, replacing `maxPosts` with the assigned `postsPe
 ## Workflow
 
 1. Normalize the daily automation input.
-   - Map `Sheet folder` / `sheetFolder` to the Drive folder.
+   - Map `Sheet folder` / `sheetFolder` to the optional Drive folder.
    - Map `Sheet file` / `sheetName` to the spreadsheet file name.
    - Map `Sheet tab` / `sheetTab` to the tab name, defaulting to `Comments`.
    - Map `KEYWORDS` / `keywords` to the keyword string.
@@ -165,9 +165,9 @@ Leave comment columns blank only for skipped posts that cannot be safely evaluat
 
 Write to:
 
-- Google Drive folder: the provided `sheetFolder`.
 - Spreadsheet: the provided `sheetName`.
 - Sheet tab: the provided `sheetTab`, defaulting to `Comments`.
+- Google Drive folder: the provided `sheetFolder` when it exists and connector tools support folder-scoped search or placement. If no folder is provided, the folder does not exist, or folder-create/file-move actions are unavailable, create or find the spreadsheet in the connector's default/root Drive location and continue.
 
 Use these exact column headers, in this order:
 
@@ -189,7 +189,8 @@ Before appending:
 
 - Read existing `Post linkedin` values and skip duplicates.
 - If the header row is missing, create it with the exact headers above.
-- If the spreadsheet or tab cannot be found, stop with a clear blocker instead of writing to a guessed destination.
+- If the spreadsheet does not exist and the connector can create Sheets, create it in the folder when supported or in the default/root Drive location when folder placement is unavailable.
+- If the spreadsheet or tab cannot be found or created, stop with a clear blocker instead of writing to a guessed destination.
 - Do not overwrite rows whose status is already `commented`.
 
 ## Final Response
@@ -204,4 +205,4 @@ Keep the final response short. Include:
 - appended row count.
 - target post count.
 - worker-agent count used.
-- any blocker, such as missing actor, missing folder, missing spreadsheet, or unavailable connector.
+- any blocker, such as missing actor, missing spreadsheet, unavailable connector, or manual folder placement needed.

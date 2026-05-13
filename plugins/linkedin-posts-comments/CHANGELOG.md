@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.11
+
+- Made `Sheet folder` optional/recommended instead of blocking.
+- Added fallback behavior for Google Drive connectors that can create/edit Sheets but cannot create folders or move files.
+
 ## 1.3.10
 
 - Removed per-run fields from the setup prompt input section.

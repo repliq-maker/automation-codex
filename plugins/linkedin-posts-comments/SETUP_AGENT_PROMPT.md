@@ -19,6 +19,7 @@ Apify key: YOUR_APIFY_KEY
 Important:
 - Do not ask for `KEYWORDS`, `Filter By`, or `Number of posts` during setup. Those are per-run values.
 - The setup Sheet folder, file, and tab are only the default destination created for convenience.
+- If the Google Drive connector cannot create folders or move files, do not block setup. Create/find the Sheet file in the connector's default/root Drive location and mark folder placement as optional/manual.
 - Every run must use the Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts provided in that run prompt.
 - If a run prompt uses a different Sheet folder/file/tab, write to that run-specific destination.
 
@@ -87,9 +88,10 @@ Setup checklist:
 - If Google Drive is disconnected and Codex exposes an auth/connect flow, start that flow directly.
 - If Codex requires the user to approve Google Drive installation or sign in, ask for that approval/sign-in and then continue the setup in the same chat.
 - Only mark this step yellow and ask the user to rerun the prompt when Codex requires a restart or there is no available tool to continue after the user completes Google Drive auth.
-- Once Google Drive is available, find or create the folder:
+- Once Google Drive is available, try to find or create the folder:
   Codex_Automation
-- In that folder, find or create the spreadsheet:
+- If the connector does not expose folder-create or file-move actions, continue without the folder and mark folder placement as optional/manual instead of failed.
+- In that folder, or in the connector's default/root Drive location when folder placement is unavailable, find or create the spreadsheet:
   Comments_Linkedin_Post
 - In that spreadsheet, find or create the tab:
   Comments
@@ -108,7 +110,7 @@ Setup checklist:
   Comment 5
   Status
 - Do not delete existing user data. If row 1 has different headers and the sheet already contains data, ask before overwriting anything.
-- Mark this step green only when the folder, spreadsheet, tab, and headers are ready.
+- Mark this step green when the spreadsheet, tab, and headers are ready. Folder placement can be green when completed, or yellow when it needs optional user/UI action; it should not block READY TO RUN if the Sheet itself is usable.
 
 4. Final verification
 Run a final check and show this visual checklist:
@@ -117,7 +119,7 @@ Run a final check and show this visual checklist:
 ✅ Plugin available/enabled
 ✅ MCP server `apify-linkedin-post` added
 ✅ Google Drive plugin connected
-✅ Sheet folder exists
+✅/⚠️ Sheet folder exists or folder placement is optional/manual
 ✅ Sheet file exists
 ✅ Sheet tab exists
 ✅ Sheet headers are correct
@@ -141,5 +143,6 @@ Filter By: Past Month
 Number of posts: 25
 
 Explain that the user can change Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts on any run. The plugin should always follow the values supplied in the current run prompt.
+Explain that `Sheet folder` is optional. If their Google Drive connector cannot create or move folders, the automation can still write to the Sheet file in the default/root Drive location.
 Remind the user not to include their Apify key in daily or weekly run prompts after setup. The key should stay only in the private MCP configuration created by this setup chat.
 ```

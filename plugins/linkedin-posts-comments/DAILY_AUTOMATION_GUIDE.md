@@ -26,6 +26,8 @@ You do not need to mention Google Drive or paste the Apify key in normal runs. T
 
 You can change `Sheet folder`, `Sheet file`, `Sheet tab`, `KEYWORDS`, `Filter By`, and `Number of posts` for any one-off or scheduled run. The plugin follows the values in the current run prompt.
 
+`Sheet folder` is optional/recommended. If folder placement is not available through the Google Drive connector, the plugin can still use the named Sheet file in the default/root Drive location.
+
 ## Defaults Handled By The Plugin
 
 - Internal MCP server name: `apify-linkedin-post`.

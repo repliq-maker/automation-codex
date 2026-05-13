@@ -64,7 +64,7 @@ For first-time setup, use:
 plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md
 ```
 
-That prompt checks the marketplace, plugin, Apify MCP server, Google Drive connection, folder, spreadsheet, tab, and headers. Do not paste real Apify keys into screenshots, community posts, or videos; users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat.
+That prompt checks the marketplace, plugin, Apify MCP server, Google Drive connection, spreadsheet, tab, and headers. It uses a Drive folder when available, but can continue with a Sheet in the default/root Drive location when folder-create or file-move actions are unavailable. Do not paste real Apify keys into screenshots, community posts, or videos; users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat.
 
 Daily automation format:
 
@@ -79,6 +79,8 @@ Number of posts: 25
 ```
 
 After setup, users do not need to mention Google Drive or include their Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt configures the private Apify MCP server once.
+
+`Sheet folder` is optional/recommended. If the Google Drive connector cannot create folders or move files, the automation can still write to the named Sheet file in the default/root Drive location.
 
 ## Repository Structure
 

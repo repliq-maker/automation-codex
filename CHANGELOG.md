@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Made LinkedIn Posts Comments folder placement optional so setup can continue when Google Drive tools can create Sheets but not folders.
 - Clarified that LinkedIn Posts Comments setup does not collect keywords, filter, or post count; those are supplied per run.
 - Updated the suggested Apify token description for LinkedIn Posts Comments setup.
 - Added Apify dashboard token creation instructions to the LinkedIn Posts Comments setup docs.

@@ -64,7 +64,7 @@ Do not rely on `/linkedin-posts-comments` or `@LinkedIn Posts Comments`; skill-o
 - Node.js / `npx`, because the Apify MCP example uses `npx mcp-remote`.
 - Apify account and API key. The plugin uses `apify-linkedin-post` internally for MCP setup.
 - A LinkedIn post scraper actor that supports the fields shown in `agent.md`.
-- Google Drive connector access to the destination folder and spreadsheet.
+- Google Drive connector access to the destination spreadsheet. Folder placement is optional because some connector sessions can create/edit Sheets but cannot create folders or move files.
 - A Google Sheets tab named `Comments`, unless you provide a different `sheetTab`.
 
 Do not publish a real Apify API token inside this plugin, a screenshot, or a community post. Use placeholders in shared setup examples and have each user paste their own token only in their private setup chat.
@@ -110,11 +110,11 @@ Filter By: Past Month
 Number of posts: 25
 ```
 
-The `Sheet file` value is the Google Sheets spreadsheet file name. The default tab is `Comments`; provide `Sheet tab` only when the tab is different. Users do not need to name the MCP server.
+The `Sheet file` value is the Google Sheets spreadsheet file name. The default tab is `Comments`; provide `Sheet tab` only when the tab is different. `Sheet folder` is optional/recommended. If the Google Drive connector cannot create folders or move files, the setup can create/find the spreadsheet in the default/root Drive location and still run. Users do not need to name the MCP server.
 
 Users do not need to mention Google Drive or include their Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt configures the private Apify MCP server once.
 
-The setup prompt should not collect keywords, date filter, or post volume. Those are per-run values. Users can change `Sheet folder`, `Sheet file`, `Sheet tab`, `KEYWORDS`, `Filter By`, and `Number of posts` in any one-off chat or scheduled automation, and the plugin should follow the values from that current run.
+The setup prompt should not collect keywords, date filter, or post volume. Those are per-run values. Users can change `Sheet folder`, `Sheet file`, `Sheet tab`, `KEYWORDS`, `Filter By`, and `Number of posts` in any one-off chat or scheduled automation, and the plugin should follow the values from that current run. If no usable folder is supplied, the plugin can use the spreadsheet in the default/root Drive location.
 
 The skill accepts keywords as a JSON array, comma-separated string, slash-separated string, newline-separated string, or a plain natural-language request that clearly contains the keywords.
 
@@ -150,7 +150,7 @@ Tell users to:
 
 1. Add this GitHub repository as a Codex marketplace.
 2. Install or enable the `LinkedIn Posts Comments` plugin from that marketplace.
-3. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat so the setup agent can install/connect Google Drive when possible and create the folder, Sheet, tab, and headers.
+3. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat so the setup agent can install/connect Google Drive when possible and create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files.
 4. Approve Google Drive sign-in only if Codex asks for user consent.
 5. Create an Apify token in their own Apify account.
 6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md`.

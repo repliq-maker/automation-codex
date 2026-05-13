@@ -50,11 +50,11 @@ Slash commands and `@LinkedIn Posts Comments` mentions may not appear for skill-
 
 ## 2. Connect Google Drive
 
-The setup agent should connect Google Drive, create the folder, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
+The setup agent should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
 
 The setup target is:
 
-- Google Drive folder, for example `Codex_Automation`.
+- Optional Google Drive folder, for example `Codex_Automation`.
 - Spreadsheet file, for example `Comments_Linkedin_Post`.
 - Sheet tab, usually `Comments`.
 
@@ -78,7 +78,7 @@ Status
 
 The user only needs to paste their Apify key during the private setup prompt. Daily or weekly run prompts should not include the key after `apify-linkedin-post` is configured. The plugin uses `apify-linkedin-post` internally as the MCP server name.
 
-Do not collect keywords, date filter, or post volume during setup. `KEYWORDS`, `Filter By`, and `Number of posts` belong in each run prompt. The setup Sheet folder/file/tab can create a convenient default Sheet, but any run prompt may provide different Sheet fields and the plugin should use the values from that current run.
+Do not collect keywords, date filter, or post volume during setup. `KEYWORDS`, `Filter By`, and `Number of posts` belong in each run prompt. The setup Sheet folder/file/tab can create a convenient default Sheet, but any run prompt may provide different Sheet fields and the plugin should use the values from that current run. If folder placement is unavailable, create or use the Sheet in the connector's default/root Drive location.
 
 If the user does not already have an Apify key:
 
@@ -149,7 +149,7 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 
 - If Apify cannot run, confirm the Apify key is valid and the private MCP setup was added correctly.
 - If the actor fails, confirm the actor supports the expected input fields.
-- If Google Sheets cannot be found, confirm the folder and spreadsheet names are exact.
+- If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.
 - If rows append to the wrong tab, provide `Sheet tab`.
 - If too many posts are marked irrelevant, confirm the keywords are sales/outreach-specific, use `Past Month`, and then adjust the threshold fields if needed.
 - If the run appends fewer rows than requested, increase `maxAgents` or confirm the scraper returns enough posts for the supplied keywords.
