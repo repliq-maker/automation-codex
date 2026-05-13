@@ -6,6 +6,7 @@ Use this inside the daily automation prompt after the setup prompt has installed
 
 ```text
 Use $linkedin-posts-comments with this setup:
+Optional Sheet folder: My Existing Folder
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
@@ -25,7 +26,7 @@ You do not need to mention Google Drive or paste the Apify key in normal runs. T
 
 You can change `Sheet folder`, `Sheet file`, `Sheet tab`, `KEYWORDS`, `Filter By`, and `Number of posts` for any one-off or scheduled run. The plugin follows the values in the current run prompt.
 
-`Sheet folder` is optional and is not needed by default. If you want to target a specific existing folder, add a line such as `Sheet folder: My Folder`. If folder placement is not available through the Google Drive connector, the plugin can still use the named Sheet file in the default/root Drive location.
+`Optional Sheet folder` can be deleted when not needed. Use it only when targeting a specific existing folder. If folder placement is not available through the Google Drive connector, the plugin can still use the named Sheet file in the default/root Drive location.
 
 ## Defaults Handled By The Plugin
 

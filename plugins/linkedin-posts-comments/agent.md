@@ -4,7 +4,7 @@ These instructions support the `linkedin-posts-comments` skill. The parent agent
 
 ## Parent Agent
 
-- Require friendly daily fields: `Sheet file`, `KEYWORDS`, `Filter By`, and `Number of posts`. `Sheet folder` is recommended but optional because some Google Drive connector sessions can create/edit Sheets without folder-create or file-move actions. Also accept camelCase aliases: `sheetFolder`, `sheetName`, `keywords`, `filterBy`, and `targetPostCount`.
+- Require friendly daily fields: `Sheet file`, `KEYWORDS`, `Filter By`, and `Number of posts`. `Sheet folder` / `Optional Sheet folder` is recommended but optional because some Google Drive connector sessions can create/edit Sheets without folder-create or file-move actions. Also accept camelCase aliases: `sheetFolder`, `sheetName`, `keywords`, `filterBy`, and `targetPostCount`.
 - Use `apify-linkedin-post` as the internal Apify MCP server name. Do not ask normal users to name a server.
 - If `apify-linkedin-post` already exists, use it. If it does not exist, stop and ask the user to run `SETUP_AGENT_PROMPT.md` first so the private MCP setup can be created. Never persist or echo real API tokens in plugin files, logs, or final summaries.
 - Use the user's LinkedIn post scraper. Prefer an explicit `apifyActor` value from the automation payload when present. If no actor is provided, use the available Apify tools to resolve the LinkedIn post scraper before spawning workers.

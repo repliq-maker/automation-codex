@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Added `Optional Sheet folder` to LinkedIn Posts Comments ready-to-paste run examples.
 - Removed default `Sheet folder` examples from LinkedIn Posts Comments setup/run prompts; folder targeting is now documented as optional.
 - Made LinkedIn Posts Comments folder placement optional so setup can continue when Google Drive tools can create Sheets but not folders.
 - Clarified that LinkedIn Posts Comments setup does not collect keywords, filter, or post count; those are supplied per run.

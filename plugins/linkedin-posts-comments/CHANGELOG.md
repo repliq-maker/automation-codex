@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.13
+
+- Added `Optional Sheet folder` to ready-to-paste run examples and accepted it as an alias for `Sheet folder`.
+
 ## 1.3.12
 
 - Removed `Sheet folder` from default setup and run examples to avoid confusion when folder actions are unavailable.

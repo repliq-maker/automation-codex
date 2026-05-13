@@ -134,6 +134,7 @@ READY TO RUN
 Then give the user this daily automation template:
 
 Use $linkedin-posts-comments with this setup:
+Optional Sheet folder: My Existing Folder
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
@@ -141,6 +142,6 @@ Filter By: Past Month
 Number of posts: 25
 
 Explain that the user can change Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts on any run. The plugin should always follow the values supplied in the current run prompt.
-Explain that `Sheet folder` is optional and is not needed by default. If they want to target a specific existing folder later, they can add `Sheet folder: theirFolderName` to a run prompt.
+Explain that `Optional Sheet folder` can be deleted when not needed. If they want to target a specific existing folder later, they can keep that line and replace `My Existing Folder`.
 Remind the user not to include their Apify key in daily or weekly run prompts after setup. The key should stay only in the private MCP configuration created by this setup chat.
 ```

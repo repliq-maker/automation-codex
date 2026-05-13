@@ -15,12 +15,12 @@ Before running, read `../../agent.md` and follow its parent/worker instructions.
 - `KEYWORDS`: a slash/comma/newline-separated keyword string.
 - `Filter By`: Apify actor date filter, such as `Past Month`.
 - `Number of posts`: number of LinkedIn posts to scrape and append as rows.
-- Optional `Sheet folder`: Google Drive folder that contains the spreadsheet, such as `Codex_Automation`. Use it when available, but do not block if the Google Drive connector can create/edit Sheets only in the default/root location.
+- Optional `Sheet folder` / `Optional Sheet folder`: Google Drive folder that contains the spreadsheet, such as `My Existing Folder`. Use it when available, but do not block if the Google Drive connector can create/edit Sheets only in the default/root location.
 - Optional `Sheet tab`: Google Sheets tab name. Defaults to `Comments`.
 
 Also accept JSON/camelCase aliases for automation power users:
 
-- `sheetFolder` for `Sheet folder`.
+- `sheetFolder` for `Sheet folder` or `Optional Sheet folder`.
 - `sheetName` for `Sheet file`.
 - `sheetTab` for `Sheet tab`.
 - `keywords` for `KEYWORDS`.
@@ -70,7 +70,7 @@ Every worker must use this body, replacing `maxPosts` with the assigned `postsPe
 ## Workflow
 
 1. Normalize the daily automation input.
-   - Map `Sheet folder` / `sheetFolder` to the optional Drive folder.
+   - Map `Sheet folder` / `Optional Sheet folder` / `sheetFolder` to the optional Drive folder.
    - Map `Sheet file` / `sheetName` to the spreadsheet file name.
    - Map `Sheet tab` / `sheetTab` to the tab name, defaulting to `Comments`.
    - Map `KEYWORDS` / `keywords` to the keyword string.

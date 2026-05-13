@@ -102,6 +102,7 @@ Use this simple format in the daily automation:
 
 ```text
 Use $linkedin-posts-comments with this setup:
+Optional Sheet folder: My Existing Folder
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
@@ -109,7 +110,7 @@ Filter By: Past Month
 Number of posts: 25
 ```
 
-The `Sheet file` value is the Google Sheets spreadsheet file name. The default tab is `Comments`; provide `Sheet tab` only when the tab is different. `Sheet folder` is optional and is not needed by default. Add it only when targeting a specific existing folder. If the Google Drive connector cannot create folders or move files, the setup can create/find the spreadsheet in the default/root Drive location and still run. Users do not need to name the MCP server.
+The `Sheet file` value is the Google Sheets spreadsheet file name. The default tab is `Comments`; provide `Sheet tab` only when the tab is different. `Optional Sheet folder` can be deleted when not needed. Add it only when targeting a specific existing folder. If the Google Drive connector cannot create folders or move files, the setup can create/find the spreadsheet in the default/root Drive location and still run. Users do not need to name the MCP server.
 
 Users do not need to mention Google Drive or include their Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt configures the private Apify MCP server once.
 

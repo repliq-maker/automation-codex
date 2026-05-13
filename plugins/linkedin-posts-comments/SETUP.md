@@ -136,6 +136,7 @@ Paste this into the daily automation setup and replace the values:
 
 ```text
 Use $linkedin-posts-comments with this setup:
+Optional Sheet folder: My Existing Folder
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
