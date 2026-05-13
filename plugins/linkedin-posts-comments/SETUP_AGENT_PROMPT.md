@@ -148,14 +148,17 @@ Use:
 - ✅ for complete
 - ⚠️ for needs user action, restart, or new chat
 - ❌ for failed
+- Start every checklist line with exactly one icon.
+- Do not write `[OK]`, `[WARN]`, `[FAIL]`, or combined icons like `✅/⚠️`.
+- Use ❌ only for a real blocker or failed step. Use ⚠️ for expected restart/new-chat steps.
 
 For Pass 1 bootstrap summaries, use this checklist shape:
 
 ✅ Marketplace added/upgraded
-✅/⚠️ Plugin skill `linkedin-posts-comments` saved or loaded
-✅/⚠️ MCP server `apify-linkedin-post` saved in private config
-✅/⚠️ Apify tools loaded in this chat
-✅/⚠️ Official Google Drive plugin/connector installed/connected
+⚠️ Plugin skill `linkedin-posts-comments` saved but may require full Codex restart to load
+✅ MCP server `apify-linkedin-post` saved in private config
+⚠️ Apify tools may require full Codex restart to load
+✅ Official Google Drive plugin/connector installed/connected
 ⚠️ Sheet setup intentionally not started until after full Codex restart
 
 For Pass 2 readiness summaries, use this checklist shape:
@@ -165,7 +168,7 @@ For Pass 2 readiness summaries, use this checklist shape:
 ✅ MCP server `apify-linkedin-post` saved in private config
 ✅ Apify tools loaded in this chat
 ✅ Official Google Drive plugin/connector connected
-✅/⚠️ Sheet folder not needed, or folder placement is optional/manual
+✅ Sheet folder not needed, or folder placement is optional/manual
 ✅ Sheet file exists
 ✅ Sheet tab exists
 ✅ Sheet headers are correct

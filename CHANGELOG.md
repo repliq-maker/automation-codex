@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Tightened LinkedIn Posts Comments setup summaries to use clean visual icons instead of text labels like `[WARN]`.
 - Updated LinkedIn Posts Comments setup to complete all bootstrap installs before one restart and to require the official Google Drive connector rather than MCP.
 - Clarified that setup agents should perform marketplace upgrades directly and only hand commands to users as fallbacks.
 - Updated LinkedIn Posts Comments setup to use a one-prompt, two-pass install/restart/verify flow before showing the run prompt.

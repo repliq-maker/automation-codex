@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.19
+
+- Tightened setup checklist instructions to use one visual icon per line.
+- Explicitly disallowed `[OK]`, `[WARN]`, `[FAIL]`, and combined icon labels in setup summaries.
+
 ## 1.3.18
 
 - Updated Pass 1 setup to complete all bootstrap installs/connects before asking for one global Codex restart.
