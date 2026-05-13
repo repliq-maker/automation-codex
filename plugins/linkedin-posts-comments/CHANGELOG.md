@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.15
+
+- Changed the marketplace policy for LinkedIn Posts Comments to `INSTALLED_BY_DEFAULT`.
+- Added explicit setup checks for "saved in config" versus "loaded in this chat" for both the plugin skill and Apify MCP tools.
+- Added marketplace upgrade and restart/new-chat guidance for stale plugin caches.
+- Removed Apify key wording from plugin default prompts.
+
 ## 1.3.14
 
 - Hardened instructions so `Sheet folder` can never be treated as a missing required field.

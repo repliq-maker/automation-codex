@@ -11,6 +11,7 @@ Use this before sharing the plugin repository with the community.
 - `mcp.example.json` validates as JSON.
 - No real Apify token is present in the plugin folder.
 - `.agents/plugins/marketplace.json` is committed at the repository root.
+- Marketplace policy uses `INSTALLED_BY_DEFAULT` for `linkedin-posts-comments`.
 - `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` is committed.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` is committed.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` is committed.

@@ -38,7 +38,7 @@ The repository contains:
 - Marketplace manifest: `.agents/plugins/marketplace.json`
 - Plugin package: `plugins/linkedin-posts-comments`
 
-After adding the marketplace, install or enable `LinkedIn Posts Comments` from the marketplace list. The marketplace entry points to this plugin folder inside the same repository.
+After adding the marketplace, confirm `LinkedIn Posts Comments` is installed from the marketplace list. The marketplace entry points to this plugin folder inside the same repository and is marked `INSTALLED_BY_DEFAULT`; if the UI still shows it as available only, enable it manually.
 
 To invoke it in a new chat or daily automation, start with:
 
@@ -47,6 +47,14 @@ Use $linkedin-posts-comments with this setup:
 ```
 
 Slash commands and `@LinkedIn Posts Comments` mentions may not appear for skill-only plugins in every Codex UI.
+
+If the marketplace was already installed, update it with:
+
+```text
+codex plugin marketplace upgrade automation-codex
+```
+
+Then restart Codex or open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
 
 ## 2. Connect Google Drive
 
@@ -90,6 +98,14 @@ If the user does not already have an Apify key:
 5. Find the token under Personal API tokens, click the Copy icon, and paste it only in the private Codex setup chat.
 
 If the MCP server does not exist yet, the plugin should generate setup guidance from the user's Apify key. The same template is available in `mcp.example.json` for advanced users. Replace `YOUR_APIFY_KEY` with the user's own token.
+
+When available, the setup agent should use:
+
+```text
+codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser" --header "Authorization: Bearer YOUR_APIFY_KEY"
+```
+
+After adding or changing this MCP server, restart Codex or open a new chat before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable.
 
 ```json
 {
@@ -149,6 +165,8 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 ## 6. Troubleshooting
 
 - If Apify cannot run, confirm the Apify key is valid and the private MCP setup was added correctly.
+- If a run chat says it cannot find the `linkedin-posts-comments` skill, upgrade the marketplace, restart Codex, and open a new chat.
+- If setup says the Apify MCP server is saved but tools are not visible, restart Codex and open a new chat before running.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.
 - If rows append to the wrong tab, provide `Sheet tab`.

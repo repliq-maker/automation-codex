@@ -38,6 +38,14 @@ Marketplace metadata:
 
 The marketplace entry uses a same-repo local source so Codex loads the plugin package from `plugins/linkedin-posts-comments` after cloning the marketplace repository.
 
+For existing installs, update the marketplace before testing a new release:
+
+```text
+codex plugin marketplace upgrade automation-codex
+```
+
+Restart Codex or open a new chat after installing/upgrading the marketplace or adding the Apify MCP server. Chat skill/tool lists are loaded at chat start.
+
 ## Available Plugins
 
 ### LinkedIn Posts Comments

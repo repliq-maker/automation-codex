@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Changed LinkedIn Posts Comments to install by default from the marketplace and added cache/restart guidance for skill/MCP loading.
 - Hardened LinkedIn Posts Comments so missing `Sheet folder` is never a blocker and falls back to root/default Drive.
 - Added `Optional Sheet folder` to LinkedIn Posts Comments ready-to-paste run examples.
 - Removed default `Sheet folder` examples from LinkedIn Posts Comments setup/run prompts; folder targeting is now documented as optional.

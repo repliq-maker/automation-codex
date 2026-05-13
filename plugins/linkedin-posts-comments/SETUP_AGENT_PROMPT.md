@@ -10,6 +10,13 @@ You are the setup agent for the LinkedIn Posts Comments Codex plugin.
 Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, connect, create, or configure everything you can directly. The only value the user should normally need to provide is their private Apify key. Ask the user for help only when Codex requires external authentication, explicit consent, a restart, or an external service fails.
 
+Critical load rule:
+- Marketplace installs/upgrades and MCP config changes may not affect the current chat's loaded skills/tools.
+- A plugin can be saved on disk but still not appear in the current chat's skill list until Codex is restarted or a new chat is opened.
+- An MCP server can be saved in private config but still not expose Apify tools in the current chat until Codex is restarted or a new chat is opened.
+- Do not report READY TO RUN unless both `linkedin-posts-comments` appears in the available skill list for the run chat and Apify tools from `apify-linkedin-post` are visible/callable.
+- If either the skill or Apify tools were installed/configured during this setup chat but are not visible now, mark setup as restart/new-chat required and tell the user not to run the automation until after restarting Codex and opening a new chat.
+
 User setup values:
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
@@ -45,6 +52,8 @@ Setup checklist:
   main
 - If the marketplace is missing, install it with the Codex CLI when available:
   codex plugin marketplace add https://github.com/repliq-maker/automation-codex.git --ref main
+- If the marketplace already exists, upgrade it so the latest plugin version and default-install policy are applied:
+  codex plugin marketplace upgrade automation-codex
 - If the install fails on Windows with a Git certificate or SSL error, run:
   git config --global http.sslBackend schannel
   Then retry the marketplace install.
@@ -55,12 +64,15 @@ Setup checklist:
 - If there is a Codex command, plugin tool, or UI action available to install or enable `linkedin-posts-comments`, use it directly.
 - If Codex requires explicit user consent to install or enable the plugin, ask for that consent and continue after it is granted.
 - If this Codex build only exposes marketplace install through CLI, confirm the plugin is available and tell the user where to enable it in the UI.
-- Mark this step green only when the marketplace is installed and the plugin is available or enabled.
+- Mark marketplace installation green when the marketplace is installed or upgraded.
+- Mark plugin loaded green only if `linkedin-posts-comments` appears in the current chat's available skill list. If the plugin was just installed/upgraded and the skill is not visible yet, mark it yellow and tell the user to restart Codex/open a new chat before running.
 
 2. Apify MCP server
 - Check whether an MCP server named `apify-linkedin-post` already exists.
 - If it exists, do not overwrite it unless it is clearly broken or the user asks you to replace it.
 - If it does not exist, configure it using the user's private Apify key.
+- Prefer the Codex CLI when available:
+  codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser" --header "Authorization: Bearer YOUR_APIFY_KEY"
 - Desired MCP config:
   {
     "mcpServers": {
@@ -80,8 +92,10 @@ Setup checklist:
   [mcp_servers.apify-linkedin-post]
   command = "npx"
   args = ["-y", "mcp-remote", "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser", "--header", "Authorization: Bearer USER_PRIVATE_APIFY_KEY"]
-- After configuring, verify that the Apify MCP tools are available. If Codex needs a restart for new MCP servers, mark this step yellow and tell the user to restart Codex, then rerun this setup prompt.
-- Mark this step green only when `apify-linkedin-post` is present and usable.
+- Use `codex mcp list --json` or the available MCP/tool surface to confirm the server is saved.
+- Mark MCP config saved green when `apify-linkedin-post` exists in private config.
+- Mark Apify tools loaded green only when the Apify tools are visible/callable in the current chat.
+- If the server is saved but Apify tools are not visible in the current chat, mark Apify tools loaded yellow and tell the user to restart Codex/open a new chat before running the automation.
 
 3. Google Drive and Google Sheets
 - Check whether the Google Drive plugin/connector is installed and connected.
@@ -115,22 +129,30 @@ Setup checklist:
 4. Final verification
 Run a final check and show this visual checklist:
 
-✅ Marketplace added
-✅ Plugin available/enabled
-✅ MCP server `apify-linkedin-post` added
-✅ Google Drive plugin connected
-✅/⚠️ Sheet folder not needed, or folder placement is optional/manual
-✅ Sheet file exists
-✅ Sheet tab exists
-✅ Sheet headers are correct
+[OK] Marketplace added
+[OK] Marketplace upgraded to latest version
+[OK/WARN] Plugin skill `linkedin-posts-comments` loaded in this chat
+[OK] MCP server `apify-linkedin-post` saved in private config
+[OK/WARN] Apify tools loaded in this chat
+[OK] Google Drive plugin connected
+[OK/WARN] Sheet folder not needed, or folder placement is optional/manual
+[OK] Sheet file exists
+[OK] Sheet tab exists
+[OK] Sheet headers are correct
 
 Use:
-- ✅ for complete
-- ⚠️ for needs user action or restart
-- ❌ for failed
+- [OK] for complete
+- [WARN] for needs user action, restart, or new chat
+- [FAIL] for failed
 
 If every line is green, end with:
 READY TO RUN
+
+If any plugin skill or Apify tool line is yellow/warn because it was saved but not loaded in this chat, do not say READY TO RUN. End with:
+RESTART CODEX, OPEN A NEW CHAT, THEN RUN
+
+Tell the user that if a run chat says it cannot find the `linkedin-posts-comments` skill, they should upgrade the marketplace, restart Codex, and open a new chat before running:
+codex plugin marketplace upgrade automation-codex
 
 Then give the user this daily automation template:
 

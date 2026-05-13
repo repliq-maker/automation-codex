@@ -22,6 +22,8 @@ Number of posts: 25
 
 Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash command or `@LinkedIn Posts Comments` mention; skill-only plugins may not expose those in every Codex UI.
 
+If Codex says it cannot find the `linkedin-posts-comments` skill, the marketplace/plugin is not loaded in that chat. Upgrade the marketplace if needed, restart Codex, open a new chat, and try again.
+
 You do not need to mention Google Drive or paste the Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt already configured the private Apify MCP server.
 
 You can change `Sheet folder`, `Sheet file`, `Sheet tab`, `KEYWORDS`, `Filter By`, and `Number of posts` for any one-off or scheduled run. The plugin follows the values in the current run prompt.

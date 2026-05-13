@@ -146,10 +146,18 @@ For CLI installs, use:
 codex plugin marketplace add repliq-maker/automation-codex --ref main
 ```
 
+For existing installs, update the marketplace before testing a new release:
+
+```text
+codex plugin marketplace upgrade automation-codex
+```
+
+Restart Codex or open a new chat after installing/upgrading the marketplace or adding the Apify MCP server. A saved marketplace/MCP config does not always update the current chat's loaded skill/tool list.
+
 Tell users to:
 
 1. Add this GitHub repository as a Codex marketplace.
-2. Install or enable the `LinkedIn Posts Comments` plugin from that marketplace.
+2. Confirm `LinkedIn Posts Comments` is installed from that marketplace. It is marked `INSTALLED_BY_DEFAULT`; if the UI still shows it as available only, enable it manually.
 3. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat so the setup agent can install/connect Google Drive when possible and create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files.
 4. Approve Google Drive sign-in only if Codex asks for user consent.
 5. Create an Apify token in their own Apify account.
