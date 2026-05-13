@@ -2,6 +2,9 @@
 
 ## Marketplace
 
+- Added explicit LinkedIn Posts Comments plugin enablement checks so marketplace-added does not get mistaken for plugin-installed.
+- Added a setup restart-loop guard so users are not repeatedly told to restart when no install/config/auth state changed.
+- Clarified that setup should not assume a general `codex plugin add` command exists.
 - Tightened LinkedIn Posts Comments setup summaries to use clean visual icons instead of text labels like `[WARN]`.
 - Updated LinkedIn Posts Comments setup to complete all bootstrap installs before one restart and to require the official Google Drive connector rather than MCP.
 - Clarified that setup agents should perform marketplace upgrades directly and only hand commands to users as fallbacks.

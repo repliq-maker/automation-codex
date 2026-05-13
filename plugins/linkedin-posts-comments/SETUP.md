@@ -38,7 +38,16 @@ The repository contains:
 - Marketplace manifest: `.agents/plugins/marketplace.json`
 - Plugin package: `plugins/linkedin-posts-comments`
 
-After adding the marketplace, confirm `LinkedIn Posts Comments` is installed from the marketplace list. The marketplace entry points to this plugin folder inside the same repository and is marked `INSTALLED_BY_DEFAULT`; if the UI still shows it as available only, enable it manually.
+After adding the marketplace, the setup agent must confirm `LinkedIn Posts Comments` is installed/enabled from that marketplace. The marketplace entry points to this plugin folder inside the same repository and is marked `INSTALLED_BY_DEFAULT`, but marketplace-added, cache presence, or default-install policy is not enough on its own.
+
+The expected private plugin config entry is:
+
+```toml
+[plugins."linkedin-posts-comments@automation-codex"]
+enabled = true
+```
+
+The setup agent should prefer Codex plugin install/enable UI or tool actions. It should not assume a general `codex plugin add` command exists; many Codex builds only expose marketplace commands. If no plugin install command is available but private config is writable, it can add or update that exact private config entry after making a backup. If the marketplace is present but this plugin entry is missing, the setup agent should enable the plugin before asking for a restart.
 
 To invoke it in a new chat or daily automation, start with:
 
@@ -54,13 +63,22 @@ If the marketplace was already installed, the setup agent should update it direc
 codex plugin marketplace upgrade automation-codex
 ```
 
-Only ask the user to run that command manually if the setup agent cannot run it because the command is unavailable, permissions are denied, or the user must approve the action outside the chat. Then restart Codex or open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
+Only ask the user to run that command manually if the setup agent cannot run it because the command is unavailable, permissions are denied, or the user must approve the action outside the chat. Then fully quit/reopen Codex and open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
 
 Use the same setup prompt again after the restart. The first pass installs or connects all tools before one global restart. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Do not run the daily automation until the second pass says `READY TO RUN`.
+
+The setup agent should only ask for a restart when that setup pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed and a required skill/tool is still missing, it should show the exact blocker in red instead of repeating the same restart instruction.
 
 ## 2. Connect Google Drive
 
 The setup agent should use the official Codex Google Drive plugin/connector, not a Google Drive MCP server. It should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
+
+If the official Google Drive plugin is installed but disabled and private config is writable, the setup agent can enable this official plugin entry:
+
+```toml
+[plugins."google-drive@openai-curated"]
+enabled = true
+```
 
 The default setup target is:
 
@@ -107,7 +125,7 @@ When available, the setup agent should use:
 codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,apify/rag-web-browser" --header "Authorization: Bearer YOUR_APIFY_KEY"
 ```
 
-After adding or changing this MCP server, restart Codex or open a new chat before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable.
+After adding or changing this MCP server, fully quit/reopen Codex and open a new chat before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable.
 
 If the setup prompt adds or changes the MCP server, marketplace/plugin, or Google Drive connector, it should finish the full bootstrap sweep, stop before Sheet creation, ask for a full Codex restart/new chat, and ask the user to paste the same setup prompt again. Sheet creation belongs in the second pass after all tools are loaded.
 
@@ -169,7 +187,7 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 ## 6. Troubleshooting
 
 - If Apify cannot run, confirm the Apify key is valid and the private MCP setup was added correctly.
-- If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should upgrade the marketplace directly when possible, then ask for restart/new chat.
+- If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should verify that `[plugins."linkedin-posts-comments@automation-codex"]` is enabled, enable it when possible, and upgrade the marketplace directly when needed. It should only ask for a restart if it actually changed the install/config state during that pass.
 - If setup says the Apify MCP server is saved but tools are not visible, restart Codex and open a new chat before running.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.

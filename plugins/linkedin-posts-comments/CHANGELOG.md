@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.20
+
+- Added explicit plugin install/enable verification for `linkedin-posts-comments@automation-codex`.
+- Added private config fallback guidance when no custom plugin install command is available.
+- Added official Google Drive plugin enablement guidance and reinforced that Google Drive must not be configured as MCP.
+- Added a restart-loop guard so setup only asks for a full restart after the current pass actually changed install/config/auth state.
+- Clarified that setup should not assume a general `codex plugin add` command exists.
+
 ## 1.3.19
 
 - Tightened setup checklist instructions to use one visual icon per line.

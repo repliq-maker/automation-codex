@@ -21,9 +21,11 @@ One-prompt, two-pass setup flow:
 - Use this same setup prompt for both passes.
 - Pass 1 is bootstrap: install/upgrade marketplace/plugin, add Apify MCP, and install/connect the official Google Drive plugin/connector when needed.
 - During Pass 1, do not stop after the first install/change. Continue through all bootstrap checks so marketplace/plugin, Apify MCP, and Google Drive are all handled before one global restart.
+- Marketplace added/upgraded is not enough. The LinkedIn Posts Comments plugin must also be installed/enabled.
 - If Pass 1 installs, upgrades, adds, connects, authenticates, or changes any marketplace/plugin/MCP/connector/auth surface, finish the full bootstrap checklist, then stop before Sheet work. Do not create or verify the Sheet in that same chat.
 - End Pass 1 with: FULLY QUIT CODEX, REOPEN IT, OPEN A NEW CHAT, PASTE THIS SAME SETUP PROMPT AGAIN.
 - Do not try to restart or kill Codex yourself from inside the setup chat. The user must fully quit and reopen Codex so the host process reloads plugin skills and MCP tools.
+- Do not create an endless restart loop. Only ask for a full restart when this exact pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed in this pass and a required skill/tool is still missing, diagnose the missing install/enablement and mark the exact blocker red instead of repeating the same restart instruction.
 - Pass 2 is verification and Sheet setup: only after the skill, Apify tools, and Google Drive tools are already visible in the current chat, create/verify the Sheet, tab, and headers.
 - Only after Pass 2 completes with the Sheet verified should you show READY TO RUN and provide the daily automation prompt.
 - Never tell the user to run the automation after a restart until the setup prompt has been rerun and the Sheet checklist is green.
@@ -73,11 +75,22 @@ Setup checklist:
   plugins/linkedin-posts-comments
 - Check whether the LinkedIn Posts Comments plugin is installed or available from that marketplace.
 - If there is a Codex command, plugin tool, or UI action available to install or enable `linkedin-posts-comments`, use it directly.
+- Do not assume a command like `codex plugin add` exists. On many Codex builds, the CLI only exposes `codex plugin marketplace add|upgrade|remove`; in that case, use the UI/tool install action when available or the private config enablement fallback below.
 - If Codex requires explicit user consent to install or enable the plugin, ask for that consent and continue after it is granted.
-- If this Codex build only exposes marketplace install through CLI, confirm the plugin is available and tell the user where to enable it in the UI.
+- If this Codex build only exposes marketplace install through CLI and no plugin install command is available, use the private config enablement fallback below.
+- Do not treat the marketplace being present, the plugin package being in the cache, or the marketplace policy being `INSTALLED_BY_DEFAULT` as proof that the plugin is installed/enabled for this user.
+- Verify the plugin is installed/enabled, not just present on disk. The expected private config entry is:
+  [plugins."linkedin-posts-comments@automation-codex"]
+  enabled = true
+- Prefer Codex plugin install/enable UI or tool actions when available.
+- If no plugin install command is available but the private Codex config is writable, add or update the exact private config entry above. The typical config path is `~/.codex/config.toml` or `%USERPROFILE%\.codex\config.toml` on Windows, but use the active Codex config path if different. Before editing config, create a backup copy. Do not write any Apify token into plugin files or public docs.
+- Confirm the plugin package exists in the plugin cache and contains `skills/linkedin-posts-comments/SKILL.md`.
 - Mark marketplace installation green when the marketplace is installed or upgraded.
-- Mark plugin loaded green only if `linkedin-posts-comments` appears in the current chat's available skill list. If the plugin was just installed/upgraded and the skill is not visible yet, mark it yellow and tell the user to fully quit/reopen Codex and open a new chat before running.
-- If you installed or upgraded the marketplace/plugin in this chat, set `restart_required = true`, but continue to the Apify MCP and Google Drive bootstrap checks before stopping.
+- Mark plugin installed/enabled green only when `linkedin-posts-comments@automation-codex` is enabled in Codex config or the Codex UI confirms it is installed.
+- Mark plugin loaded green only if `linkedin-posts-comments` appears in the current chat's available skill list. If the plugin was just installed/upgraded/enabled and the skill is not visible yet, mark it yellow and tell the user to fully quit/reopen Codex and open a new chat before running.
+- If the marketplace is present but the plugin is not installed/enabled, install/enable the plugin before moving on. Do not tell the user to restart yet.
+- If the plugin is installed/enabled and the package exists but the skill is still not loaded after a fresh chat, run the marketplace upgrade and re-check once when possible. If no config or package state changes in this pass and the skill is still missing, mark the plugin skill line red with the exact reason instead of asking for another restart.
+- If you installed, upgraded, or enabled the marketplace/plugin in this chat, set `restart_required = true`, but continue to the Apify MCP and Google Drive bootstrap checks before stopping.
 
 2. Apify MCP server
 - Check whether an MCP server named `apify-linkedin-post` already exists.
@@ -116,8 +129,12 @@ Setup checklist:
 - If Google Drive is missing and Codex exposes a plugin or connector install flow, install or request the official Google Drive plugin/connector directly.
 - If Google Drive is disconnected and Codex exposes an auth/connect flow, start that official connector auth flow directly.
 - If Codex requires the user to approve Google Drive installation or sign in, ask for that approval/sign-in and then continue the setup in the same chat.
+- If the official Google Drive plugin is installed but disabled and private config is writable, enable only the official plugin entry:
+  [plugins."google-drive@openai-curated"]
+  enabled = true
 - If Google Drive was installed, connected, authenticated, or newly exposed in this chat and the tools are not fully available yet, set `restart_required = true`.
 - If `restart_required = true`, do not start Sheet work. Finish the visual bootstrap checklist and tell the user to fully quit Codex, reopen it, open a new chat, and paste this same setup prompt again.
+- If `restart_required = false` and Google Drive tools are already available, continue to Sheet work in the same chat. Do not postpone Sheet setup just because earlier setup docs mention two passes.
 - Once Google Drive is available, find or create the spreadsheet in the connector's default/root Drive location:
   Comments_Linkedin_Post
 - If the user explicitly provided a Sheet folder and the connector supports folder-scoped search or placement, use that folder.
@@ -155,7 +172,8 @@ Use:
 For Pass 1 bootstrap summaries, use this checklist shape:
 
 ✅ Marketplace added/upgraded
-⚠️ Plugin skill `linkedin-posts-comments` saved but may require full Codex restart to load
+✅ LinkedIn Posts Comments plugin installed/enabled
+⚠️ Plugin skill `linkedin-posts-comments` may require full Codex restart to load
 ✅ MCP server `apify-linkedin-post` saved in private config
 ⚠️ Apify tools may require full Codex restart to load
 ✅ Official Google Drive plugin/connector installed/connected
@@ -176,8 +194,10 @@ For Pass 2 readiness summaries, use this checklist shape:
 If every required Pass 2 line is green, end with:
 READY TO RUN
 
-If any plugin skill, Apify tool, or Google Drive connector line is yellow/warn because it was saved/connected but not loaded in this chat, do not say READY TO RUN. End with:
+If `restart_required = true` and any plugin skill, Apify tool, or Google Drive connector line is yellow because it was saved/connected but not loaded in this chat, do not say READY TO RUN. End with:
 FULLY QUIT CODEX, REOPEN IT, OPEN A NEW CHAT, PASTE THIS SAME SETUP PROMPT AGAIN
+
+If `restart_required = false` and the skill/tools are still missing, end with a red blocker checklist line that explains what is missing, such as plugin not enabled in Codex config, plugin package missing from cache, Apify MCP server missing from private config, Google Drive not connected, or tools unavailable despite config being present. Do not repeat the restart ending in that case.
 
 If a run chat says it cannot find the `linkedin-posts-comments` skill, do not make the user diagnose it manually. In the next setup pass, run the marketplace upgrade yourself when the CLI/tool surface is available:
 codex plugin marketplace upgrade automation-codex

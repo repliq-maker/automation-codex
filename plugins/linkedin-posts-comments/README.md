@@ -158,15 +158,17 @@ The setup prompt is intentionally one prompt with two passes. Pass 1 installs/co
 
 Tell users to:
 
-1. Add this GitHub repository as a Codex marketplace.
-2. Confirm `LinkedIn Posts Comments` is installed from that marketplace. It is marked `INSTALLED_BY_DEFAULT`; if the UI still shows it as available only, enable it manually.
-3. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat so the setup agent can install/connect the official Google Drive plugin/connector when possible and, on the second pass, create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files.
+1. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat.
+2. Let the setup agent add/upgrade the marketplace, enable `LinkedIn Posts Comments` as `linkedin-posts-comments@automation-codex`, add the Apify MCP server, and install/connect the official Google Drive plugin/connector when possible.
+3. After the full Codex restart, paste the same setup prompt again so it can create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files.
 4. Approve Google Drive sign-in only if Codex asks for user consent.
 5. Create an Apify token in their own Apify account.
-6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md`.
+6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` only after setup says `READY TO RUN`.
 7. Replace sheet fields, keywords, filter, and number of posts in the daily prompt. The Apify key belongs only in the private setup prompt.
 
 For the easiest user onboarding flow, paste `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks the marketplace, plugin, Apify MCP server, Google Drive connection, folder, spreadsheet, tab, and headers.
+
+The setup prompt should only ask for a restart after it actually changed marketplace, plugin, MCP, or connector state in that pass. If the plugin still is not loaded after a fresh chat and no setup state changed, it should diagnose the missing plugin enablement instead of sending the user through another restart loop.
 
 See `SETUP.md` for the full walkthrough, `SETUP_AGENT_PROMPT.md` for the copy/paste setup agent, `DAILY_AUTOMATION_GUIDE.md` for the copy/paste daily prompt, `PRODUCTION_CHECKLIST.md` before release, and `SECURITY.md` before sharing screenshots or templates.
 
