@@ -35,7 +35,17 @@ Codex should read:
 .agents/plugins/marketplace.json
 ```
 
-Then install or enable the plugin you want from the marketplace list. The marketplace points to the plugin package inside this same repository.
+Then run the plugin setup prompt so Codex can install/enable the plugin and configure its required tools for the user.
+
+For LinkedIn Posts Comments, paste this file into a private Codex chat:
+
+```text
+plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md
+```
+
+The setup prompt should add/upgrade the marketplace, enable `linkedin-posts-comments@automation-codex`, configure the private Apify MCP server, and install/connect the official Google Drive plugin/connector when Codex exposes those actions.
+
+If the setup prompt changes marketplace, plugin, MCP, or connector state, fully quit and reopen Codex, open a new chat, and paste the same setup prompt again. The second pass verifies loaded tools and creates or checks the Sheet, tab, and headers. Do not run the daily automation until setup says `READY TO RUN`.
 
 ## Invoke A Plugin
 
@@ -64,6 +74,7 @@ plugins/linkedin-posts-comments
 See:
 
 ```text
+plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md
 plugins/linkedin-posts-comments/README.md
 plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md
 ```
@@ -77,4 +88,4 @@ For the LinkedIn plugin, each user needs:
 - An Apify account and private Apify key.
 - A LinkedIn post scraper actor available through Apify.
 
-Never share real Apify keys in GitHub, screenshots, videos, or community posts.
+The setup prompt creates or verifies the Google Sheet when Google Drive tools are available. Never share real Apify keys in GitHub, screenshots, videos, daily automation prompts, or community posts.
