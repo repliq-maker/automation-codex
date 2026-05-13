@@ -24,6 +24,8 @@ Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash c
 
 You do not need to mention Google Drive or paste the Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt already configured the private Apify MCP server.
 
+You can change `Sheet folder`, `Sheet file`, `Sheet tab`, `KEYWORDS`, `Filter By`, and `Number of posts` for any one-off or scheduled run. The plugin follows the values in the current run prompt.
+
 ## Defaults Handled By The Plugin
 
 - Internal MCP server name: `apify-linkedin-post`.

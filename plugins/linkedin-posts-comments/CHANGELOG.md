@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.10
+
+- Removed per-run fields from the setup prompt input section.
+- Clarified that keywords, date filter, post count, and even Sheet destination can be changed on any individual run.
+
 ## 1.3.9
 
 - Updated the suggested Apify token description to `Skool outreach Codex Automation Apify Key`.

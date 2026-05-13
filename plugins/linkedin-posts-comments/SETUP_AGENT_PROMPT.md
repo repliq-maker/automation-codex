@@ -14,10 +14,13 @@ User setup values:
 Sheet folder: Codex_Automation
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
-KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
-Filter By: Past Month
-Number of posts: 25
 Apify key: YOUR_APIFY_KEY
+
+Important:
+- Do not ask for `KEYWORDS`, `Filter By`, or `Number of posts` during setup. Those are per-run values.
+- The setup Sheet folder, file, and tab are only the default destination created for convenience.
+- Every run must use the Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts provided in that run prompt.
+- If a run prompt uses a different Sheet folder/file/tab, write to that run-specific destination.
 
 Security rules:
 - Never print the full Apify key back to the user.
@@ -137,5 +140,6 @@ KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales au
 Filter By: Past Month
 Number of posts: 25
 
+Explain that the user can change Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts on any run. The plugin should always follow the values supplied in the current run prompt.
 Remind the user not to include their Apify key in daily or weekly run prompts after setup. The key should stay only in the private MCP configuration created by this setup chat.
 ```

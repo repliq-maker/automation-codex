@@ -114,6 +114,8 @@ The `Sheet file` value is the Google Sheets spreadsheet file name. The default t
 
 Users do not need to mention Google Drive or include their Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt configures the private Apify MCP server once.
 
+The setup prompt should not collect keywords, date filter, or post volume. Those are per-run values. Users can change `Sheet folder`, `Sheet file`, `Sheet tab`, `KEYWORDS`, `Filter By`, and `Number of posts` in any one-off chat or scheduled automation, and the plugin should follow the values from that current run.
+
 The skill accepts keywords as a JSON array, comma-separated string, slash-separated string, newline-separated string, or a plain natural-language request that clearly contains the keywords.
 
 `filterBy` is mapped to the Apify actor's `postedLimit` setting. For example, `Past Month` maps to `month` unless the actor schema requires the display label. `Past Month` is the recommended default for niche B2B keywords because it gives posts time to collect meaningful likes and comments.
