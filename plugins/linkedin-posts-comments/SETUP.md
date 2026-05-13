@@ -56,11 +56,11 @@ codex plugin marketplace upgrade automation-codex
 
 Only ask the user to run that command manually if the setup agent cannot run it because the command is unavailable, permissions are denied, or the user must approve the action outside the chat. Then restart Codex or open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
 
-Use the same setup prompt again after the restart. The first pass installs or connects tools. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Do not run the daily automation until the second pass says `READY TO RUN`.
+Use the same setup prompt again after the restart. The first pass installs or connects all tools before one global restart. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Do not run the daily automation until the second pass says `READY TO RUN`.
 
 ## 2. Connect Google Drive
 
-The setup agent should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
+The setup agent should use the official Codex Google Drive plugin/connector, not a Google Drive MCP server. It should connect Google Drive, create the spreadsheet, create the tab, and add headers whenever Codex exposes the required tools. It should use the folder when folder tools are available, but folder placement is optional/manual when the connector can create/edit Sheets but cannot create folders or move files. The user should only need to approve Google Drive sign-in or connector installation when Codex asks for consent.
 
 The default setup target is:
 
@@ -109,7 +109,7 @@ codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?t
 
 After adding or changing this MCP server, restart Codex or open a new chat before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable.
 
-If the setup prompt adds or changes the MCP server, it should stop before Sheet creation, ask for a restart/new chat, and ask the user to paste the same setup prompt again. Sheet creation belongs in the second pass after Apify tools are loaded.
+If the setup prompt adds or changes the MCP server, marketplace/plugin, or Google Drive connector, it should finish the full bootstrap sweep, stop before Sheet creation, ask for a full Codex restart/new chat, and ask the user to paste the same setup prompt again. Sheet creation belongs in the second pass after all tools are loaded.
 
 ```json
 {

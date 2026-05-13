@@ -154,13 +154,13 @@ codex plugin marketplace upgrade automation-codex
 
 Restart Codex or open a new chat after installing/upgrading the marketplace or adding the Apify MCP server. A saved marketplace/MCP config does not always update the current chat's loaded skill/tool list.
 
-The setup prompt is intentionally one prompt with two passes. Pass 1 installs/connects tools and may require restart. Pass 2, after restart/new chat, verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Users should not run the automation until Pass 2 says `READY TO RUN`.
+The setup prompt is intentionally one prompt with two passes. Pass 1 installs/connects all needed tools, including the official Google Drive plugin/connector, and may require a full Codex restart. Pass 2, after fully quitting/reopening Codex and opening a new chat, verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Users should not run the automation until Pass 2 says `READY TO RUN`.
 
 Tell users to:
 
 1. Add this GitHub repository as a Codex marketplace.
 2. Confirm `LinkedIn Posts Comments` is installed from that marketplace. It is marked `INSTALLED_BY_DEFAULT`; if the UI still shows it as available only, enable it manually.
-3. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat so the setup agent can install/connect Google Drive when possible and create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files.
+3. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat so the setup agent can install/connect the official Google Drive plugin/connector when possible and, on the second pass, create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files.
 4. Approve Google Drive sign-in only if Codex asks for user consent.
 5. Create an Apify token in their own Apify account.
 6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md`.

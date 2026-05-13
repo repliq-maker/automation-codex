@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.18
+
+- Updated Pass 1 setup to complete all bootstrap installs/connects before asking for one global Codex restart.
+- Clarified that Google Drive must use the official Codex Google Drive plugin/connector, not MCP.
+- Restored visual checklist icons and added clearer full-quit/reopen Codex instructions.
+
 ## 1.3.17
 
 - Clarified that the setup agent should run marketplace upgrades directly when possible.

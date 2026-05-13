@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Updated LinkedIn Posts Comments setup to complete all bootstrap installs before one restart and to require the official Google Drive connector rather than MCP.
 - Clarified that setup agents should perform marketplace upgrades directly and only hand commands to users as fallbacks.
 - Updated LinkedIn Posts Comments setup to use a one-prompt, two-pass install/restart/verify flow before showing the run prompt.
 - Changed LinkedIn Posts Comments to install by default from the marketplace and added cache/restart guidance for skill/MCP loading.
