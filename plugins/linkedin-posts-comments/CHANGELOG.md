@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.14
+
+- Hardened instructions so `Sheet folder` can never be treated as a missing required field.
+- Clarified that missing folder input should fall back to the Sheet file in the connector's default/root Drive location.
+
 ## 1.3.13
 
 - Added `Optional Sheet folder` to ready-to-paste run examples and accepted it as an alias for `Sheet folder`.

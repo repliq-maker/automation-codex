@@ -37,6 +37,8 @@ Advanced optional fields:
 
 If any required field is missing, ask for the missing friendly-label field and do not run Apify. Do not ask normal users for MCP server names.
 
+Never ask for `Sheet folder` as a missing required field. If `Sheet folder`, `Optional Sheet folder`, or `sheetFolder` is absent, continue with the provided `Sheet file` in the connector's default/root Drive location.
+
 ## Required Tools
 
 - Apify MCP server named internally as `apify-linkedin-post`, configured during setup with the user's private Apify key and LinkedIn post scraper.

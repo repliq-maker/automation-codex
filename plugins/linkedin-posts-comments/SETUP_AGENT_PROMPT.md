@@ -20,8 +20,9 @@ Important:
 - The setup Sheet file and tab are only the default destination created for convenience.
 - Do not create a Google Drive folder unless the user explicitly provides one and the connector supports folder actions.
 - If no folder is provided, create/find the Sheet file in the connector's default/root Drive location.
-- Every run must use the Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts provided in that run prompt.
-- If a run prompt uses a different Sheet folder/file/tab, write to that run-specific destination.
+- Every run must use the Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts provided in that run prompt.
+- Sheet folder is optional. If it is missing, empty, or not usable, use the Sheet file in the connector's default/root Drive location.
+- If a run prompt uses a different Sheet file/tab or optional folder, write to that run-specific destination.
 
 Security rules:
 - Never print the full Apify key back to the user.
@@ -141,7 +142,7 @@ KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales au
 Filter By: Past Month
 Number of posts: 25
 
-Explain that the user can change Sheet folder, Sheet file, Sheet tab, KEYWORDS, Filter By, and Number of posts on any run. The plugin should always follow the values supplied in the current run prompt.
+Explain that the user can change Sheet file, Sheet tab, KEYWORDS, Filter By, Number of posts, and optional Sheet folder on any run. The plugin should always follow the values supplied in the current run prompt.
 Explain that `Optional Sheet folder` can be deleted when not needed. If they want to target a specific existing folder later, they can keep that line and replace `My Existing Folder`.
 Remind the user not to include their Apify key in daily or weekly run prompts after setup. The key should stay only in the private MCP configuration created by this setup chat.
 ```
