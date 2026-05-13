@@ -2,6 +2,8 @@
 
 Use this guide before sharing or running the plugin.
 
+For a guided one-shot setup chat, copy `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks installation, MCP setup, Google Drive, and the destination spreadsheet.
+
 ## 1. Install The Plugin
 
 Add the public GitHub repository as a Codex marketplace:
@@ -93,7 +95,7 @@ If the MCP server does not exist yet, the plugin should generate setup guidance 
 }
 ```
 
-Never share a real Apify API token in the GitHub repository, course material, screenshots, or community comments.
+Never share a real Apify API token in the GitHub repository, course material, screenshots, videos, or community comments. Users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat or private daily automation.
 
 ## 4. LinkedIn Post Scraper
 

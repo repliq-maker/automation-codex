@@ -2,6 +2,8 @@
 
 ## Marketplace
 
+- Added a LinkedIn Posts Comments setup-agent prompt for one-shot user onboarding and a visual readiness checklist.
+- Clarified that real Apify keys should only be pasted in private Codex setup chats or daily automations, not screenshots, videos, public posts, or repo files.
 - Aligned LinkedIn Posts Comments manifest capabilities and policy URLs with stricter official-style plugin metadata.
 - Switched the LinkedIn Posts Comments marketplace entry back to the same-repo `local` source format shown in the repo marketplace docs.
 - Clarified public install docs: use repo/Git URL, branch `main`, and optional sparse paths `.agents/plugins` plus `plugins/linkedin-posts-comments`; do not use raw `marketplace.json` as the marketplace source.

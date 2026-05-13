@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.5
+
+- Added `SETUP_AGENT_PROMPT.md` with a one-shot setup checklist for marketplace, plugin, Apify MCP, Google Drive, folder, spreadsheet, tab, and headers.
+- Added clearer public-sharing guidance to keep real Apify keys out of screenshots, videos, community posts, and repository files.
+
 ## 1.3.4
 
 - Aligned plugin capabilities with official examples: `Interactive`, `Read`, and `Write`.

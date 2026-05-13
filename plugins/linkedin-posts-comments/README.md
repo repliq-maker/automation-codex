@@ -151,7 +151,9 @@ Tell users to:
 6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md`.
 7. Replace `YOUR_APIFY_KEY`, sheet fields, keywords, filter, and number of posts.
 
-See `SETUP.md` for the full walkthrough, `DAILY_AUTOMATION_GUIDE.md` for the copy/paste daily prompt, `PRODUCTION_CHECKLIST.md` before release, and `SECURITY.md` before sharing screenshots or templates.
+For the easiest user onboarding flow, paste `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks the marketplace, plugin, Apify MCP server, Google Drive connection, folder, spreadsheet, tab, and headers.
+
+See `SETUP.md` for the full walkthrough, `SETUP_AGENT_PROMPT.md` for the copy/paste setup agent, `DAILY_AUTOMATION_GUIDE.md` for the copy/paste daily prompt, `PRODUCTION_CHECKLIST.md` before release, and `SECURITY.md` before sharing screenshots or templates.
 
 ## Files
 
@@ -160,4 +162,5 @@ See `SETUP.md` for the full walkthrough, `DAILY_AUTOMATION_GUIDE.md` for the cop
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` contains the exact Codex workflow.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` provides UI discovery metadata and a default `$linkedin-posts-comments` prompt.
 - `plugins/linkedin-posts-comments/agent.md` contains the parent and worker-agent instructions used by the skill.
+- `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` gives users a one-shot setup agent prompt with a visual readiness checklist.
 - `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` gives a simple copy/paste daily automation payload.

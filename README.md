@@ -58,6 +58,14 @@ Use $linkedin-posts-comments with this setup:
 
 Codex skill plugins may not appear as `@LinkedIn Posts Comments` mentions or slash commands in every UI. The reliable trigger is `$linkedin-posts-comments` or a natural-language request that names the LinkedIn Posts Comments plugin.
 
+For first-time setup, use:
+
+```text
+plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md
+```
+
+That prompt checks the marketplace, plugin, Apify MCP server, Google Drive connection, folder, spreadsheet, tab, and headers. Do not paste real Apify keys into screenshots, community posts, or videos; users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat.
+
 Daily automation format:
 
 ```text
@@ -77,6 +85,7 @@ Apify key: YOUR_APIFY_KEY
 - `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` registers the first plugin package.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` contains the plugin workflow.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/agents/openai.yaml` improves skill discovery and default prompt metadata.
+- `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` has the copy/paste setup agent and readiness checklist.
 - `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` has the copy/paste daily setup.
 
 ## Security
