@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.16
+
+- Reworked setup guidance into a one-prompt, two-pass flow.
+- Setup now stops after installing/upgrading marketplace, MCP, or connector surfaces and asks for restart/new chat before Sheet creation.
+- Daily automation prompt is shown only after a second-pass verification confirms tools are loaded and the Sheet is ready.
+
 ## 1.3.15
 
 - Changed the marketplace policy for LinkedIn Posts Comments to `INSTALLED_BY_DEFAULT`.

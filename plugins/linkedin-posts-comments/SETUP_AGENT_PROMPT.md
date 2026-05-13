@@ -17,6 +17,15 @@ Critical load rule:
 - Do not report READY TO RUN unless both `linkedin-posts-comments` appears in the available skill list for the run chat and Apify tools from `apify-linkedin-post` are visible/callable.
 - If either the skill or Apify tools were installed/configured during this setup chat but are not visible now, mark setup as restart/new-chat required and tell the user not to run the automation until after restarting Codex and opening a new chat.
 
+One-prompt, two-pass setup flow:
+- Use this same setup prompt for both passes.
+- Pass 1 is bootstrap: install/upgrade marketplace/plugin, add MCP, and connect Google Drive when needed.
+- If Pass 1 installs, upgrades, adds, or changes any marketplace/plugin/MCP/connector/auth surface, stop after that step. Do not create or verify the Sheet in that same chat.
+- End Pass 1 with: RESTART CODEX, OPEN A NEW CHAT, PASTE THIS SAME SETUP PROMPT AGAIN.
+- Pass 2 is verification and Sheet setup: only after the skill, Apify tools, and Google Drive tools are already visible in the current chat, create/verify the Sheet, tab, and headers.
+- Only after Pass 2 completes with the Sheet verified should you show READY TO RUN and provide the daily automation prompt.
+- Never tell the user to run the automation after a restart until the setup prompt has been rerun and the Sheet checklist is green.
+
 User setup values:
 Sheet file: Comments_Linkedin_Post
 Sheet tab: Comments
@@ -66,6 +75,7 @@ Setup checklist:
 - If this Codex build only exposes marketplace install through CLI, confirm the plugin is available and tell the user where to enable it in the UI.
 - Mark marketplace installation green when the marketplace is installed or upgraded.
 - Mark plugin loaded green only if `linkedin-posts-comments` appears in the current chat's available skill list. If the plugin was just installed/upgraded and the skill is not visible yet, mark it yellow and tell the user to restart Codex/open a new chat before running.
+- If you installed or upgraded the marketplace/plugin in this chat, stop the setup before Google Sheets work and tell the user to restart Codex, open a new chat, and paste this same setup prompt again.
 
 2. Apify MCP server
 - Check whether an MCP server named `apify-linkedin-post` already exists.
@@ -96,13 +106,14 @@ Setup checklist:
 - Mark MCP config saved green when `apify-linkedin-post` exists in private config.
 - Mark Apify tools loaded green only when the Apify tools are visible/callable in the current chat.
 - If the server is saved but Apify tools are not visible in the current chat, mark Apify tools loaded yellow and tell the user to restart Codex/open a new chat before running the automation.
+- If you added or changed the MCP server in this chat, stop the setup before Google Sheets work and tell the user to restart Codex, open a new chat, and paste this same setup prompt again.
 
 3. Google Drive and Google Sheets
 - Check whether the Google Drive plugin/connector is installed and connected.
 - If Google Drive is missing and Codex exposes a plugin or connector install flow, install or request the Google Drive connector directly.
 - If Google Drive is disconnected and Codex exposes an auth/connect flow, start that flow directly.
 - If Codex requires the user to approve Google Drive installation or sign in, ask for that approval/sign-in and then continue the setup in the same chat.
-- Only mark this step yellow and ask the user to rerun the prompt when Codex requires a restart or there is no available tool to continue after the user completes Google Drive auth.
+- If Google Drive was installed, connected, authenticated, or newly exposed in this chat and the tools are not fully available yet, stop before Sheet work and tell the user to restart Codex, open a new chat, and paste this same setup prompt again.
 - Once Google Drive is available, find or create the spreadsheet in the connector's default/root Drive location:
   Comments_Linkedin_Post
 - If the user explicitly provided a Sheet folder and the connector supports folder-scoped search or placement, use that folder.
@@ -149,12 +160,14 @@ If every line is green, end with:
 READY TO RUN
 
 If any plugin skill or Apify tool line is yellow/warn because it was saved but not loaded in this chat, do not say READY TO RUN. End with:
-RESTART CODEX, OPEN A NEW CHAT, THEN RUN
+RESTART CODEX, OPEN A NEW CHAT, PASTE THIS SAME SETUP PROMPT AGAIN
 
 Tell the user that if a run chat says it cannot find the `linkedin-posts-comments` skill, they should upgrade the marketplace, restart Codex, and open a new chat before running:
 codex plugin marketplace upgrade automation-codex
 
-Then give the user this daily automation template:
+If setup stopped after Pass 1 bootstrap, do not give the daily automation template yet. Tell the user to paste this same setup prompt again after restart.
+
+Only after Pass 2 completes and every required line is green, give the user this daily automation template:
 
 Use $linkedin-posts-comments with this setup:
 Optional Sheet folder: My Existing Folder

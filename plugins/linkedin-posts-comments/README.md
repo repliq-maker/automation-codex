@@ -154,6 +154,8 @@ codex plugin marketplace upgrade automation-codex
 
 Restart Codex or open a new chat after installing/upgrading the marketplace or adding the Apify MCP server. A saved marketplace/MCP config does not always update the current chat's loaded skill/tool list.
 
+The setup prompt is intentionally one prompt with two passes. Pass 1 installs/connects tools and may require restart. Pass 2, after restart/new chat, verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Users should not run the automation until Pass 2 says `READY TO RUN`.
+
 Tell users to:
 
 1. Add this GitHub repository as a Codex marketplace.

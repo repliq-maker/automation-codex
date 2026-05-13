@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Updated LinkedIn Posts Comments setup to use a one-prompt, two-pass install/restart/verify flow before showing the run prompt.
 - Changed LinkedIn Posts Comments to install by default from the marketplace and added cache/restart guidance for skill/MCP loading.
 - Hardened LinkedIn Posts Comments so missing `Sheet folder` is never a blocker and falls back to root/default Drive.
 - Added `Optional Sheet folder` to LinkedIn Posts Comments ready-to-paste run examples.
