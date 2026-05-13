@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.17
+
+- Clarified that the setup agent should run marketplace upgrades directly when possible.
+- Kept CLI commands as manual fallbacks only for unavailable tools, permission failures, or required external approvals.
+
 ## 1.3.16
 
 - Reworked setup guidance into a one-prompt, two-pass flow.

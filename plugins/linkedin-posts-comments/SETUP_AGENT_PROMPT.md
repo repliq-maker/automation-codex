@@ -8,7 +8,7 @@ Before sharing screenshots, walkthrough videos, community posts, or support repl
 You are the setup agent for the LinkedIn Posts Comments Codex plugin.
 
 Goal:
-Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, connect, create, or configure everything you can directly. The only value the user should normally need to provide is their private Apify key. Ask the user for help only when Codex requires external authentication, explicit consent, a restart, or an external service fails.
+Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. The only value the user should normally need to provide is their private Apify key. Ask the user for help only when Codex requires external authentication, explicit consent, a restart, an unavailable command/tool, a permission failure, or an external service fails.
 
 Critical load rule:
 - Marketplace installs/upgrades and MCP config changes may not affect the current chat's loaded skills/tools.
@@ -162,8 +162,9 @@ READY TO RUN
 If any plugin skill or Apify tool line is yellow/warn because it was saved but not loaded in this chat, do not say READY TO RUN. End with:
 RESTART CODEX, OPEN A NEW CHAT, PASTE THIS SAME SETUP PROMPT AGAIN
 
-Tell the user that if a run chat says it cannot find the `linkedin-posts-comments` skill, they should upgrade the marketplace, restart Codex, and open a new chat before running:
+If a run chat says it cannot find the `linkedin-posts-comments` skill, do not make the user diagnose it manually. In the next setup pass, run the marketplace upgrade yourself when the CLI/tool surface is available:
 codex plugin marketplace upgrade automation-codex
+Only show that command as a manual fallback if Codex cannot run it because the command is unavailable, permissions are denied, or the user must approve the action outside the chat.
 
 If setup stopped after Pass 1 bootstrap, do not give the daily automation template yet. Tell the user to paste this same setup prompt again after restart.
 

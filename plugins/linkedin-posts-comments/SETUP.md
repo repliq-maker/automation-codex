@@ -48,13 +48,13 @@ Use $linkedin-posts-comments with this setup:
 
 Slash commands and `@LinkedIn Posts Comments` mentions may not appear for skill-only plugins in every Codex UI.
 
-If the marketplace was already installed, update it with:
+If the marketplace was already installed, the setup agent should update it directly when the CLI/tool surface is available:
 
 ```text
 codex plugin marketplace upgrade automation-codex
 ```
 
-Then restart Codex or open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
+Only ask the user to run that command manually if the setup agent cannot run it because the command is unavailable, permissions are denied, or the user must approve the action outside the chat. Then restart Codex or open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
 
 Use the same setup prompt again after the restart. The first pass installs or connects tools. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Do not run the daily automation until the second pass says `READY TO RUN`.
 
@@ -169,7 +169,7 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 ## 6. Troubleshooting
 
 - If Apify cannot run, confirm the Apify key is valid and the private MCP setup was added correctly.
-- If a run chat says it cannot find the `linkedin-posts-comments` skill, upgrade the marketplace, restart Codex, and open a new chat.
+- If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should upgrade the marketplace directly when possible, then ask for restart/new chat.
 - If setup says the Apify MCP server is saved but tools are not visible, restart Codex and open a new chat before running.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.

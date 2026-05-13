@@ -38,7 +38,7 @@ Marketplace metadata:
 
 The marketplace entry uses a same-repo local source so Codex loads the plugin package from `plugins/linkedin-posts-comments` after cloning the marketplace repository.
 
-For existing installs, update the marketplace before testing a new release:
+For existing installs, the setup prompt updates the marketplace automatically when the CLI/tool surface is available. Manual fallback if the setup agent cannot run the command:
 
 ```text
 codex plugin marketplace upgrade automation-codex
