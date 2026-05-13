@@ -152,7 +152,7 @@ For existing installs, the setup prompt updates the marketplace automatically wh
 codex plugin marketplace upgrade automation-codex
 ```
 
-Restart Codex or open a new chat after installing/upgrading the marketplace or adding the Apify MCP server. A saved marketplace/MCP config does not always update the current chat's loaded skill/tool list.
+Fully quit and reopen Codex, then open a new chat after installing/upgrading the marketplace, enabling the plugin, or adding the Apify MCP server. A saved marketplace/MCP config does not always update the current chat's loaded skill/tool list.
 
 The setup prompt is intentionally one prompt with two passes. Pass 1 installs/connects all needed tools, including the official Google Drive plugin/connector, and may require a full Codex restart. Pass 2, after fully quitting/reopening Codex and opening a new chat, verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Users should not run the automation until Pass 2 says `READY TO RUN`.
 

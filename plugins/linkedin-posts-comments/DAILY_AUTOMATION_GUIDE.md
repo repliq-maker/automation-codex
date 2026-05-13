@@ -22,7 +22,7 @@ Number of posts: 25
 
 Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash command or `@LinkedIn Posts Comments` mention; skill-only plugins may not expose those in every Codex UI.
 
-If Codex says it cannot find the `linkedin-posts-comments` skill, the marketplace/plugin is not loaded in that chat. Upgrade the marketplace if needed, restart Codex, open a new chat, and try again.
+If Codex says it cannot find the `linkedin-posts-comments` skill, the marketplace/plugin is not loaded in that chat. Rerun `SETUP_AGENT_PROMPT.md` so the setup agent can verify plugin enablement, upgrade the marketplace when needed, and give the exact restart or blocker checklist.
 
 You do not need to mention Google Drive or paste the Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt already configured the private Apify MCP server.
 

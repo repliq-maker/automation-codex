@@ -44,7 +44,7 @@ For existing installs, the setup prompt updates the marketplace automatically wh
 codex plugin marketplace upgrade automation-codex
 ```
 
-Restart Codex or open a new chat after installing/upgrading the marketplace or adding the Apify MCP server. Chat skill/tool lists are loaded at chat start.
+Fully quit and reopen Codex, then open a new chat after installing/upgrading the marketplace, enabling the plugin, or adding the Apify MCP server. Chat skill/tool lists are loaded when the host/chat starts, so simply continuing the same chat may not expose new plugin skills or MCP tools.
 
 The setup prompt is one prompt with two passes: first install/connect all needed tools, then fully quit and reopen Codex, open a new chat, and paste the same setup prompt again to verify loaded tools and create the Sheet. Run automations only after the second pass says `READY TO RUN`.
 

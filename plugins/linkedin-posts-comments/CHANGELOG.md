@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.21
+
+- Tightened public setup and daily-run wording so users rerun the setup prompt for missing skills instead of guessing manual upgrade steps.
+- Replaced weak restart wording with the full quit/reopen/new chat rule.
+- Clarified that Apify keys belong only in private setup chats, not daily automation prompts.
+
 ## 1.3.20
 
 - Added explicit plugin install/enable verification for `linkedin-posts-comments@automation-codex`.
