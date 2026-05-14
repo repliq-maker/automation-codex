@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.26
+
+- Clarified that a provided Apify key is authorization to create the private `apify-linkedin-post` MCP config.
+- Prevented setup agents from asking for a second chat confirmation to store or persist the Apify key.
+- Added guidance to use Codex platform approval flows directly when sensitive MCP config persistence is reviewed.
+
 ## 1.3.25
 
 - Changed setup posture to act with recommended defaults instead of asking chat-permission for required setup steps.

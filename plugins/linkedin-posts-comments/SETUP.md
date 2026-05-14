@@ -4,7 +4,7 @@ Use this guide before sharing or running the plugin.
 
 For a guided one-shot setup chat, copy `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks installation, MCP setup, Google Drive, and the destination spreadsheet.
 
-The setup prompt is designed to act by default. It should not ask chat-permission before obvious setup steps such as marketplace install/upgrade, plugin enablement, MCP configuration, official Google Drive plugin setup, or Sheet/header creation. The only normal conversational question is the Apify key when missing. External platform approvals, sandbox approvals, and Google OAuth consent can still appear as required UI flows; those cannot be bypassed by the prompt.
+The setup prompt is designed to act by default. It should not ask chat-permission before obvious setup steps such as marketplace install/upgrade, plugin enablement, MCP configuration, official Google Drive plugin setup, or Sheet/header creation. The only normal conversational question is the Apify key when missing. When the user provides an Apify key in the private setup chat, that is the instruction to save it only into the private `apify-linkedin-post` MCP config; the setup agent should not ask for a second chat confirmation to store or persist it. External platform approvals, sandbox approvals, and Google OAuth consent can still appear as required UI flows; those cannot be bypassed by the prompt.
 
 ## 1. Install The Plugin
 
@@ -134,6 +134,8 @@ Status
 ## 3. Configure Apify MCP
 
 The user only needs to paste their Apify key during the private setup prompt. Daily or weekly run prompts should not include the key after `apify-linkedin-post` is configured. The plugin uses `apify-linkedin-post` internally as the MCP server name.
+
+If Codex platform review flags the Apify key or MCP config as sensitive, the setup agent should start the platform approval flow directly when possible. It should not ask the user to reply with a second approval in chat. If no platform approval flow is callable, the setup agent should mark platform approval as the blocker and tell the user to approve the Codex platform prompt or rerun setup in a mode that allows platform approvals.
 
 Do not collect keywords, date filter, or post volume during setup. `KEYWORDS`, `Filter By`, and `Number of posts` belong in each run prompt. The setup Sheet file/tab can create a convenient default Sheet, but any run prompt may provide different Sheet fields and the plugin should use the values from that current run. If no folder is provided or folder placement is unavailable, create or use the Sheet in the connector's default/root Drive location.
 

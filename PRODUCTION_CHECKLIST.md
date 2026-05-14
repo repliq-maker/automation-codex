@@ -28,6 +28,7 @@ Use this before sharing the marketplace with the community.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` retries transient MCP and connector checks before asking users for action.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` tells users to reconnect Google Drive for refresh-token/OAuth failures.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` asks in chat only for the Apify key when it is missing.
+- `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` does not ask for a second chat approval to persist the provided Apify key in private MCP config.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` configures Apify only with a private user key and does not put keys into daily prompts.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` uses the official Google Drive plugin/connector, not Google Drive MCP.
 - A real dry run appends rows to the intended Google Sheet.

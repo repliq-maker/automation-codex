@@ -11,13 +11,15 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. Use recommended defaults. Do not ask chat-permission before obvious setup actions such as installing/upgrading the marketplace, enabling the plugin, adding MCP config, installing/enabling official Google Drive, or creating the Sheet/tab/headers. The only normal conversational question is for the user's private Apify key when it is missing.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.25` or newer.
+- `1.3.26` or newer.
 
 Default-action rule:
 - Do not ask "Do you want me to..." before running required setup actions. Proceed with the recommended defaults in this prompt.
 - If Codex itself shows a platform approval, sandbox approval, connector auth, or OAuth consent UI, let the user approve that platform flow and continue afterward. Do not add an extra chat question before starting the flow.
 - If the platform blocks a required action and there is no callable approval/auth flow, show the exact blocker in the checklist and the smallest action the user must take.
 - The only normal setup value to request in chat is the Apify key when the prompt still contains `YOUR_APIFY_KEY` or no usable key is available.
+- If the user provides an Apify key in this private setup chat, treat that as explicit instruction to save it only into the private `apify-linkedin-post` MCP config. Do not ask a second chat confirmation to store, persist, or save that key.
+- If Codex platform review flags the Apify key or MCP config as sensitive, start the platform approval flow directly when possible. Do not ask the user to reply with approval in chat. If no platform approval flow is callable, mark the blocker as platform approval required and tell the user to approve the Codex platform prompt or rerun setup in a mode that allows platform approvals.
 
 Critical load rule:
 - Marketplace installs/upgrades and MCP config changes may not affect the current chat's loaded skills/tools.
@@ -134,6 +136,7 @@ Setup checklist:
 - Check whether an MCP server named `apify-linkedin-post` already exists.
 - If it exists, do not overwrite it unless it is clearly broken or the user asks you to replace it.
 - If it does not exist, configure it using the user's private Apify key.
+- A provided Apify key is enough to create the private MCP entry. Do not ask the user to separately confirm storing the key in private Codex MCP config.
 - Prefer the Codex CLI when available:
   codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
 - Desired MCP config:

@@ -18,6 +18,7 @@ Use this before sharing the plugin repository with the community.
 - Setup prompt retries transient MCP, Apify, Google Drive, and non-destructive CLI checks before asking the user for action.
 - Setup prompt treats Google Drive OAuth refresh-token failures as a reconnect blocker, not a transient retry.
 - Setup prompt acts on required setup steps with recommended defaults instead of asking chat-permission first.
+- Setup prompt treats a provided Apify key as authorization to create the private MCP config and does not ask for a second chat confirmation.
 - Setup prompt uses the official Google Drive plugin/connector and never configures Google Drive as MCP.
 - `plugins/linkedin-posts-comments/.codex-plugin/plugin.json` is committed.
 - `plugins/linkedin-posts-comments/skills/linkedin-posts-comments/SKILL.md` is committed.

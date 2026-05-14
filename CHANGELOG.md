@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Clarified that LinkedIn Posts Comments setup should not ask for a second chat approval after the user provides an Apify key.
 - Updated LinkedIn Posts Comments setup to avoid chat-permission prompts for required default setup actions.
 - Added Google Drive OAuth reconnect guidance for refresh-token failures during setup.
 - Added LinkedIn Posts Comments setup retries before asking users to act on transient MCP or connector failures.
