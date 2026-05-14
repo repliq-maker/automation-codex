@@ -1,6 +1,6 @@
 {
   "name": "linkedin-posts-comments",
-  "version": "1.3.26",
+  "version": "1.3.27",
   "description": "Daily automation workflow for finding qualified LinkedIn posts, marking irrelevant posts, and drafting short comment options into a provided Google Sheet.",
   "author": {
     "name": "Repliq Maker",

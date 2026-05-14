@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.27
+
+- Kept Apify setup on the direct API-key MCP path instead of introducing Apify OAuth.
+- Clarified that a provided Apify key should be used for the private `apify-linkedin-post` MCP config without a second chat approval.
+- Added a clearer blocker name for rare Codex platform secret-write blocks instead of switching setup methods.
+
 ## 1.3.26
 
 - Clarified that a provided Apify key is authorization to create the private `apify-linkedin-post` MCP config.
