@@ -11,7 +11,7 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. Use recommended defaults. Do not ask chat-permission before obvious setup actions such as installing/upgrading the marketplace, enabling the plugin, adding MCP config, installing/enabling official Google Drive, or creating the Sheet/tab/headers. The only normal conversational question is for the user's Apify API key when it is missing.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.30` or newer.
+- `1.3.31` or newer.
 
 Default-action rule:
 - Do not ask "Do you want me to..." before running required setup actions. Proceed with the recommended defaults in this prompt.
@@ -47,6 +47,9 @@ Retry-before-user-action rule:
 
 One-prompt, two-pass setup flow:
 - Use this same setup prompt for both passes.
+- This setup prompt must be idempotent. A new chat has no memory of Pass 1, so infer the current pass from actual state: marketplace configured, plugin enabled, plugin cache current, MCP saved with the correct LinkedIn post-search URL, Google Drive connected, and Sheet/header state.
+- Do not reinstall, re-enable, or re-add anything that is already correct. A no-op check, no-op marketplace upgrade, or already-current cache is not a setup change and must not set `restart_required = true`.
+- Treat the setup as Pass 2 when all required config/cache/MCP/connector state already exists at the start of the chat, even if the user pasted the full setup prompt in a new chat instead of typing `continue`.
 - Pass 1 is bootstrap: install/upgrade marketplace/plugin, add Apify MCP, and install/connect the official Google Drive plugin/connector when needed.
 - During Pass 1, do not stop after the first install/change. Continue through all bootstrap checks so marketplace/plugin, Apify MCP, and Google Drive are all handled before one global restart.
 - Marketplace added/upgraded is not enough. The LinkedIn Posts Comments plugin must also be installed/enabled.
@@ -98,7 +101,7 @@ Setup checklist:
   main
 - If the marketplace is missing, install it with the Codex CLI when available:
   codex plugin marketplace add https://github.com/repliq-maker/automation-codex.git --ref main
-- If the marketplace already exists, upgrade it so the latest plugin version and default-install policy are applied:
+- If the marketplace already exists, check whether the cached LinkedIn Posts Comments plugin version is current. Upgrade only when the cache is missing, stale, or policy/config is wrong:
   codex plugin marketplace upgrade automation-codex
 - Capture the exit code and output of marketplace add/upgrade commands. If the command fails, mark marketplace/cache refresh red with the command error. Do not mark `Marketplace added/upgraded` green after a failed command.
 - If marketplace upgrade fails with text like `failed to refresh installed plugin cache`, `failed to back up plugin cache entry`, `Access is denied`, or `os error 5`, wait 10 seconds and retry the marketplace upgrade once. If it still fails, treat it as a locked or stale plugin cache. Do not keep asking the user to restart Codex from inside the chat. Tell the user to:
@@ -137,7 +140,7 @@ Setup checklist:
 - Mark plugin loaded green only if `linkedin-posts-comments` appears in the current chat's available skill list. If the plugin was just installed/upgraded/enabled and the skill is not visible yet, mark it yellow and tell the user to fully quit/reopen Codex, then type `continue` in this setup chat or use a new chat before running.
 - If the marketplace is present but the plugin is not installed/enabled, install/enable the plugin before moving on. Do not tell the user to restart yet.
 - If the plugin is enabled and the cache package exists but the skill is still not loaded after a fresh chat, run the marketplace upgrade and re-check once when possible. If the upgrade fails, mark the cache refresh failure red. If no config or package state changes in this pass and the skill is still missing, mark the plugin skill line red with the exact reason instead of asking for another restart.
-- If you installed, upgraded, or enabled the marketplace/plugin in this chat, set `restart_required = true`, but continue to the Apify MCP and Google Drive bootstrap checks before stopping.
+- If you installed, upgraded, enabled, or changed the marketplace/plugin in this chat, set `restart_required = true`, but continue to the Apify MCP and Google Drive bootstrap checks before stopping. If the marketplace/plugin was already correct when checked, do not set `restart_required`.
 
 2. Apify MCP server
 - Check whether an MCP server named `apify-linkedin-post` already exists.
@@ -180,7 +183,7 @@ Setup checklist:
 - During those retries, re-check `codex mcp list --json`, re-check `codex mcp get apify-linkedin-post --json` when available, re-run any available tool discovery, and try one lightweight Apify MCP capability check if a tool surface appears. Do not run the full scraper during setup verification.
 - If all retries fail but the server was saved or changed in this pass, mark Apify tools yellow and tell the user to fully quit/reopen Codex, then type `continue` in this setup chat or use a new chat before running the automation.
 - If all retries fail and the server was already present before this pass, mark Apify tools red with the exact failure reason instead of asking for another normal restart loop.
-- If you added or changed the MCP server in this chat, set `restart_required = true`, but continue to the Google Drive bootstrap check before stopping.
+- If you added or changed the MCP server in this chat, set `restart_required = true`, but continue to the Google Drive bootstrap check before stopping. If the MCP config was already correct when checked, do not set `restart_required`.
 
 3. Google Drive and Google Sheets
 - Check whether the Google Drive plugin/connector is installed and connected.
@@ -193,7 +196,7 @@ Setup checklist:
 - If the official Google Drive plugin is installed but disabled and private config is writable, enable only the official plugin entry:
   [plugins."google-drive@openai-curated"]
   enabled = true
-- If Google Drive was installed, connected, authenticated, or newly exposed in this chat and the tools are not fully available yet, set `restart_required = true`.
+- If Google Drive was installed, connected, authenticated, or newly exposed in this chat and the tools are not fully available yet, set `restart_required = true`. If Google Drive was already connected and usable when checked, do not set `restart_required`.
 - If Google Drive tools are present but a Drive or Sheets check fails with a transient timeout, rate limit, backend unavailable, or empty response, apply the retry-before-user-action ladder before asking the user for action.
 - If `restart_required = true` but Google Drive tools are already available, you may still create/verify the Sheet, tab, and headers before asking for restart. Do not say READY TO RUN until the plugin skill and Apify tools are loaded/callable after restart.
 - If `restart_required = true` and Google Drive tools are not fully available, do not start Sheet work. Finish the visual bootstrap checklist and tell the user to fully quit Codex, reopen it, then either type `continue` in this setup chat or open a new chat and paste this same setup prompt again.

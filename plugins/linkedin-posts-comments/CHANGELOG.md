@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.31
+
+- Made setup explicitly idempotent across same-chat `continue` and new-chat reruns.
+- Clarified that already-correct marketplace/plugin/cache/MCP checks must not trigger another restart.
+- Instructed new setup chats to infer Pass 2 from installed state and move to Sheet setup.
+
 ## 1.3.30
 
 - Removed references to obsolete Apify MCP tools from public docs.
