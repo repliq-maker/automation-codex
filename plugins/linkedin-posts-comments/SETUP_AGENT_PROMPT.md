@@ -11,7 +11,7 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. Use recommended defaults. Do not ask chat-permission before obvious setup actions such as installing/upgrading the marketplace, enabling the plugin, adding MCP config, installing/enabling official Google Drive, or creating the Sheet/tab/headers. The only normal conversational question is for the user's Apify API key when it is missing.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.31` or newer.
+- `1.3.32` or newer.
 
 Default-action rule:
 - Do not ask "Do you want me to..." before running required setup actions. Proceed with the recommended defaults in this prompt.
@@ -276,7 +276,18 @@ Then show a concise diagnostic checklist:
 ✅ Official Google Drive plugin/connector connected
 ✅ Sheet file, tab, and headers are ready
 
-Tell the user this is no longer a setup prompt task to repeat. The smallest next diagnostic is to open one normal fresh Codex chat and paste the actual daily run prompt starting with `Use $linkedin-posts-comments with this setup:`. If that run chat still says the skill or Apify tools are missing, the remaining issue is Codex runtime/plugin/MCP loading, not Sheet setup.
+Tell the user this is no longer a setup prompt task to repeat. The smallest next diagnostic is to open one normal fresh Codex chat and paste the runtime test prompt below. Make clear that this is a runtime diagnostic, not proof that the daily automation is ready. If that run chat still says the skill or Apify tools are missing, the remaining issue is Codex runtime/plugin/MCP loading, not Sheet setup.
+
+Show this exact copy/paste runtime test prompt:
+
+Use $linkedin-posts-comments with this setup:
+Sheet file: Comments_Linkedin_Post
+Sheet tab: Comments
+KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
+Filter By: Past Month
+Number of posts: 5
+
+Explain that `Number of posts: 5` is intentionally small for the runtime test. If this works, the user can use their normal daily/weekly prompt with their preferred number of posts. If it fails because the skill or Apify tools are still missing, do not rerun setup again; investigate Codex runtime/plugin/MCP loading.
 
 If `restart_required = true` and any plugin skill, Apify tool, or Google Drive connector line is yellow because it was saved/connected but not loaded in this chat, do not say READY TO RUN. End with:
 FULLY QUIT CODEX, REOPEN IT, THEN EITHER TYPE `continue` IN THIS SETUP CHAT OR OPEN A NEW CHAT AND PASTE THIS SAME SETUP PROMPT AGAIN
@@ -293,7 +304,7 @@ If setup stopped after Pass 1 bootstrap, do not give the daily automation templa
 3. Return to this setup chat and type `continue`.
 4. If this same chat still cannot see the plugin skill or Apify tools after restart, setup should verify the Sheet with Google Drive when possible and then report `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of repeating setup.
 
-Only after Pass 2 completes and every required line is green, give the user this daily automation template:
+Only after Pass 2 completes and every required line is green, give the user this daily automation template for normal one-off or scheduled runs:
 
 Use $linkedin-posts-comments with this setup:
 Optional Sheet folder: My Existing Folder

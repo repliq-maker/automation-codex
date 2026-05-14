@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.32
+
+- Added a copy/paste runtime test prompt to the `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` output.
+- Clarified that the small runtime test is diagnostic only and normal daily automation should wait for `READY TO RUN`.
+
 ## 1.3.31
 
 - Made setup explicitly idempotent across same-chat `continue` and new-chat reruns.

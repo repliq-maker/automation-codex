@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Added a copy/paste runtime test prompt to LinkedIn Posts Comments setup blocked-state output.
 - Clarified LinkedIn Posts Comments setup idempotency so new setup chats detect completed Pass 1 state and continue without reinstalling or asking for another restart.
 - Updated LinkedIn Posts Comments setup to avoid endless new-chat loops and create the Sheet when Google Drive is ready even if custom runtime surfaces are not visible in the setup chat.
 - Added stale Apify MCP detection/replacement for non-matching LinkedIn post-search configs.
