@@ -154,13 +154,13 @@ codex plugin marketplace upgrade automation-codex
 
 Fully quit and reopen Codex after installing/upgrading the marketplace, enabling the plugin, or adding the Apify MCP server. After reopening, users can return to the same setup chat and type `continue`; if that resumed chat still cannot see the new plugin skill or MCP tools, open a new chat and paste the setup prompt again.
 
-The setup prompt is intentionally one prompt with two passes. Pass 1 installs/connects all needed tools, including the official Google Drive plugin/connector, and may require a full Codex restart. Pass 2, after fully quitting/reopening Codex, can continue in the same setup chat with `continue` or in a new chat with the same prompt. It verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Users should not run the automation until Pass 2 says `READY TO RUN`.
+The setup prompt is intentionally one prompt with two passes. Pass 1 installs/connects all needed tools, including the official Google Drive plugin/connector, and may require a full Codex restart. Pass 2, after fully quitting/reopening Codex, can continue in the same setup chat with `continue` or in a new chat with the same prompt. It verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. If the custom skill or Apify tools still are not visible but config/cache/MCP are correct, it should create the Sheet anyway and report `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of looping through more new chats. Users should not run the automation until Pass 2 says `READY TO RUN`.
 
 Tell users to:
 
 1. Paste `SETUP_AGENT_PROMPT.md` into a private Codex chat.
 2. Let the setup agent add/upgrade the marketplace, enable `LinkedIn Posts Comments` as `linkedin-posts-comments@automation-codex`, add the Apify MCP server, and install/connect the official Google Drive plugin/connector when possible.
-3. After the full Codex restart, type `continue` in the same setup chat or paste the same setup prompt in a new chat so it can create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files.
+3. After the full Codex restart, type `continue` in the same setup chat or paste the same setup prompt in a new chat so it can create the Sheet, tab, and headers. Folder placement is optional/manual when the connector cannot create folders or move files. If setup reports `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED`, stop repeating setup and use a normal run chat as the runtime diagnostic.
 4. Approve Google Drive sign-in only if Codex asks for user consent.
 5. Create an Apify token in their own Apify account.
 6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` only after setup says `READY TO RUN`.

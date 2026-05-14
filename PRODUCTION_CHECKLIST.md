@@ -13,6 +13,7 @@ Use this before sharing the marketplace with the community.
 - Public setup docs tell users to use branch/ref `main` and partial paths `.agents/plugins` plus `plugins/linkedin-posts-comments` when Codex asks for sparse paths.
 - Public setup docs route users through each plugin's setup agent before daily automation use.
 - Setup docs explain the one-prompt/two-pass flow and require a full quit/reopen after plugin or MCP changes, with same-chat `continue` allowed before falling back to a new chat.
+- Setup docs prevent endless new-chat loops by allowing Sheet setup when config/cache/MCP are correct but runtime surfaces are not visible in the setup chat.
 - Setup docs distinguish marketplace-added from plugin-installed/enabled.
 - No real API keys are present in the repository.
 

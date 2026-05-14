@@ -47,7 +47,7 @@ The setup prompt should add/upgrade the marketplace, enable `linkedin-posts-comm
 
 The setup prompt also verifies the plugin cache. If Codex reports that the marketplace upgrade failed while refreshing or backing up the plugin cache, follow the setup prompt's external-terminal recovery steps instead of repeating normal restarts.
 
-If the setup prompt changes marketplace, plugin, MCP, or connector state, fully quit and reopen Codex. Then either type `continue` in the same setup chat or open a new chat and paste the same setup prompt again. The second pass verifies loaded tools and creates or checks the Sheet, tab, and headers. Do not run the daily automation until setup says `READY TO RUN`.
+If the setup prompt changes marketplace, plugin, MCP, or connector state, fully quit and reopen Codex. Then either type `continue` in the same setup chat or open a new chat and paste the same setup prompt again. The second pass verifies loaded tools and creates or checks the Sheet, tab, and headers. If the custom skill or Apify tools still are not visible but config/cache/MCP are correct, setup should create the Sheet anyway and report `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of asking for endless new chats. Do not run the daily automation until setup says `READY TO RUN`.
 
 ## Invoke A Plugin
 

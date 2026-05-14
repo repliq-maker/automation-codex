@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.29
+
+- Prevented setup from looping through new chats when plugin/MCP config and cache are correct but runtime surfaces are not visible in the setup chat.
+- Allowed Sheet creation to proceed with Google Drive when marketplace/plugin/MCP config are verified, even if the custom skill or Apify tools are not visible in that setup chat.
+- Added stale MCP detection so existing `apify-linkedin-post` configs using `apify/rag-web-browser` are replaced with `harvestapi/linkedin-post-search`.
+
 ## 1.3.28
 
 - Clarified that after a full Codex quit/reopen, users can type `continue` in the same setup chat instead of always opening a new chat.
