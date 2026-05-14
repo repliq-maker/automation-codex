@@ -11,7 +11,7 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. Use recommended defaults. Do not ask chat-permission before obvious setup actions such as installing/upgrading the marketplace, enabling the plugin, adding MCP config, installing/enabling official Google Drive, or creating the Sheet/tab/headers. The only normal conversational question is for the user's Apify API key when it is missing.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.32` or newer.
+- `1.3.34` or newer.
 
 Default-action rule:
 - Do not ask "Do you want me to..." before running required setup actions. Proceed with the recommended defaults in this prompt.
@@ -26,6 +26,7 @@ Critical load rule:
 - Marketplace installs/upgrades and MCP config changes may not affect the current chat's loaded skills/tools.
 - A plugin can be saved on disk but still not appear in the current chat's skill list until Codex is restarted or a new chat is opened.
 - An MCP server can be saved in private config but still not expose Apify tools in the current chat until Codex is restarted or a new chat is opened.
+- Codex Settings/UI can show a plugin or MCP server as installed/enabled while the current chat still does not have that skill or tool surface injected into its model context. Treat those as separate layers: installed/enabled, cached, and visible/callable in this chat.
 - Do not report READY TO RUN unless both `linkedin-posts-comments` appears in the available skill list for the run chat and Apify tools from `apify-linkedin-post` are visible/callable.
 - If either the skill or Apify tools were installed/configured during this setup chat but are not visible now, mark setup as restart required and tell the user not to run the automation until after fully quitting/reopening Codex and rerunning setup checks.
 - Do not block Google Sheet creation just because the plugin skill or Apify tools are not visible in the setup chat after config/cache/MCP have been verified. Sheet setup only requires Google Drive.
@@ -276,7 +277,7 @@ Then show a concise diagnostic checklist:
 ✅ Official Google Drive plugin/connector connected
 ✅ Sheet file, tab, and headers are ready
 
-Tell the user this is no longer a setup prompt task to repeat. The smallest next diagnostic is to open one normal fresh Codex chat and paste the runtime test prompt below. Make clear that this is a runtime diagnostic, not proof that the daily automation is ready. If that run chat still says the skill or Apify tools are missing, the remaining issue is Codex runtime/plugin/MCP loading, not Sheet setup.
+Tell the user this is no longer a setup prompt task to repeat. Explain that Settings/UI can show the plugin and MCP as installed while the current chat still does not expose them to the agent. The smallest next diagnostic is to open one normal fresh Codex chat and paste the robust runtime test prompt below. Make clear that this is a runtime diagnostic, not proof that the daily automation is ready. If that run chat still says the skill or Apify tools are missing after trying the cached-skill and `tool_search` fallback instructions in the prompt, the remaining issue is Codex runtime/plugin/MCP loading, not Sheet setup or cache.
 
 Show this exact copy/paste runtime test prompt:
 
@@ -286,6 +287,8 @@ Sheet tab: Comments
 KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
 Filter By: Past Month
 Number of posts: 5
+
+If `$linkedin-posts-comments` is not in your loaded skill list, do not stop immediately. First find and read the cached skill file under `~/.codex/plugins/cache/automation-codex/linkedin-posts-comments/*/skills/linkedin-posts-comments/SKILL.md` and follow it manually. If Apify tools are not directly visible, use `tool_search` for `apify linkedin post search` or `harvestapi/linkedin-post-search` before reporting blocked. If neither loaded Apify tools nor `tool_search` are available, report `RUNTIME LOAD BLOCKED`.
 
 Explain that `Number of posts: 5` is intentionally small for the runtime test. If this works, the user can use their normal daily/weekly prompt with their preferred number of posts. If it fails because the skill or Apify tools are still missing, do not rerun setup again; investigate Codex runtime/plugin/MCP loading.
 

@@ -22,7 +22,28 @@ Number of posts: 25
 
 Use `$linkedin-posts-comments` as the reliable trigger. Do not rely on a slash command or `@LinkedIn Posts Comments` mention; skill-only plugins may not expose those in every Codex UI.
 
-If Codex says it cannot find the `linkedin-posts-comments` skill, the marketplace/plugin is not loaded in that chat. Rerun `SETUP_AGENT_PROMPT.md` so the setup agent can verify plugin enablement, upgrade the marketplace when needed, and give the exact restart or blocker checklist.
+If Codex says it cannot find the `linkedin-posts-comments` skill during normal daily usage, the marketplace/plugin may be installed in Settings but not injected into that chat's model context. If setup has not completed yet, rerun `SETUP_AGENT_PROMPT.md`. If setup already ended with `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED`, do not repeat setup; use the robust runtime prompt below. It asks the agent to read the cached skill file manually and try Apify tool discovery before reporting a runtime loading blocker.
+
+## Robust Runtime Prompt
+
+Use this version when Codex Settings shows the plugin/MCP installed but a run chat says the skill or Apify tools are not loaded:
+
+```text
+Use $linkedin-posts-comments with this setup:
+Sheet file: Comments_Linkedin_Post
+Sheet tab: Comments
+KEYWORDS: linkedin outreach / cold outreach / ai sdr / outbound sales / sales automation / reply rate / prospecting
+Filter By: Past Month
+Number of posts: 5
+
+If $linkedin-posts-comments is not in your loaded skill list, do not stop immediately. First find and read the cached skill file under ~/.codex/plugins/cache/automation-codex/linkedin-posts-comments/*/skills/linkedin-posts-comments/SKILL.md and follow it manually.
+
+If Apify tools are not directly visible, use tool_search for apify linkedin post search or harvestapi/linkedin-post-search before reporting blocked.
+
+If neither loaded Apify tools nor tool_search are available, report RUNTIME LOAD BLOCKED and include which surfaces are missing.
+```
+
+`Number of posts: 5` is intentionally small for this test. If it works, use the simple daily prompt with the normal number of posts. If it fails after the cached-skill and `tool_search` fallback, the blocker is Codex runtime/plugin/MCP loading, not the Sheet setup.
 
 You do not need to mention Google Drive or paste the Apify key in normal runs. The Sheet fields tell the plugin where to write, and the setup prompt already configured the private Apify MCP server.
 

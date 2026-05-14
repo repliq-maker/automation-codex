@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.34
+
+- Added a robust runtime prompt for chats where Codex Settings shows the plugin/MCP installed but the skill or Apify tools are not injected into the chat.
+- Clarified that this is a runtime loading surface issue, not necessarily a plugin cache or Sheet setup issue.
+
+## 1.3.33
+
+- Added cached-skill and Apify tool-discovery fallback instructions to the runtime test prompt.
+- Clarified that setup should not be repeated when runtime loading is blocked after the Sheet is ready.
+
 ## 1.3.32
 
 - Added a copy/paste runtime test prompt to the `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` output.
