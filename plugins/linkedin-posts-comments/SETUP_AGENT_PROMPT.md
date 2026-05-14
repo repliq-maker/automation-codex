@@ -11,7 +11,7 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. Use recommended defaults. Do not ask chat-permission before obvious setup actions such as installing/upgrading the marketplace, enabling the plugin, adding MCP config, installing/enabling official Google Drive, or creating the Sheet/tab/headers. The only normal conversational question is for the user's Apify API key when it is missing.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.29` or newer.
+- `1.3.30` or newer.
 
 Default-action rule:
 - Do not ask "Do you want me to..." before running required setup actions. Proceed with the recommended defaults in this prompt.
@@ -56,7 +56,7 @@ One-prompt, two-pass setup flow:
 - End Pass 1 with: FULLY QUIT CODEX, REOPEN IT, THEN EITHER TYPE `continue` IN THIS SETUP CHAT OR OPEN A NEW CHAT AND PASTE THIS SAME SETUP PROMPT AGAIN.
 - Do not try to restart or kill Codex yourself from inside the setup chat. The user must fully quit and reopen Codex so the host process reloads plugin skills and MCP tools.
 - After Codex is reopened, the user may continue in the same setup chat by typing `continue`. In that case, immediately rerun the setup checklist and verify whether the skill, Apify tools, and Google Drive tools are visible in this resumed chat.
-- If the resumed setup chat still cannot see the newly installed skill or MCP tools after restart and retries, tell the user to open a new chat and paste the same setup prompt. Do not make new chat the first instruction unless the current Codex build clearly requires it.
+- If the resumed setup chat still cannot see the newly installed skill or MCP tools after restart and retries, do not loop. If config/cache/MCP are correct and Google Drive is available, create/verify the Sheet and use the `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` ending. Suggest a new chat only once as an optional runtime diagnostic, not as another setup loop.
 - Do not create an endless restart loop. Only ask for a full restart when this exact pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed in this pass and a required skill/tool is still missing, diagnose the missing install/enablement and mark the exact blocker red instead of repeating the same restart instruction.
 - Pass 2 is verification and Sheet setup: after restart, verify skill/tool visibility, but create/verify the Sheet as soon as Google Drive tools are available and config/cache/MCP are correct. Do not block Sheet setup only because the custom plugin skill or Apify tools are not visible in this setup chat.
 - Only after Pass 2 completes with the Sheet verified and the plugin skill plus Apify tools are visible/callable should you show READY TO RUN and provide the daily automation prompt.
@@ -144,7 +144,7 @@ Setup checklist:
 - If it exists, inspect its definition with `codex mcp get apify-linkedin-post --json` or the active private config. Redact any token from logs or summaries.
 - Existing MCP name is not enough. The MCP definition must use this exact Apify tools URL:
   https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search
-- Treat the MCP config as stale or broken if it contains `apify/rag-web-browser`, does not contain `harvestapi/linkedin-post-search`, does not use `mcp-remote`, or is missing the Authorization bearer header.
+- Treat the MCP config as stale or broken if it does not contain `harvestapi/linkedin-post-search`, does not use `mcp-remote`, or is missing the Authorization bearer header.
 - If the MCP config is stale or broken, replace it directly when the Apify key is available:
   codex mcp remove apify-linkedin-post
   codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
@@ -268,7 +268,7 @@ Then show a concise diagnostic checklist:
 ✅ LinkedIn Posts Comments plugin enabled
 ✅ LinkedIn Posts Comments plugin cache current
 ⚠️ Plugin skill `linkedin-posts-comments` not visible in this setup chat
-✅ MCP server `apify-linkedin-post` saved with `harvestapi/linkedin-post-search`
+✅ MCP server `apify-linkedin-post` saved with the LinkedIn post-search tool
 ⚠️ Apify tools not visible/callable in this setup chat
 ✅ Official Google Drive plugin/connector connected
 ✅ Sheet file, tab, and headers are ready
@@ -288,7 +288,7 @@ If setup stopped after Pass 1 bootstrap, do not give the daily automation templa
 1. Fully quit Codex, not just close this chat or window.
 2. Reopen Codex.
 3. Return to this setup chat and type `continue`.
-4. If this same chat still cannot see the plugin skill or Apify tools, open a new chat and paste this same setup prompt again.
+4. If this same chat still cannot see the plugin skill or Apify tools after restart, setup should verify the Sheet with Google Drive when possible and then report `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of repeating setup.
 
 Only after Pass 2 completes and every required line is green, give the user this daily automation template:
 

@@ -1,10 +1,16 @@
 # Changelog
 
+## 1.3.30
+
+- Removed references to obsolete Apify MCP tools from public docs.
+- Kept MCP validation focused on the required `harvestapi/linkedin-post-search` tool.
+- Tightened setup continuation wording so a missing runtime surface no longer causes repeated setup/new-chat loops.
+
 ## 1.3.29
 
 - Prevented setup from looping through new chats when plugin/MCP config and cache are correct but runtime surfaces are not visible in the setup chat.
 - Allowed Sheet creation to proceed with Google Drive when marketplace/plugin/MCP config are verified, even if the custom skill or Apify tools are not visible in that setup chat.
-- Added stale MCP detection so existing `apify-linkedin-post` configs using `apify/rag-web-browser` are replaced with `harvestapi/linkedin-post-search`.
+- Added stale MCP detection so non-matching `apify-linkedin-post` configs are replaced with `harvestapi/linkedin-post-search`.
 
 ## 1.3.28
 

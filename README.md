@@ -44,7 +44,7 @@ For existing installs, the setup prompt updates the marketplace automatically wh
 codex plugin marketplace upgrade automation-codex
 ```
 
-Fully quit and reopen Codex after installing/upgrading the marketplace, enabling the plugin, or adding the Apify MCP server. After reopening, users can return to the same setup chat and type `continue`; if that resumed chat still cannot see the new plugin skills or MCP tools, open a new chat and paste the setup prompt again.
+Fully quit and reopen Codex after installing/upgrading the marketplace, enabling the plugin, or adding the Apify MCP server. After reopening, users can return to the same setup chat and type `continue`. If that resumed chat still cannot see the new plugin skills or MCP tools but config/cache/MCP are correct, setup should create the Sheet anyway and report `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED`; a new chat is only a one-time runtime diagnostic, not another setup loop.
 
 The setup prompt is one prompt with two passes: first install/connect all needed tools, then fully quit and reopen Codex. For the second pass, type `continue` in the same setup chat or paste the setup prompt in a new chat to verify loaded tools and create the Sheet. If the custom skill or Apify tools still are not visible but config/cache/MCP are correct, setup should create the Sheet anyway and report `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of looping through more new chats. Run automations only after the second pass says `READY TO RUN`.
 

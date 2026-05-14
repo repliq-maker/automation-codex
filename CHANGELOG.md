@@ -3,7 +3,7 @@
 ## Marketplace
 
 - Updated LinkedIn Posts Comments setup to avoid endless new-chat loops and create the Sheet when Google Drive is ready even if custom runtime surfaces are not visible in the setup chat.
-- Added stale Apify MCP detection/replacement for old `apify/rag-web-browser` configs.
+- Added stale Apify MCP detection/replacement for non-matching LinkedIn post-search configs.
 - Clarified LinkedIn Posts Comments setup restart guidance so users can type `continue` in the same setup chat after fully reopening Codex, with new chat as a fallback.
 - Kept LinkedIn Posts Comments Apify MCP setup on the direct API-key path and explicitly disallowed switching setup to Apify OAuth.
 - Added clearer setup handling for rare Codex platform secret-write blocks around private Apify MCP config.

@@ -14,7 +14,7 @@ Use this before sharing the plugin repository with the community.
 - Marketplace policy uses `INSTALLED_BY_DEFAULT` for `linkedin-posts-comments`.
 - Setup prompt verifies/enables `[plugins."linkedin-posts-comments@automation-codex"]`.
 - Setup prompt verifies that the plugin cache contains the expected package and skill file.
-- Setup prompt verifies that an existing `apify-linkedin-post` MCP config contains `harvestapi/linkedin-post-search` and replaces stale `apify/rag-web-browser` configs.
+- Setup prompt verifies that an existing `apify-linkedin-post` MCP config contains `harvestapi/linkedin-post-search` and replaces stale or non-matching configs.
 - Setup prompt marks marketplace/cache refresh failures red instead of asking for another restart loop.
 - Setup prompt creates/verifies the Sheet when Google Drive is available even if custom plugin/Apify runtime surfaces are not visible in the setup chat.
 - Setup prompt retries transient MCP, Apify, Google Drive, and non-destructive CLI checks before asking the user for action.

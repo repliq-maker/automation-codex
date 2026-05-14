@@ -89,7 +89,7 @@ Rename-Item -LiteralPath $cache -NewName ("linkedin-posts-comments.bak-" + (Get-
 codex plugin marketplace upgrade automation-codex
 ```
 
-Then fully quit/reopen Codex. After reopening, the user can return to the same setup chat and type `continue`; the setup agent should rerun all checks and continue if the skill and tools are now visible. If the resumed chat still cannot see the new skill or Apify tools, open a new chat and paste the same setup prompt there.
+Then fully quit/reopen Codex. After reopening, the user can return to the same setup chat and type `continue`; the setup agent should rerun all checks and continue if the skill and tools are now visible. If the resumed chat still cannot see the new skill or Apify tools but config/cache/MCP are correct, setup should create or verify the Sheet when Google Drive is available and report `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of repeating setup.
 
 Use the same setup prompt again after the restart, or type `continue` in the same setup chat. The first pass installs or connects all tools before one global restart. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. The setup agent should not block Sheet creation just because the custom skill or Apify tools are not visible in that setup chat after config/cache/MCP have been verified. Do not run the daily automation until the second pass says `READY TO RUN`; if it says `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED`, the Sheet is ready but Codex still needs a runtime/plugin/MCP loading diagnostic.
 
@@ -167,7 +167,7 @@ When an `apify-linkedin-post` MCP server already exists, the setup agent must in
 https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search
 ```
 
-If it still contains `apify/rag-web-browser` or does not contain `harvestapi/linkedin-post-search`, the setup agent should replace the stale MCP config using the user's Apify key.
+If it does not contain `harvestapi/linkedin-post-search`, the setup agent should replace the stale or non-matching MCP config using the user's Apify key.
 
 ```json
 {
@@ -230,7 +230,7 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 - If Apify tools are slow to appear or answer, retry the setup prompt check after short waits before asking the user for action; the setup agent should use the retry ladder in `SETUP_AGENT_PROMPT.md`.
 - If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should verify that `[plugins."linkedin-posts-comments@automation-codex"]` is enabled, verify that the plugin cache contains the current package and skill file, enable it when possible, and upgrade the marketplace directly when needed. It should only ask for a restart if it actually changed the install/config state during that pass.
 - If marketplace upgrade fails with access denied while refreshing plugin cache, fully quit Codex and run the marketplace upgrade from an external terminal. If needed, rename only the stale cache folder shown above, then rerun the upgrade.
-- If setup says the Apify MCP server is saved but tools are not visible, first confirm the saved MCP URL contains `harvestapi/linkedin-post-search`, not `apify/rag-web-browser`. Then fully quit/reopen Codex and type `continue` in the setup chat. If tools still are not visible after one same-chat or new-chat retry, the setup should create/verify the Sheet anyway and end with `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of asking for endless new chats.
+- If setup says the Apify MCP server is saved but tools are not visible, first confirm the saved MCP URL contains `harvestapi/linkedin-post-search`. Then fully quit/reopen Codex and type `continue` in the setup chat. If tools still are not visible after one same-chat or new-chat retry, the setup should create/verify the Sheet anyway and end with `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` instead of asking for endless new chats.
 - If Google Drive says the access token could not be refreshed or asks the user to log out and sign in again, reconnect Google Drive in Codex and rerun setup. This is an external OAuth issue, not something auto review can approve.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.
