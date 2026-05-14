@@ -89,9 +89,9 @@ Rename-Item -LiteralPath $cache -NewName ("linkedin-posts-comments.bak-" + (Get-
 codex plugin marketplace upgrade automation-codex
 ```
 
-Then fully quit/reopen Codex and open a new chat. Skill plugins and MCP servers are loaded when a chat starts, so a setup chat can save the marketplace/MCP config while the current chat still cannot see the new skill or Apify tools.
+Then fully quit/reopen Codex. After reopening, the user can return to the same setup chat and type `continue`; the setup agent should rerun all checks and continue if the skill and tools are now visible. If the resumed chat still cannot see the new skill or Apify tools, open a new chat and paste the same setup prompt there.
 
-Use the same setup prompt again after the restart. The first pass installs or connects all tools before one global restart. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Do not run the daily automation until the second pass says `READY TO RUN`.
+Use the same setup prompt again after the restart, or type `continue` in the same setup chat. The first pass installs or connects all tools before one global restart. The second pass verifies the loaded skill/tools and creates or verifies the Sheet, tab, and headers. Do not run the daily automation until the second pass says `READY TO RUN`.
 
 The setup agent should only ask for a restart when that setup pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed and a required skill/tool is still missing, it should retry transient checks first, then show the exact blocker in red instead of repeating the same restart instruction.
 
@@ -155,11 +155,11 @@ When available, the setup agent should use:
 codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
 ```
 
-After adding or changing this MCP server, fully quit/reopen Codex and open a new chat before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable.
+After adding or changing this MCP server, fully quit/reopen Codex before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable. After reopening, typing `continue` in the same setup chat is fine if the tools load there; otherwise use a new chat and paste the setup prompt again.
 
 Before telling the user that Apify MCP is not working, the setup agent should retry transient MCP checks. If the MCP server is already saved but tools are not visible or do not answer, wait about 10 seconds, retry; wait about 20 seconds, retry and re-run tool discovery if available; wait about 30 seconds, retry a final lightweight Apify capability check. Do not run the full LinkedIn scraper just to test setup. Only ask the user for action after those retries fail.
 
-If the setup prompt adds or changes the MCP server, marketplace/plugin, or Google Drive connector, it should finish the full bootstrap sweep, stop before Sheet creation, ask for a full Codex restart/new chat, and ask the user to paste the same setup prompt again. Sheet creation belongs in the second pass after all tools are loaded.
+If the setup prompt adds or changes the MCP server, marketplace/plugin, or Google Drive connector, it should finish the full bootstrap sweep, stop before Sheet creation, and ask for a full Codex restart. After restart, the user can type `continue` in the same setup chat or paste the same setup prompt in a new chat. Sheet creation belongs in the second pass after all tools are loaded.
 
 ```json
 {
@@ -222,7 +222,7 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 - If Apify tools are slow to appear or answer, retry the setup prompt check after short waits before asking the user for action; the setup agent should use the retry ladder in `SETUP_AGENT_PROMPT.md`.
 - If a run chat says it cannot find the `linkedin-posts-comments` skill, rerun the setup prompt. The setup agent should verify that `[plugins."linkedin-posts-comments@automation-codex"]` is enabled, verify that the plugin cache contains the current package and skill file, enable it when possible, and upgrade the marketplace directly when needed. It should only ask for a restart if it actually changed the install/config state during that pass.
 - If marketplace upgrade fails with access denied while refreshing plugin cache, fully quit Codex and run the marketplace upgrade from an external terminal. If needed, rename only the stale cache folder shown above, then rerun the upgrade.
-- If setup says the Apify MCP server is saved but tools are not visible, restart Codex and open a new chat before running.
+- If setup says the Apify MCP server is saved but tools are not visible, fully quit/reopen Codex, then type `continue` in the setup chat. If tools still are not visible there, open a new chat and paste the setup prompt again.
 - If Google Drive says the access token could not be refreshed or asks the user to log out and sign in again, reconnect Google Drive in Codex and rerun setup. This is an external OAuth issue, not something auto review can approve.
 - If the actor fails, confirm the actor supports the expected input fields.
 - If Google Sheets cannot be found, confirm the spreadsheet name is exact. If the connector cannot create folders or move files, use the Sheet in the default/root Drive location and optionally move it manually in the Google Drive UI.

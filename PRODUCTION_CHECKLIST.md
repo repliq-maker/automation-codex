@@ -12,7 +12,7 @@ Use this before sharing the marketplace with the community.
 - Each plugin path points to a real folder under `plugins/`.
 - Public setup docs tell users to use branch/ref `main` and partial paths `.agents/plugins` plus `plugins/linkedin-posts-comments` when Codex asks for sparse paths.
 - Public setup docs route users through each plugin's setup agent before daily automation use.
-- Setup docs explain the one-prompt/two-pass flow and require a full quit/reopen/new chat after plugin or MCP changes.
+- Setup docs explain the one-prompt/two-pass flow and require a full quit/reopen after plugin or MCP changes, with same-chat `continue` allowed before falling back to a new chat.
 - Setup docs distinguish marketplace-added from plugin-installed/enabled.
 - No real API keys are present in the repository.
 

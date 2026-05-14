@@ -11,7 +11,7 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. Use recommended defaults. Do not ask chat-permission before obvious setup actions such as installing/upgrading the marketplace, enabling the plugin, adding MCP config, installing/enabling official Google Drive, or creating the Sheet/tab/headers. The only normal conversational question is for the user's Apify API key when it is missing.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.27` or newer.
+- `1.3.28` or newer.
 
 Default-action rule:
 - Do not ask "Do you want me to..." before running required setup actions. Proceed with the recommended defaults in this prompt.
@@ -27,7 +27,7 @@ Critical load rule:
 - A plugin can be saved on disk but still not appear in the current chat's skill list until Codex is restarted or a new chat is opened.
 - An MCP server can be saved in private config but still not expose Apify tools in the current chat until Codex is restarted or a new chat is opened.
 - Do not report READY TO RUN unless both `linkedin-posts-comments` appears in the available skill list for the run chat and Apify tools from `apify-linkedin-post` are visible/callable.
-- If either the skill or Apify tools were installed/configured during this setup chat but are not visible now, mark setup as restart/new-chat required and tell the user not to run the automation until after fully quitting/reopening Codex and opening a new chat.
+- If either the skill or Apify tools were installed/configured during this setup chat but are not visible now, mark setup as restart required and tell the user not to run the automation until after fully quitting/reopening Codex and rerunning setup checks.
 
 Retry-before-user-action rule:
 - Before asking the user to do anything, first retry any transient setup check you can safely retry yourself.
@@ -50,8 +50,10 @@ One-prompt, two-pass setup flow:
 - Plugin enabled in private config is not enough. The plugin cache must also contain a usable `linkedin-posts-comments` package with `.codex-plugin/plugin.json` and `skills/linkedin-posts-comments/SKILL.md`.
 - A failed marketplace upgrade is not a successful marketplace upgrade. If `codex plugin marketplace upgrade automation-codex` exits nonzero, mark the exact failure red and do not proceed as though the plugin was updated.
 - If Pass 1 installs, upgrades, adds, connects, authenticates, or changes any marketplace/plugin/MCP/connector/auth surface, finish the full bootstrap checklist, then stop before Sheet work. Do not create or verify the Sheet in that same chat.
-- End Pass 1 with: FULLY QUIT CODEX, REOPEN IT, OPEN A NEW CHAT, PASTE THIS SAME SETUP PROMPT AGAIN.
+- End Pass 1 with: FULLY QUIT CODEX, REOPEN IT, THEN EITHER TYPE `continue` IN THIS SETUP CHAT OR OPEN A NEW CHAT AND PASTE THIS SAME SETUP PROMPT AGAIN.
 - Do not try to restart or kill Codex yourself from inside the setup chat. The user must fully quit and reopen Codex so the host process reloads plugin skills and MCP tools.
+- After Codex is reopened, the user may continue in the same setup chat by typing `continue`. In that case, immediately rerun the setup checklist and verify whether the skill, Apify tools, and Google Drive tools are visible in this resumed chat.
+- If the resumed setup chat still cannot see the newly installed skill or MCP tools after restart and retries, tell the user to open a new chat and paste the same setup prompt. Do not make new chat the first instruction unless the current Codex build clearly requires it.
 - Do not create an endless restart loop. Only ask for a full restart when this exact pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed in this pass and a required skill/tool is still missing, diagnose the missing install/enablement and mark the exact blocker red instead of repeating the same restart instruction.
 - Pass 2 is verification and Sheet setup: only after the skill, Apify tools, and Google Drive tools are already visible in the current chat, create/verify the Sheet, tab, and headers.
 - Only after Pass 2 completes with the Sheet verified should you show READY TO RUN and provide the daily automation prompt.
@@ -101,7 +103,7 @@ Setup checklist:
   2. Open an external terminal or PowerShell outside Codex.
   3. Run:
      codex plugin marketplace upgrade automation-codex
-  4. Reopen Codex, open a new chat, and paste this same setup prompt again.
+  4. Reopen Codex, then either type `continue` in this setup chat or open a new chat and paste this same setup prompt again.
 - If that external terminal upgrade still fails with the same cache-backup/access-denied error, tell the user to fully quit Codex and rename only this plugin cache folder, then run the upgrade again:
   PowerShell:
   $cache = Join-Path $env:USERPROFILE ".codex\plugins\cache\automation-codex\linkedin-posts-comments"
@@ -129,7 +131,7 @@ Setup checklist:
 - Mark marketplace installation green when the marketplace is installed or upgraded.
 - Mark plugin enabled green only when `linkedin-posts-comments@automation-codex` is enabled in Codex config or the Codex UI confirms it is enabled.
 - Mark plugin cache green only when the cache package exists, contains the skill file, and is not stale.
-- Mark plugin loaded green only if `linkedin-posts-comments` appears in the current chat's available skill list. If the plugin was just installed/upgraded/enabled and the skill is not visible yet, mark it yellow and tell the user to fully quit/reopen Codex and open a new chat before running.
+- Mark plugin loaded green only if `linkedin-posts-comments` appears in the current chat's available skill list. If the plugin was just installed/upgraded/enabled and the skill is not visible yet, mark it yellow and tell the user to fully quit/reopen Codex, then type `continue` in this setup chat or use a new chat before running.
 - If the marketplace is present but the plugin is not installed/enabled, install/enable the plugin before moving on. Do not tell the user to restart yet.
 - If the plugin is enabled and the cache package exists but the skill is still not loaded after a fresh chat, run the marketplace upgrade and re-check once when possible. If the upgrade fails, mark the cache refresh failure red. If no config or package state changes in this pass and the skill is still missing, mark the plugin skill line red with the exact reason instead of asking for another restart.
 - If you installed, upgraded, or enabled the marketplace/plugin in this chat, set `restart_required = true`, but continue to the Apify MCP and Google Drive bootstrap checks before stopping.
@@ -166,7 +168,7 @@ Setup checklist:
 - If the server was just added or changed in this exact pass, set `restart_required = true`; the current chat may not load new MCP tools even if retries pass config checks.
 - If the server already existed before this pass and Apify tools are not visible or not responding, apply the retry-before-user-action ladder before marking Apify yellow or red.
 - During those retries, re-check `codex mcp list --json`, re-run any available tool discovery, and try one lightweight Apify MCP capability check if a tool surface appears. Do not run the full scraper during setup verification.
-- If all retries fail but the server was saved or changed in this pass, mark Apify tools yellow and tell the user to fully quit/reopen Codex and open a new chat before running the automation.
+- If all retries fail but the server was saved or changed in this pass, mark Apify tools yellow and tell the user to fully quit/reopen Codex, then type `continue` in this setup chat or use a new chat before running the automation.
 - If all retries fail and the server was already present before this pass, mark Apify tools red with the exact failure reason instead of asking for another normal restart loop.
 - If you added or changed the MCP server in this chat, set `restart_required = true`, but continue to the Google Drive bootstrap check before stopping.
 
@@ -183,7 +185,7 @@ Setup checklist:
   enabled = true
 - If Google Drive was installed, connected, authenticated, or newly exposed in this chat and the tools are not fully available yet, set `restart_required = true`.
 - If Google Drive tools are present but a Drive or Sheets check fails with a transient timeout, rate limit, backend unavailable, or empty response, apply the retry-before-user-action ladder before asking the user for action.
-- If `restart_required = true`, do not start Sheet work. Finish the visual bootstrap checklist and tell the user to fully quit Codex, reopen it, open a new chat, and paste this same setup prompt again.
+- If `restart_required = true`, do not start Sheet work. Finish the visual bootstrap checklist and tell the user to fully quit Codex, reopen it, then either type `continue` in this setup chat or open a new chat and paste this same setup prompt again.
 - If `restart_required = false` and Google Drive tools are already available, continue to Sheet work in the same chat. Do not postpone Sheet setup just because earlier setup docs mention two passes.
 - Once Google Drive is available, find or create the spreadsheet in the connector's default/root Drive location:
   Comments_Linkedin_Post
@@ -213,7 +215,7 @@ Run a final check and show a visual checklist with these icons:
 
 Use:
 - ✅ for complete
-- ⚠️ for needs user action, restart, or new chat
+- ⚠️ for needs user action, restart, or a new chat fallback
 - ❌ for failed
 - Start every checklist line with exactly one icon.
 - Do not write `[OK]`, `[WARN]`, `[FAIL]`, or combined icons like `✅/⚠️`.
@@ -248,7 +250,7 @@ If every required Pass 2 line is green, end with:
 READY TO RUN
 
 If `restart_required = true` and any plugin skill, Apify tool, or Google Drive connector line is yellow because it was saved/connected but not loaded in this chat, do not say READY TO RUN. End with:
-FULLY QUIT CODEX, REOPEN IT, OPEN A NEW CHAT, PASTE THIS SAME SETUP PROMPT AGAIN
+FULLY QUIT CODEX, REOPEN IT, THEN EITHER TYPE `continue` IN THIS SETUP CHAT OR OPEN A NEW CHAT AND PASTE THIS SAME SETUP PROMPT AGAIN
 
 If `restart_required = false` and the skill/tools are still missing, end with a red blocker checklist line that explains what is missing, such as plugin not enabled in Codex config, plugin package missing from cache, stale plugin cache version, marketplace cache refresh failed, Apify MCP server missing from private config, Google Drive not connected, or tools unavailable despite config being present. Do not repeat the restart ending in that case.
 
@@ -259,8 +261,8 @@ Only show that command as a manual fallback if Codex cannot run it because the c
 If setup stopped after Pass 1 bootstrap, do not give the daily automation template yet. Tell the user:
 1. Fully quit Codex, not just close this chat or window.
 2. Reopen Codex.
-3. Open a new chat.
-4. Paste this same setup prompt again.
+3. Return to this setup chat and type `continue`.
+4. If this same chat still cannot see the plugin skill or Apify tools, open a new chat and paste this same setup prompt again.
 
 Only after Pass 2 completes and every required line is green, give the user this daily automation template:
 

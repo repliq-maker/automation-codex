@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.28
+
+- Clarified that after a full Codex quit/reopen, users can type `continue` in the same setup chat instead of always opening a new chat.
+- Kept the new-chat path as a fallback when the resumed chat still cannot see newly loaded plugin skills or MCP tools.
+
 ## 1.3.27
 
 - Kept Apify setup on the direct API-key MCP path instead of introducing Apify OAuth.

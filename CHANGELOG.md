@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Clarified LinkedIn Posts Comments setup restart guidance so users can type `continue` in the same setup chat after fully reopening Codex, with new chat as a fallback.
 - Kept LinkedIn Posts Comments Apify MCP setup on the direct API-key path and explicitly disallowed switching setup to Apify OAuth.
 - Added clearer setup handling for rare Codex platform secret-write blocks around private Apify MCP config.
 - Clarified that LinkedIn Posts Comments setup should not ask for a second chat approval after the user provides an Apify key.
