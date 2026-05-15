@@ -93,7 +93,7 @@ Then fully quit/reopen Codex. After reopening, the user can return to the same s
 
 Use the same setup prompt again after the restart, or type `continue` in the same setup chat. The setup prompt must be idempotent: if a new chat sees marketplace, plugin, cache, MCP, and Google Drive are already correct, it should treat that as the verification pass and move to Sheet setup instead of reinstalling tools or asking for another restart. The setup agent should not block Sheet creation just because the custom skill or Apify tools are not visible in that setup chat after config/cache/MCP have been verified. Do not run the daily automation until the second pass says `READY TO RUN`; if it says `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED`, the Sheet is ready but Codex still needs a runtime/plugin/MCP loading diagnostic. Settings/UI can show a plugin or MCP server as installed while the current chat still lacks the injected skill/tool surface. In that blocked state, the setup output should include a small `Number of posts: 5` copy/paste runtime test prompt that tells the agent to read the cached skill file manually and try Apify `tool_search` before failing.
 
-The setup agent should only ask for a restart when that setup pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed and a required skill/tool is still missing, it should retry transient checks first, then show the exact blocker in red instead of repeating the same restart instruction.
+The setup agent should only ask for a restart when that setup pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed and a required skill/tool is still missing, it should retry transient checks first, then show the exact blocker in red instead of repeating the same restart instruction. A green config check is not enough by itself: before saying `READY TO RUN`, setup should also complete a lightweight Apify LinkedIn post-search smoke test and verify the Sheet target can be read with the expected headers.
 
 ## 2. Connect Google Drive
 
@@ -149,15 +149,26 @@ If the user does not already have an Apify key:
 
 If the MCP server does not exist yet, the plugin should generate setup guidance from the user's Apify key. The same template is available in `mcp.example.json` for advanced users. Replace `YOUR_APIFY_KEY` with the user's own token.
 
-When available, the setup agent should use:
+When available, the setup agent should use the OS-appropriate executable:
 
 ```text
+macOS/Linux:
 codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
+
+Windows:
+codex mcp add apify-linkedin-post -- npx.cmd -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
 ```
 
 After adding or changing this MCP server, fully quit/reopen Codex before running the automation. Seeing the server in settings confirms it is saved; the run chat also needs Apify tools to be visible/callable. After reopening, typing `continue` in the same setup chat is fine if the tools load there; otherwise use a new chat and paste the setup prompt again.
 
 Before telling the user that Apify MCP is not working, the setup agent should retry transient MCP checks. If the MCP server is already saved but tools are not visible or do not answer, wait about 10 seconds, retry; wait about 20 seconds, retry and re-run tool discovery if available; wait about 30 seconds, retry a final lightweight Apify capability check. Do not run the full LinkedIn scraper just to test setup. Only ask the user for action after those retries fail.
+
+The setup agent should also repair common cross-platform launch issues before asking the user for help:
+
+- On Windows, prefer `npx.cmd` for the MCP command when available. If a saved config uses `npx` and the process does not launch reliably, switch only the command to `npx.cmd` and retry.
+- If the MCP process fails with TLS or certificate-chain errors, do not disable TLS verification. Check whether `node --help` lists `--use-system-ca`; when it does, add `env = { NODE_OPTIONS = "--use-system-ca" }` to the private MCP config and retry.
+- If the installed Node runtime does not support `--use-system-ca`, report that exact blocker instead of applying insecure workarounds.
+- Before saying `READY TO RUN`, run one lightweight `harvestapi/linkedin-post-search` smoke test with `maxPosts: 1` and no Sheet write so the setup proves the actor path really works.
 
 If the setup prompt adds or changes the MCP server, marketplace/plugin, or Google Drive connector, it should finish the full bootstrap sweep, stop before Sheet creation when Google Drive is not yet available, and ask for a full Codex restart. After restart, the user can type `continue` in the same setup chat or paste the same setup prompt in a new chat. Sheet creation belongs in the second pass once Google Drive is available; it should not be blocked only because the custom plugin skill or Apify tools are not visible in the setup chat.
 
@@ -184,6 +195,12 @@ If it does not contain `harvestapi/linkedin-post-search`, the setup agent should
     }
   }
 }
+```
+
+On Windows, the setup agent may replace `"command": "npx"` with `"command": "npx.cmd"` when needed. If it repairs a certificate-chain issue on a Node runtime that supports it, the equivalent private config should also include:
+
+```toml
+env = { NODE_OPTIONS = "--use-system-ca" }
 ```
 
 Never share a real Apify API token in the GitHub repository, course material, screenshots, videos, or community comments. Users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat.
@@ -227,6 +244,7 @@ For the simplest recurring prompt, use `DAILY_AUTOMATION_GUIDE.md`.
 ## 6. Troubleshooting
 
 - If Apify cannot run, confirm the Apify key is valid and the private MCP setup was added correctly.
+- If Apify is saved but does not actually answer, let the setup agent inspect OS-specific launch failures before asking the user for help: Windows may need `npx.cmd`, and TLS/certificate-chain failures may need the supported `NODE_OPTIONS = "--use-system-ca"` repair in private MCP config.
 - If Apify tools are slow to appear or answer, retry the setup prompt check after short waits before asking the user for action; the setup agent should use the retry ladder in `SETUP_AGENT_PROMPT.md`.
 - If a run chat says it cannot find the `linkedin-posts-comments` skill before setup has completed, rerun the setup prompt. The setup agent should verify that `[plugins."linkedin-posts-comments@automation-codex"]` is enabled, verify that the plugin cache contains the current package and skill file, enable it when possible, and upgrade the marketplace directly when needed. It should only ask for a restart if it actually changed the install/config state during that pass.
 - If setup has already reported `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED`, do not keep repeating setup. Use the robust runtime prompt from `DAILY_AUTOMATION_GUIDE.md`; it tells the run agent to read the cached skill file manually and use `tool_search` for the Apify LinkedIn post-search tool before declaring a runtime blocker.

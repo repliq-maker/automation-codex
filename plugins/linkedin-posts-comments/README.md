@@ -168,7 +168,9 @@ Tell users to:
 6. Use the prompt from `plugins/linkedin-posts-comments/DAILY_AUTOMATION_GUIDE.md` only after setup says `READY TO RUN`.
 7. Replace sheet fields, keywords, filter, and number of posts in the daily prompt. The Apify key belongs only in the private setup prompt.
 
-For the easiest user onboarding flow, paste `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks the marketplace, plugin, Apify MCP server, Google Drive connection, folder, spreadsheet, tab, and headers.
+For the easiest user onboarding flow, paste `SETUP_AGENT_PROMPT.md` into a new private Codex chat. It checks the marketplace, plugin, Apify MCP server, Google Drive connection, folder, spreadsheet, tab, and headers, then proves the Apify path with a lightweight LinkedIn post-search smoke test before calling the setup ready.
+
+The setup prompt also handles common cross-platform Apify MCP issues automatically when it can: `npx.cmd` on Windows when the MCP child process needs the Windows executable form, and the supported `NODE_OPTIONS = "--use-system-ca"` repair path for certificate-chain failures instead of insecure TLS bypasses.
 
 The setup prompt should only ask for a restart after it actually changed marketplace, plugin, MCP, or connector state in that pass. If the plugin still is not loaded after a fresh chat and no setup state changed, it should diagnose the missing plugin enablement instead of sending the user through another restart loop.
 

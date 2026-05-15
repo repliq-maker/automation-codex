@@ -18,6 +18,8 @@ Use this before sharing the plugin repository with the community.
 - Setup prompt marks marketplace/cache refresh failures red instead of asking for another restart loop.
 - Setup prompt creates/verifies the Sheet when Google Drive is available even if custom plugin/Apify runtime surfaces are not visible in the setup chat.
 - Setup prompt retries transient MCP, Apify, Google Drive, and non-destructive CLI checks before asking the user for action.
+- Setup prompt runs a lightweight `harvestapi/linkedin-post-search` smoke test before reporting `READY TO RUN`.
+- Setup prompt repairs common cross-platform Apify MCP failures before asking the user for help, including Windows `npx.cmd` and supported system-CA TLS recovery.
 - Setup prompt treats Google Drive OAuth refresh-token failures as a reconnect blocker, not a transient retry.
 - Setup prompt acts on required setup steps with recommended defaults instead of asking chat-permission first.
 - Setup prompt treats a provided Apify key as authorization to create the private MCP config and does not ask for a second chat confirmation.
@@ -29,6 +31,7 @@ Use this before sharing the plugin repository with the community.
 - The daily prompt tells users to invoke `$linkedin-posts-comments`.
 - Google Drive connector is connected.
 - Apify key setup flow is tested through `SETUP_AGENT_PROMPT.md`, including private MCP setup when the MCP server is missing.
+- Windows MCP launch is tested with `npx.cmd` when needed, and supported Node TLS recovery is tested with `NODE_OPTIONS = "--use-system-ca"` when certificate-chain failures occur.
 - The selected LinkedIn scraper accepts the expected input fields.
 - A real dry run appends rows to the intended Google Sheet.
 - At least one row reaches `reviewed`.

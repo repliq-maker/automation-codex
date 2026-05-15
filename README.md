@@ -76,7 +76,7 @@ For first-time setup, use:
 plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md
 ```
 
-That prompt checks the marketplace, plugin, Apify MCP server, Google Drive connection, spreadsheet, tab, and headers. It uses a Drive folder when available, but can continue with a Sheet in the default/root Drive location when folder-create or file-move actions are unavailable. Do not paste real Apify keys into screenshots, community posts, or videos; users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat.
+That prompt checks the marketplace, plugin, Apify MCP server, Google Drive connection, spreadsheet, tab, and headers, then proves the Apify path with a lightweight LinkedIn post-search smoke test. It uses a Drive folder when available, but can continue with a Sheet in the default/root Drive location when folder-create or file-move actions are unavailable. On Windows it can repair common MCP launch issues such as switching to `npx.cmd`, and when supported it can use the system CA trust path for certificate-chain failures. Do not paste real Apify keys into screenshots, community posts, or videos; users should replace `YOUR_APIFY_KEY` only inside their private Codex setup chat.
 
 Daily automation format:
 

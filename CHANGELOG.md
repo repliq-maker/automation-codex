@@ -2,6 +2,7 @@
 
 ## Marketplace
 
+- Added executable readiness checks plus cross-platform Apify MCP self-repair guidance for Windows launch and TLS certificate issues.
 - Added a robust LinkedIn Posts Comments run prompt for cases where Codex Settings shows the plugin/MCP installed but the current chat did not receive the skill/tool runtime injection.
 - Added cached-skill and Apify tool-discovery fallback instructions to the LinkedIn Posts Comments runtime diagnostic.
 - Added a copy/paste runtime test prompt to LinkedIn Posts Comments setup blocked-state output.

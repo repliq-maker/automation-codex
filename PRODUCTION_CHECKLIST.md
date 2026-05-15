@@ -15,6 +15,8 @@ Use this before sharing the marketplace with the community.
 - Setup docs explain the one-prompt/two-pass flow and require a full quit/reopen after plugin or MCP changes, with same-chat `continue` allowed before falling back to a new chat.
 - Setup docs prevent endless new-chat loops by allowing Sheet setup when config/cache/MCP are correct but runtime surfaces are not visible in the setup chat.
 - Setup docs distinguish marketplace-added from plugin-installed/enabled.
+- Setup docs require an executable Apify smoke test before reporting `READY TO RUN`.
+- Setup docs include cross-platform Apify MCP repair guidance for Windows `npx.cmd` and supported system-CA TLS recovery.
 - No real API keys are present in the repository.
 
 ## LinkedIn Posts Comments Checks
@@ -27,6 +29,8 @@ Use this before sharing the marketplace with the community.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` verifies/enables `linkedin-posts-comments@automation-codex`.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` verifies the local plugin cache and gives access-denied cache recovery steps.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` retries transient MCP and connector checks before asking users for action.
+- `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` performs a lightweight `harvestapi/linkedin-post-search` smoke test before reporting `READY TO RUN`.
+- `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` handles Windows `npx.cmd` repair and supported `NODE_OPTIONS = "--use-system-ca"` TLS recovery before asking the user for help.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` tells users to reconnect Google Drive for refresh-token/OAuth failures.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` asks in chat only for the Apify key when it is missing.
 - `plugins/linkedin-posts-comments/SETUP_AGENT_PROMPT.md` does not ask for a second chat approval to persist the provided Apify key in private MCP config.

@@ -11,7 +11,7 @@ Goal:
 Check whether this Codex environment has everything needed to run the LinkedIn Posts Comments workflow. Install, upgrade, connect, create, or configure everything you can directly. Use recommended defaults. Do not ask chat-permission before obvious setup actions such as installing/upgrading the marketplace, enabling the plugin, adding MCP config, installing/enabling official Google Drive, or creating the Sheet/tab/headers. The only normal conversational question is for the user's Apify API key when it is missing.
 
 Current public plugin version expected by this setup prompt:
-- `1.3.34` or newer.
+- `1.3.35` or newer.
 
 Default-action rule:
 - Do not ask "Do you want me to..." before running required setup actions. Proceed with the recommended defaults in this prompt.
@@ -32,6 +32,16 @@ Critical load rule:
 - Do not block Google Sheet creation just because the plugin skill or Apify tools are not visible in the setup chat after config/cache/MCP have been verified. Sheet setup only requires Google Drive.
 - If config/cache/MCP are correct but the skill or Apify tools still are not visible after one full restart plus one same-chat or new-chat retry, do not keep sending the user through new chats. Create/verify the Sheet when Google Drive is available, then mark runtime surface loading as the remaining blocker.
 - When a tool discovery helper such as `tool_search` is available, use it before declaring Apify tools or plugin skills missing. Search for `apify linkedin post search`, `harvestapi/linkedin-post-search`, and `linkedin-posts-comments`.
+
+Executable readiness rule:
+- Installed/enabled config is not enough. Before saying `READY TO RUN`, verify that the workflow can execute end to end at a small scale.
+- On the final verification pass, prove all three runtime layers:
+  1. Skill layer: `linkedin-posts-comments` is visible in the chat, or the cached `SKILL.md` can be read and followed manually.
+  2. Apify layer: the `apify-linkedin-post` MCP server can actually answer, and the `harvestapi/linkedin-post-search` capability can complete one lightweight smoke test.
+  3. Sheet layer: Google Drive can read the target spreadsheet/tab and the required headers are correct.
+- Use the cheapest real smoke test that proves the path works. For Apify, prefer one `harvestapi/linkedin-post-search` test with a broad harmless query, `maxPosts: 1`, and no sheet write. Do not append setup-test rows to the user's Sheet.
+- If the smoke test passes after an automatic repair, keep going and mention the repair only in a concise final note if useful.
+- If the smoke test still fails after the repair ladder below, mark the exact failing layer red. Do not say `READY TO RUN` merely because config exists.
 
 Retry-before-user-action rule:
 - Before asking the user to do anything, first retry any transient setup check you can safely retry yourself.
@@ -63,7 +73,7 @@ One-prompt, two-pass setup flow:
 - If the resumed setup chat still cannot see the newly installed skill or MCP tools after restart and retries, do not loop. If config/cache/MCP are correct and Google Drive is available, create/verify the Sheet and use the `SETUP SHEET READY, RUNTIME LOAD CHECK BLOCKED` ending. Suggest a new chat only once as an optional runtime diagnostic, not as another setup loop.
 - Do not create an endless restart loop. Only ask for a full restart when this exact pass actually installed, upgraded, enabled, connected, authenticated, or changed something. If nothing changed in this pass and a required skill/tool is still missing, diagnose the missing install/enablement and mark the exact blocker red instead of repeating the same restart instruction.
 - Pass 2 is verification and Sheet setup: after restart, verify skill/tool visibility, but create/verify the Sheet as soon as Google Drive tools are available and config/cache/MCP are correct. Do not block Sheet setup only because the custom plugin skill or Apify tools are not visible in this setup chat.
-- Only after Pass 2 completes with the Sheet verified and the plugin skill plus Apify tools are visible/callable should you show READY TO RUN and provide the daily automation prompt.
+- Only after Pass 2 completes with the Sheet verified, the plugin skill visible or manually loadable from cache, the Apify tools visible/callable, and the lightweight Apify smoke test passing should you show READY TO RUN and provide the daily automation prompt.
 - Never tell the user to run the automation after a restart until the setup prompt has been rerun and the Sheet checklist is green.
 
 User setup values:
@@ -149,19 +159,25 @@ Setup checklist:
 - Existing MCP name is not enough. The MCP definition must use this exact Apify tools URL:
   https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search
 - Treat the MCP config as stale or broken if it does not contain `harvestapi/linkedin-post-search`, does not use `mcp-remote`, or is missing the Authorization bearer header.
+- Detect the host OS before writing or repairing MCP config.
+- On Windows, prefer `npx.cmd` when it exists because it is the reliable executable form for the MCP child process. On macOS and Linux, use `npx`.
+- If an existing Windows MCP config uses `npx` and the MCP process fails to launch, replace only the command with `npx.cmd` when available, then retry before asking the user for action.
+- If the MCP process starts but fails with TLS/certificate errors such as `unable to verify the first certificate`, `unable to get local issuer certificate`, `certificate verify failed`, `UNABLE_TO_VERIFY_LEAF_SIGNATURE`, or similar certificate-chain failures, never disable TLS verification.
+- For TLS/certificate failures, first check whether the installed Node runtime supports `--use-system-ca` by inspecting `node --help`. If supported, add or preserve the private MCP env value `NODE_OPTIONS = "--use-system-ca"`, then retry the smoke test.
+- If `--use-system-ca` is not supported by the installed Node runtime, mark the exact blocker red and explain that Node must be updated or the user's certificate trust must be repaired; do not set insecure flags such as `NODE_TLS_REJECT_UNAUTHORIZED=0`.
 - If the MCP config is stale or broken, replace it directly when the Apify key is available:
   codex mcp remove apify-linkedin-post
-  codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
+  codex mcp add apify-linkedin-post -- OS_APPROPRIATE_NPX -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
 - If the MCP config is stale or broken and no usable Apify key is available in this setup chat, ask for the Apify key using the instructions above, then replace the MCP config. Do not mark the MCP line green while a stale URL remains.
 - If it does not exist, configure it using the user's Apify API key. Do not use Apify OAuth for this plugin setup.
 - A provided Apify key is enough to create the private MCP entry. Do not ask the user to separately confirm storing the key in private Codex MCP config.
 - Prefer the Codex CLI when available:
-  codex mcp add apify-linkedin-post -- npx -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
+  codex mcp add apify-linkedin-post -- OS_APPROPRIATE_NPX -y mcp-remote "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search" --header "Authorization: Bearer YOUR_APIFY_KEY"
 - Desired MCP config:
   {
     "mcpServers": {
       "apify-linkedin-post": {
-        "command": "npx",
+        "command": "OS_APPROPRIATE_NPX",
         "args": [
           "-y",
           "mcp-remote",
@@ -174,14 +190,17 @@ Setup checklist:
   }
 - If editing Codex TOML config directly, use the equivalent private config:
   [mcp_servers.apify-linkedin-post]
-  command = "npx"
+  command = "OS_APPROPRIATE_NPX"
   args = ["-y", "mcp-remote", "https://mcp.apify.com/?tools=actors,docs,runs,harvestapi/linkedin-post-search", "--header", "Authorization: Bearer USER_PRIVATE_APIFY_KEY"]
+- If adding the system-CA repair, use the private config env form:
+  env = { NODE_OPTIONS = "--use-system-ca" }
 - Use `codex mcp list --json` or the available MCP/tool surface to confirm the server is saved.
 - Mark MCP config saved green only when `apify-linkedin-post` exists in private config and its tools URL contains `harvestapi/linkedin-post-search`.
 - Mark Apify tools loaded green only when the Apify tools are visible/callable in the current chat.
+- Mark the Apify runtime smoke test green only after one lightweight `harvestapi/linkedin-post-search` call succeeds.
 - If the server was just added or changed in this exact pass, set `restart_required = true`; the current chat may not load new MCP tools even if retries pass config checks.
 - If the server already existed before this pass and Apify tools are not visible or not responding, apply the retry-before-user-action ladder before marking Apify yellow or red.
-- During those retries, re-check `codex mcp list --json`, re-check `codex mcp get apify-linkedin-post --json` when available, re-run any available tool discovery, and try one lightweight Apify MCP capability check if a tool surface appears. Do not run the full scraper during setup verification.
+- During those retries, re-check `codex mcp list --json`, re-check `codex mcp get apify-linkedin-post --json` when available, re-run any available tool discovery, inspect launch/TLS errors, apply the Windows `npx.cmd` or system-CA repair path when appropriate, and try one lightweight Apify LinkedIn post-search smoke test if a tool surface appears. Do not run the full scraper during setup verification.
 - If all retries fail but the server was saved or changed in this pass, mark Apify tools yellow and tell the user to fully quit/reopen Codex, then type `continue` in this setup chat or use a new chat before running the automation.
 - If all retries fail and the server was already present before this pass, mark Apify tools red with the exact failure reason instead of asking for another normal restart loop.
 - If you added or changed the MCP server in this chat, set `restart_required = true`, but continue to the Google Drive bootstrap check before stopping. If the MCP config was already correct when checked, do not set `restart_required`.
@@ -247,7 +266,7 @@ For Pass 1 bootstrap summaries, use this checklist shape:
 ✅ Official Google Drive plugin/connector installed/connected
 ⚠️ Sheet setup intentionally not started until after full Codex restart
 
-For Pass 2 readiness summaries, use this checklist shape:
+For Pass 2 readiness summaries, use this checklist shape and include a separate green line that says `Apify LinkedIn post-search smoke test passed` after the `Apify tools loaded in this chat` line:
 
 ✅ Marketplace source configured/upgraded
 ✅ LinkedIn Posts Comments plugin enabled

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.35
+
+- Added an executable Apify readiness smoke test before setup can report `READY TO RUN`.
+- Added OS-aware Apify MCP repair guidance: prefer `npx.cmd` on Windows when needed and use supported system-CA TLS recovery instead of insecure bypasses.
+- Clarified that setup must prove the runtime path, not only the saved config.
+
 ## 1.3.34
 
 - Added a robust runtime prompt for chats where Codex Settings shows the plugin/MCP installed but the skill or Apify tools are not injected into the chat.
